@@ -1,6 +1,9 @@
 @extends('layouts.form')
 @section('title', 'Registro')
 @section('subtitle', 'Ingresa tus datos para registrarte.')
+
+
+
 @section('content')
 
 <div class="container mt--8 pb-5">
