@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSucursalsTable extends Migration
+class CreateClientesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,15 @@ class CreateSucursalsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sucursals', function (Blueprint $table) {
+        Schema::create('clientes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nombre');
-            $table->string('responsable');
+            $table->bigInteger('nit');
+            $table->string('nombre_empresa');
+            $table->string('nombre_contacto');
+            $table->string('direccion');
+            $table->string('telefono');
+            $table->string('email');
+            $table->string('web_site');
             $table->timestamps();
         });
     }
@@ -28,6 +33,6 @@ class CreateSucursalsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sucursals');
+        Schema::dropIfExists('clientes');
     }
 }
