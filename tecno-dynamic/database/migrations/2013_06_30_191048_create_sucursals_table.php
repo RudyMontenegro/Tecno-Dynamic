@@ -14,7 +14,9 @@ class CreateSucursalsTable extends Migration
     public function up()
     {
         Schema::create('sucursals', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
+            $table->string('nombre');
+            $table->string('responsable');
             $table->timestamps();
         });
     }
