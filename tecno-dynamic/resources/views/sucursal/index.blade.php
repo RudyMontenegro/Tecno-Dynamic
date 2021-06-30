@@ -1,0 +1,14 @@
+@extends('layouts.panel')
+
+@section('subtitulo','sucursal')
+@section('content2')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
