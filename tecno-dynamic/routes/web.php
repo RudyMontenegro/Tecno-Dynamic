@@ -18,3 +18,6 @@ Route::get('/', function () {
 
 
 //Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/sucursal', 'SucursalController@index');
+Route::get('/registrar','SucursalController@registro');

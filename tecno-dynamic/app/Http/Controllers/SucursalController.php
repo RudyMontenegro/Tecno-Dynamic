@@ -14,7 +14,7 @@ class SucursalController extends Controller
      */
     public function index()
     {
-        //
+        return view('sucursal.index');
     }
 
     /**
@@ -81,5 +81,8 @@ class SucursalController extends Controller
     public function destroy(Sucursal $sucursal)
     {
         //
+    }
+    public function registro(){
+        return view('sucursal.registro');
     }
 }
