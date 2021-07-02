@@ -21,3 +21,4 @@ Route::get('/', function () {
 
 Route::get('/sucursal', 'SucursalController@index');
 Route::get('/registrar','SucursalController@registro');
+Route::post('/registrar','SucursalController@registrar');

@@ -85,12 +85,12 @@
         <!-- Collapse header -->
         <div class="navbar-collapse-header d-md-none">
           <div class="row">
-            <div class="col-6 collapse-brand">
+            <div class="col-2 collapse-brand">
               <a href="/">
                 <img src=" {{ asset('img/brand/blue.png') }}">
               </a>
             </div>
-            <div class="col-6 collapse-close">
+            <div class="col-2 collapse-close">
               <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
                 <span></span>
                 <span></span>
@@ -244,7 +244,7 @@
       </div>
     </nav>
     <!-- Header -->
-    <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+    <div class="header bg-gradient-primary pb-6 pt-5 pt-md-2">
       <div class="container-fluid">
         <div class="header-body">
           <!-- Card stats -->
