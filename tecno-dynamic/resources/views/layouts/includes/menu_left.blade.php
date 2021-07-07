@@ -11,6 +11,11 @@
          </a>
      </li>
      <li class="nav-item">
+        <a class="nav-link text-orange" href="{{url('producto')}}">
+          <i class="ni ni-planet text-blue" ></i> Producto
+        </a>
+      </li>
+     <li class="nav-item">
          <a class="nav-link" href="{{ url('/proveedor')}}">
              <i class="ni ni-delivery-fast text-blue"></i> Proveedores
          </a>

@@ -1,7 +1,7 @@
 @extends('layouts.panel')
 
 @section('subtitulo','PRODUCTOS')
-@section('content2')
+@section('content')
 <div class="container">
     <div class="row justify-content-center">
         
