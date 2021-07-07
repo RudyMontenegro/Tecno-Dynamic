@@ -1,18 +1,15 @@
 @extends('layouts.panel')
-
+@section('subtitulo','proveedores')
 @section('content')
 <div class="card shadow">
     <div class="card-header border-0">
-        <div class="row align-items-center">
-            <div class="col">
-                <h3 class="mb-0">Proveedores</h3>
-            </div>
+        <div class="row align-items-center">    
             <div class="col text-right">
                 <a href="{{ url('proveedor/create') }}" class="btn btn-sm btn-primary">Nueva Proveedor</a>
             </div>
         </div>
     </div>
-    <div class="table-responsive">
+    <div class="table-responsive"> 
         <!-- Projects table -->
         <table class="table align-items-center table-flush">
             <thead class="thead-light">

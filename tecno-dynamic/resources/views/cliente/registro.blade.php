@@ -10,31 +10,26 @@
 <div class="box-header ">
                   <h3 class="text-center">INFORMACION PERSONAL</h3>
             </div></br>    
-<form action="{{ url('/admin/personas')}}" method="post" enctype="multipart/form-data">
-    
+<form action="{{ url('registrarCliente')}}" method="post">
+    {{csrf_field()}}
 <div class="col-md-11 mx-auto">
 
 
 <div class = 'row'>
 
     <div class="col-5">
-    <label form="id">ID</label>
-                            <input class="form-control {{$errors->has('id_numero')?'is-invalid':'' }}" type="text" name="id_numero" id="idhd" placeholder="Ingrese el ID" value="{{ old('id_numero') }}">
-
-    </div>
-    <div class="col-5">
     <label form="nit">NIT</label>
-                            <input class="form-control {{$errors->has('id_numero')?'is-invalid':'' }}" type="text" name="nit" id="nit" placeholder="Ingrese el ID" value="{{ old('nit') }}">
+                            <input class="form-control {{$errors->has('id_numero')?'is-invalid':'' }}" type="text" name="nit" id="nit" placeholder="Ingrese el NIT" value="{{ old('nit') }}">
 
     </div>  
     <div class="col-5">
     <label form="empresa">Nombre de Empresa</label>
-                        <input class="form-control" type="text" name="empresa" id="empresa"  Placeholder="Ingrese el nombre de la empresa" value="{{ old('empresa') }}">
+                        <input class="form-control" type="text" name="nombre_empresa" id="nombre_empresa"  Placeholder="Ingrese el nombre de la empresa" value="{{ old('empresa') }}">
 
     </div>  
     <div class="col-5"> 
     <label form="contacto">Nombre de Contacto</label>
-                        <input class="form-control" type="text" name="contacto" id="contacto"  Placeholder="Ingrese el nombre del contacto" value="{{ old('contacto') }}">
+                        <input class="form-control" type="text" name="nombre_contacto" id="nombre_contacto"  Placeholder="Ingrese el nombre del contacto" value="{{ old('contacto') }}">
     </div>
 
     <div class="col-5">
@@ -49,19 +44,19 @@
     </div>
     <div class="col-5">
     <label form="correo">Correo</label>
-                        <input class="form-control" type="email" name="correo" id="correo" Placeholder="Ingrese su correo"  value="{{ old('correo') }}">
+                        <input class="form-control" type="email" name="email" id="email" Placeholder="Ingrese su correo"  value="{{ old('correo') }}">
   
     </div>
     <div class="col-5">
     <label form="web">Sitio Web</label>
-                        <input class="form-control" type="email" name="web" id="web" Placeholder="Ingrese el sitio web"  value="{{ old('web') }}">
+                        <input class="form-control" type="email" name="web_site" id="web_site" Placeholder="Ingrese el sitio web"  value="{{ old('web') }}">
                        
     </div>
 </div>
                          </br>
                          </br>
                          <div class="form-group">
-                        <input type="submit" class="btn btn-primary my-2 my-sm-0" value="Agregar">
+                        <input type="submit" class="btn btn-success my-2 my-sm-0" value="Agregar">
                         <a href="{{ url('/cliente')}}" class="btn btn-primary my-2 my-sm-0">Atras</a>
                         
                 </div>

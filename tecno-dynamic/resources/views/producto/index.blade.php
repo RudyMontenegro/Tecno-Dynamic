@@ -2,19 +2,15 @@
 
 @section('subtitulo','PRODUCTOS')
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <a type="button" class="btn btn-secondary btn-sm" href="{{url('/registrarProducto')}}">Nuevo Producto</a>
+
+  </ol>
+</nav>
+<div class="table-responsive">
         
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-        <a class="btn btn-outline-light me-2" href="{{ url('/registrarProducto') }} ">Nuevo Producto</a>
-        
-    </div>
-    <div class="row">
-        <div class="col-md-8 mx-auto ">
-        
-            <table class="table table-hover" border="2" bordercolor="#008000" >
+            <table class="table align-items-center table-flush"  >
             
                 <thead class="thead-light">
                     <tr>
@@ -55,11 +51,5 @@
                 </tbody>
             </table>
         </div>
-        
-    </div>
-  
-
-</div>
-
-</div>
+    </div>    
 @endsection

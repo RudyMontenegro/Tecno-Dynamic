@@ -1,7 +1,7 @@
 @extends('layouts.panel')
 
 @section('subtitulo','PRODUCTOS')
-@section('content2')
+@section('content')
 <form action="{{url('/personalAcademico')}}" class="form-horizontal" method="post" enctype="multipart/form-data">
 
     {{ csrf_field()}}
