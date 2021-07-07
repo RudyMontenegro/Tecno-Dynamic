@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
     <meta name="author" content="Creative Tim">
-    <title>Tecno - Dynamic</title>
+    <title>Sistema de Inventario | {{ config('app.name') }}</title>
     <!-- Favicon -->
     <link href=" {{ asset('img/brand/favicon.png') }} " rel="icon" type="image/png">
     <!-- Fonts -->
@@ -55,32 +55,7 @@
                             </span>
                         </div>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
-                        <div class=" dropdown-header noti-title">
-                            <h6 class="text-overflow m-0">Welcome!</h6>
-                        </div>
-                        <a href="./examples/profile.html" class="dropdown-item">
-                            <i class="ni ni-single-02"></i>
-                            <span>My profile</span>
-                        </a>
-                        <a href="./examples/profile.html" class="dropdown-item">
-                            <i class="ni ni-settings-gear-65"></i>
-                            <span>Settings</span>
-                        </a>
-                        <a href="./examples/profile.html" class="dropdown-item">
-                            <i class="ni ni-calendar-grid-58"></i>
-                            <span>Activity</span>
-                        </a>
-                        <a href="./examples/profile.html" class="dropdown-item">
-                            <i class="ni ni-support-16"></i>
-                            <span>Support</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#!" class="dropdown-item">
-                            <i class="ni ni-user-run"></i>
-                            <span>Logout</span>
-                        </a>
-                    </div>
+                    @include('layouts.includes.dropdown_menu')
                 </li>
             </ul>
             <!-- Collapse -->
@@ -121,65 +96,28 @@
                                 </div>
                             </div>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
-                            <div class=" dropdown-header noti-title">
-                                <h6 class="text-overflow m-0">Welcome!</h6>
-                            </div>
-                            <a href="./examples/profile.html" class="dropdown-item">
-                                <i class="ni ni-single-02"></i>
-                                <span>My profile</span>
-                            </a>
-                            <a href="./examples/profile.html" class="dropdown-item">
-                                <i class="ni ni-settings-gear-65"></i>
-                                <span>Settings</span>
-                            </a>
-                            <a href="./examples/profile.html" class="dropdown-item">
-                                <i class="ni ni-calendar-grid-58"></i>
-                                <span>Activity</span>
-                            </a>
-                            <a href="./examples/profile.html" class="dropdown-item">
-                                <i class="ni ni-support-16"></i>
-                                <span>Support</span>
-                            </a>
-                            <div class="dropdown-divider"></div>
-
-                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                              document.getElementById('logout-form').submit();">
-                                <i class="ni ni-user-run"></i>
-                                {{ __('Cerrar Session') }}
-                            </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
-
-                        </div>
+                        @include('layouts.includes.dropdown_menu')
                     </li>
                 </ul>
             </div>
         </nav>
         <!-- Header -->
-        <div class="header bg-gradient-primary pb-3 pt-5 pt-md-6">
-            <div class="container-fluid">
-                <div class="header-body">
-                    <!-- Card stats -->
-
-                </div>
-            </div>
+        <div class="header bg-gradient-primary pb-8 pt-4 pt-md-6">
         </div>
         <!-- Page content -->
-        @yield('content')
-
-
-        <!-- Argon Scripts -->
-        <!-- Core -->
-        <script src="{{ asset('vendor/jquery/dist/jquery.min.js') }}"></script>
-        <script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
-        <!-- Optional JS -->
-        <script src="{{ asset('vendor/chart.js/dist/Chart.min.js') }}"></script>
-        <script src="{{ asset('vendor/chart.js/dist/Chart.extension.js') }}"></script>
-        <!-- Argon JS -->
-        <script src="{{ asset('js/argon.js?v=1.0.0') }}"></script>
+        <div class="container-fluid mt--7">
+            @yield('content')
+        </div>
+    </div>
+    <!-- Argon Scripts -->
+    <!-- Core -->
+    <script src="{{ asset('vendor/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- Optional JS -->
+    <script src="{{ asset('vendor/chart.js/dist/Chart.min.js') }}"></script>
+    <script src="{{ asset('vendor/chart.js/dist/Chart.extension.js') }}"></script>
+    <!-- Argon JS -->
+    <script src="{{ asset('js/argon.js?v=1.0.0') }}"></script>
 </body>
 
 </html>
