@@ -7,8 +7,7 @@
     {{ csrf_field()}}
    <h1 class="text-center">REGISTRO DE NUEVO PRODUCTO</h1> 
 
-   <div class="col-md-11 mx-auto ">
-    
+   <div class="col-md-11 mx-auto "> 
 
 <div class="row">
     <div class="col-5">
