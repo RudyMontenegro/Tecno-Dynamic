@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->unsignedBigInteger('id_sucursal');
+            $table->unsignedBigInteger('id_sucursal')->nullable();
             $table->rememberToken();
 
             $table->foreign('id_sucursal')
