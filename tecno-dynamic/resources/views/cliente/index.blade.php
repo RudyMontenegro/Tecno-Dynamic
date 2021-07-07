@@ -1,6 +1,6 @@
 @extends('layouts.panel')
 @section('subtitulo','clientes')
-@section('content2')
+@section('content')
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <a type="button" class="btn btn-secondary btn-sm" href="{{url('/')}}">Inicio</a>
