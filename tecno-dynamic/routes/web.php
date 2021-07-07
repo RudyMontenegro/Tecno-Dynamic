@@ -10,10 +10,14 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 Auth::routes();
 
 Route::get('/', function () {
-    return view('home');
+    return view('/home');
 })->middleware('auth');
 
 
@@ -26,3 +30,6 @@ Route::get('/proveedor', 'ProveedorController@index');
 Route::get('/proveedor/create', 'ProveedorController@create');
 Route::get('/proveedor/{proveedorid}/editar', 'ProveedorController@edit');
 Route::post('/proveedor', 'ProveedorController@store');
+Route::get('/producto', 'ProductosController@index');
+Route::get('/registrarProducto', 'ProductosController@create');
+Route::get('/registrar','SucursalController@registro');

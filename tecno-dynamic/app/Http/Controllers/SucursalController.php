@@ -82,4 +82,7 @@ class SucursalController extends Controller
     {
         //
     }
+    public function registro(){
+        return view('sucursal.registro');
+    }
 }
