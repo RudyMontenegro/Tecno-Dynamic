@@ -122,6 +122,11 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link text-orange" href="{{url('producto')}}">
+              <i class="ni ni-planet text-blue" ></i> Producto
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="./examples/maps.html">
               <i class="ni ni-pin-3 text-orange"></i> Maps
             </a>
@@ -244,7 +249,7 @@
       </div>
     </nav>
     <!-- Header -->
-    <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+    <div class="header bg-gradient-primary pb-6 pt-5 pt-md-3">
       <div class="container-fluid">
         <div class="header-body">
           <!-- Card stats -->
