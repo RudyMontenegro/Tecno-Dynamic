@@ -22,3 +22,7 @@ Route::get('/', function () {
 Route::get('/sucursal', 'SucursalController@index');
 Route::get('/registrar','SucursalController@registro');
 Route::post('/registrar','SucursalController@registrar');
+
+Route::get('/cliente', 'ClienteController@index');
+Route::get('/registrarCliente','ClienteController@registro');
+Route::post('/registrarCliente','ClienteController@registrarCliente');

@@ -117,7 +117,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-orange" href="{{url('sucursal')}}">
+            <a class="nav-link " href="{{url('sucursal')}}">
               <i class="ni ni-planet text-blue" ></i> Sucursal
             </a>
           </li>
@@ -127,8 +127,8 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./examples/profile.html">
-              <i class="ni ni-single-02 text-yellow"></i> User profile
+            <a class="nav-link" href="{{url('cliente')}}">
+              <i class="ni ni-single-02 text-yellow"></i> Clientes
             </a>
           </li>
           <li class="nav-item">
@@ -180,6 +180,7 @@
         <!-- Brand -->
         <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block">
         @yield('subtitulo','Dashboard') 
+  
         </a>
         <!-- Form -->
         <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
@@ -265,6 +266,9 @@
   <script src="{{ asset('vendor/chart.js/dist/Chart.extension.js') }}"></script>
   <!-- Argon JS -->
   <script src="{{ asset('js/argon.js?v=1.0.0') }}"></script>
+
+
+
 </body>
 
 </html>
