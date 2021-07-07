@@ -11,8 +11,8 @@
          </a>
      </li>
      <li class="nav-item">
-         <a class="nav-link" href="./examples/maps.html">
-             <i class="ni ni-pin-3 text-orange"></i> Maps
+         <a class="nav-link" href="{{ url('/proveedor')}}">
+             <i class="ni ni-delivery-fast text-blue"></i> Proveedores
          </a>
      </li>
      <li class="nav-item">

@@ -20,3 +20,9 @@ Route::get('/', function () {
 //Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/sucursal', 'SucursalController@index');
+
+//proveedor
+Route::get('/proveedor', 'ProveedorController@index');
+Route::get('/proveedor/create', 'ProveedorController@create');
+Route::get('/proveedor/{proveedorid}/editar', 'ProveedorController@edit');
+Route::post('/proveedor', 'ProveedorController@store');

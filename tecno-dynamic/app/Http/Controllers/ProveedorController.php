@@ -14,7 +14,8 @@ class ProveedorController extends Controller
      */
     public function index()
     {
-        //
+        $proveedores = Proveedor::all();
+        return view('proveedor.index', compact('proveedores'));
     }
 
     /**
@@ -24,7 +25,7 @@ class ProveedorController extends Controller
      */
     public function create()
     {
-        //
+        return view('proveedor.crear');
     }
 
     /**
@@ -35,7 +36,21 @@ class ProveedorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       // dd($request->all());
+      
+       // $this->validate($request);
+
+        $proveedor = new Proveedor();
+        $proveedor->nit = $request->input('nit');
+        $proveedor->nombre_empresa = $request->input('nombre_empresa');
+        $proveedor->nombre_contacto = $request->input('nombre_contacto');
+        $proveedor->direccion = $request->input('direccion');
+        $proveedor->telefono = $request->input('telefono');
+        $proveedor->email = $request->input('email');
+        $proveedor->web_site = $request->input('web_site');
+        $proveedor->categoria = $request->input('categoria');
+        $proveedor->save();
+        return redirect('/proveedor');
     }
 
     /**
