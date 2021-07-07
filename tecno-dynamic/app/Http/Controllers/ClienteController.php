@@ -14,7 +14,7 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        //
+        return view('cliente.index');
     }
 
     /**
@@ -81,5 +81,11 @@ class ClienteController extends Controller
     public function destroy(Cliente $cliente)
     {
         //
+    }
+    public function registro(){
+        return view('cliente.registro');
+    }
+    public function registrarCliente(){
+        return view('cliente.registro');
     }
 }

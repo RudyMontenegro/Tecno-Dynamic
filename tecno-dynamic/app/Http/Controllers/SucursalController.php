@@ -85,4 +85,9 @@ class SucursalController extends Controller
     public function registro(){
         return view('sucursal.registro');
     }
+     
+    public function registrar(){
+        return view('sucursal.registro');
+    }
+
 }

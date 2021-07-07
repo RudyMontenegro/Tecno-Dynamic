@@ -33,3 +33,9 @@ Route::post('/proveedor', 'ProveedorController@store');
 Route::get('/producto', 'ProductosController@index');
 Route::get('/registrarProducto', 'ProductosController@create');
 Route::get('/registrar','SucursalController@registro');
+Route::get('/registrar','SucursalController@registro');
+Route::post('/registrar','SucursalController@registrar');
+
+Route::get('/cliente', 'ClienteController@index');
+Route::get('/registrarCliente','ClienteController@registro');
+Route::post('/registrarCliente','ClienteController@registrarCliente');
