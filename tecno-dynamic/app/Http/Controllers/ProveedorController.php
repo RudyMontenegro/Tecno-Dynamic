@@ -72,7 +72,7 @@ class ProveedorController extends Controller
      */
     public function edit(Proveedor $proveedor)
     {
-        //
+        return view('proveedor.edit', compact('proveedor'));
     }
 
     /**
@@ -84,7 +84,16 @@ class ProveedorController extends Controller
      */
     public function update(Request $request, Proveedor $proveedor)
     {
-        //
+        $proveedor->nit = $request->input('nit');
+        $proveedor->nombre_empresa = $request->input('nombre_empresa');
+        $proveedor->nombre_contacto = $request->input('nombre_contacto');
+        $proveedor->direccion = $request->input('direccion');
+        $proveedor->telefono = $request->input('telefono');
+        $proveedor->email = $request->input('email');
+        $proveedor->web_site = $request->input('web_site');
+        $proveedor->categoria = $request->input('categoria');
+        $proveedor->save();
+        return redirect('/proveedor');
     }
 
     /**

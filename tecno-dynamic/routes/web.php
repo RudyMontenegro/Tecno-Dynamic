@@ -16,8 +16,11 @@ Route::get('/sucursal', 'SucursalController@index');
 //proveedor
 Route::get('/proveedor', 'ProveedorController@index');
 Route::get('/proveedor/create', 'ProveedorController@create');
-Route::get('/proveedor/{proveedorid}/editar', 'ProveedorController@edit');
 Route::post('/proveedor', 'ProveedorController@store');
+//
+Route::get('/proveedor/{proveedor}/edit', 'ProveedorController@edit');
+Route::put('/proveedor/{proveedor}', 'ProveedorController@update');
+//producto
 Route::get('/producto', 'ProductosController@index');
 Route::get('/registrarProducto', 'ProductosController@create');
 Route::get('/registrar','SucursalController@registro');
