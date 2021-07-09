@@ -27,9 +27,10 @@
                 <tbody>
                     
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    @foreach ($producto as $producto)
+                    <td>{{$producto->codigo_barra}}</td>
+                    <td>{{$producto->nombre}}</td>
+                    <td>{{$producto->categoria}}</td>
                     <td>
                         
                          <a href="{{url('/registrarUFC/editarUnidad')}}" class="btn btn-warning float-right">
@@ -50,7 +51,7 @@
                     </td>
                 
                 </tr>
-         
+                @endforeach
                     
                 </tbody>
             </table>
