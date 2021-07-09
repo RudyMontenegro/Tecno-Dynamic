@@ -2,6 +2,7 @@
 
 @section('subtitulo','PRODUCTOS')
 @section('content')
+
 <form action="{{url('/registrarProducto')}}" class="form-horizontal" method="post" enctype="multipart/form-data">
 
     {{ csrf_field()}}
