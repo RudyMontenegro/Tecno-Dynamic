@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Productos;
+use App\Proveedor;
 use Illuminate\Http\Request;
 
 class ProductosController extends Controller
@@ -14,7 +15,8 @@ class ProductosController extends Controller
      */
     public function index()
     {
-        return view('producto.index');
+        $producto = Productos::all();
+        return view('producto.index',['producto'=>$producto]);
     }
 
     /**
@@ -24,7 +26,8 @@ class ProductosController extends Controller
      */
     public function create()
     {
-        return view('producto.create');
+        $proveedor = Proveedor::all();
+        return view('producto.create',['proveedor'=>$proveedor]);
     }
 
     /**
@@ -35,7 +38,62 @@ class ProductosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        /*
+        $campos=[
+            'nombre' => 'required|regex:/^[\pL\s\-]+$/u|max:50',
+            'apellido' => 'required|regex:/^[\pL\s\-]+$/u|max:50',
+            'codigoSis' => 'required|numeric|unique:App\PersonalAcademico,codigoSis',
+            'email' => 'required|email:rfc,dns|max:30|unique:App\PersonalAcademico,email',
+            'telefono' => 'required|numeric|digits_between:7,8',
+            'password' => 'required|min:8|max:20',
+            'rol' => 'required',
+            'unidad' => 'required',
+            'facultad' => 'required',
+            'carrera' => 'required',
+            
+        ];
+
+        $Mensaje = [
+                
+            "required"=>'El campo es requerido',
+            "rol.required"=>'Seleccione un cargo',
+            "unidad.required"=>'Seleccione una unidad',
+            "facultad.required"=>'Seleccione una facultad',
+            "carrera.required"=>'Seleccione una carrera',
+            "nombre.regex"=>'Solo se acepta caracteres A-Z',
+            "apellido.regex"=>'Solo se acepta caracteres A-Z,chale',
+            "password.min"=>'Solo se acepta 8 caracteres como minimo',
+            "nombre.max"=>'Solo se acepta 50 caracteres como maximo',
+            "apellido.max"=>'Solo se acepta 50 caracteres como maximo',
+            "email.max"=>'Solo se acepta 30 caracteres como maximo',
+            "telefono.digits_between"=>'El numero no existe',
+            "password.max"=>'Solo se acepta 20 caracteres como maximo',
+            "numeric"=>'Solo se acepta números',
+            "codigoSis.unique"=>'Codigo Sis ya registrado',
+            "email.unique"=>'Correo ya registrado',
+            "email"=>'El correo no existe',
+                   ];
+        $this->validate($request,$campos,$Mensaje);
+*/
+
+        $producto = new Productos();
+
+        $producto->codigo = request('codigo');
+        $producto->codigo_barra = request('codigoBarra');
+        $producto->nombre = request('nombre');
+        $producto->categoria = request('categoria');
+        $producto->marca = request('marca');
+        $producto->precio_costo = request('precioCosto');
+        $producto->precio_venta_mayor = request('precioVentaMayor');
+        $producto->precio_venta_menor = request('precioVentaMenor');
+        $producto->cantidad = $request->get('cantidad');
+        $producto->unidad = $request->get('unidad');
+        $producto->cantidad_inicial = $request->get('cantidadInicial');
+        $producto->id_proveedor = $request->get('proveedor');
+        
+        $producto->save();
+
+        return redirect('producto');
     }
 
     /**
