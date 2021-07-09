@@ -14,7 +14,8 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        return view('cliente.index');
+        $clientes = Cliente::all();
+        return view('cliente.index', compact('clientes'));
     }
 
     /**
@@ -24,7 +25,7 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        //
+        return view('cliente.registro');
     }
 
     /**
@@ -35,7 +36,17 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cliente = new Cliente();
+        $cliente->nit = $request->input('nit');
+        $cliente->nombre_empresa = $request->input('nombre_empresa');
+        $cliente->nombre_contacto = $request->input('nombre_contacto');
+        $cliente->direccion = $request->input('direccion');
+        $cliente->telefono = $request->input('telefono');
+        $cliente->email = $request->input('email');
+        $cliente->web_site = $request->input('web_site');
+        $cliente->save();
+
+        return redirect('cliente');
     }
 
     /**
@@ -82,10 +93,10 @@ class ClienteController extends Controller
     {
         //
     }
-    public function registro(){
-        return view('cliente.registro');
-    }
-    public function registrarCliente(){
-        return view('cliente.registro');
-    }
+    //public function registro(){
+     //   return view('cliente.registro');
+    //}
+    // public function registrarCliente(){
+       // return view('cliente.registro');
+    //}
 }

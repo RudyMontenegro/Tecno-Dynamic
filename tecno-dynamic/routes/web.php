@@ -30,5 +30,5 @@ Route::get('/registrar','SucursalController@registro');
 Route::post('/registrar','SucursalController@registrar');
 
 Route::get('/cliente', 'ClienteController@index');
-Route::get('/registrarCliente','ClienteController@registro');
-Route::post('/registrarCliente','ClienteController@registrarCliente');
+Route::get('/registrarCliente','ClienteController@create');
+Route::post('/registrarCliente','ClienteController@store');
