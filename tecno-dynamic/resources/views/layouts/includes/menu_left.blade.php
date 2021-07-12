@@ -11,8 +11,8 @@
          </a>
      </li>
      <li class="nav-item">
-        <a class="nav-link text-orange" href="{{url('producto')}}">
-          <i class="ni ni-planet text-blue" ></i> Producto
+        <a class="nav-link" href="{{url('producto')}}">
+            <i class="fab fa-product-hunt"></i></i> Producto
         </a>
       </li>
      <li class="nav-item">
