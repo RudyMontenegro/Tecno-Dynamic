@@ -3,10 +3,17 @@
 @section('subtitulo','PRODUCTOS')
 @section('content')
 
-<form action="{{url('/registrarProducto')}}" class="form-horizontal" method="post" enctype="multipart/form-data">
+
+
+<div class="card shadow">
+    <div class="card-header border-0">
+         <h1 class="text-center">REGISTRO DE NUEVO PRODUCTO</h1>
+    </div>
+    
+<form action="{{url('/registrarProducto')}}" class="form" method="post" enctype="multipart/form-data">
 
     {{ csrf_field()}}
-   <h1 class="text-center">REGISTRO DE NUEVO PRODUCTO</h1> 
+   
 
    <div class="col-md-11 mx-auto "> 
 
@@ -58,7 +65,7 @@
     </div>
     <div class="col-5">
         <label for="precioCosto"class="control-label">{{'Precio Costo'}}</label>
-        <input type="number" class="form-control  {{$errors->has('precioCosto')?'is-invalid':'' }}" name="precioCosto" id="precioCosto" 
+        <input type="number" step="0.01" class="form-control  {{$errors->has('precioCosto')?'is-invalid':'' }}" name="precioCosto" id="precioCosto" 
         value="{{ isset($personal->codigoSis)?$personal->codigoSis:old('precioCosto') }}"
         >
         {!!  $errors->first('precioCosto','<div class="invalid-feedback">:message</div>') !!}
@@ -75,7 +82,7 @@
     </div>
     <div class="col-5">
         <label for="precioVentaMenor"class="control-label">{{'Precio Venta Menor'}}</label>
-        <input type="number" class="form-control  {{$errors->has('precioVentaMenor')?'is-invalid':'' }}" name="precioVentaMenor" id="precioVentaMenor" 
+        <input type="number" step="0.01" class="form-control  {{$errors->has('precioVentaMenor')?'is-invalid':'' }}" name="precioVentaMenor" id="precioVentaMenor" 
         value="{{ isset($personal->telefono)?$personal->telefono:old('precioVentaMenor')  }}"
         >
         {!!  $errors->first('precioVentaMenor','<div class="invalid-feedback">:message</div>') !!}
@@ -92,7 +99,7 @@
         <div class="col-5">
             <label for="unidad"class="control-label">{{'Unidad'}}</label>
             <input type="text" class="form-control  {{$errors->has('unidad')?'is-invalid':'' }}" name="unidad" id="unidad" 
-            value="{{ isset($personal->password)?$personal->password:old('cantidad') }}"
+            value="{{ isset($personal->password)?$personal->password:old('unidad') }}"
             >
             {!!  $errors->first('unidad','<div class="invalid-feedback">:message</div>') !!}
         </div>
@@ -141,6 +148,8 @@
 </div>
 </div>
 </form>
+<br>
 
+</div>
 
 @endsection
