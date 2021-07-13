@@ -19,7 +19,7 @@ Route::get('/proveedor/create', 'ProveedorController@create');
 Route::post('/proveedor', 'ProveedorController@store');
 Route::get('/proveedor/{proveedor}/edit', 'ProveedorController@edit');
 Route::put('/proveedor/{proveedor}', 'ProveedorController@update');
-
+route::delete('/proveedor/{proveedor}','ProveedorController@destroy');
 //PRODUCTO
 Route::get('/producto', 'ProductosController@index');
 Route::get('/producto/{id}', 'ProductosController@show');

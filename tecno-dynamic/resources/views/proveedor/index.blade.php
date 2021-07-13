@@ -52,10 +52,14 @@
                     <td>
                         {{ $proveedor->categoria }}
                     </td>
+
                     <td>
+                        <form action="{{url('/proveedor/'.$proveedor->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
                         <a href="{{ url('/proveedor/'.$proveedor->id.'/edit') }}"
                             class="btn btn-sm btn-primary">Editar</a>
-                        <a href="" class="btn btn-sm btn-danger">Eliminar</a>
+                        <button class="btn btn-sm btn-danger" type="submit">Eliminar</button>
                     </td>
                 </tr>
                 @endforeach
