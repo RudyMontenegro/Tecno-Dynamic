@@ -25,6 +25,7 @@ Route::get('/producto', 'ProductosController@index');
 Route::get('/producto/{id}', 'ProductosController@show');
 Route::get('/producto/editar/{id}', 'ProductosController@edit');
 Route::patch('/producto/editar/{id}', 'ProductosController@update');
+Route::delete('/producto/{id}', 'ProductosController@destroy');
 Route::get('/registrarProducto', 'ProductosController@create');
 Route::post('/registrarProducto', 'ProductosController@store');
 

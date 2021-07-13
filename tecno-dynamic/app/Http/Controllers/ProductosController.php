@@ -201,8 +201,9 @@ class ProductosController extends Controller
      * @param  \App\Productos  $productos
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Productos $productos)
+    public function destroy(Productos $productos,$id)
     {
-        //
+        Productos::destroy($id);
+        return redirect('producto');
     }
 }
