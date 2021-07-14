@@ -27,7 +27,8 @@ class CreateProductosTable extends Migration
             $table->string('unidad');
             $table->bigInteger('cantidad_inicial');
             $table->unsignedBigInteger('id_proveedor');
-            $table->string('foto');
+            $table->string('ruta_foto')->nullable();
+            $table->string('foto')->nullable();
 
             $table->foreign('id_proveedor')
             ->references('id')

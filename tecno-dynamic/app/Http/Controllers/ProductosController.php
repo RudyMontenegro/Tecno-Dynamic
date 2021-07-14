@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Productos;
 use App\Proveedor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ProductosController extends Controller
 {
@@ -91,6 +93,17 @@ class ProductosController extends Controller
         $producto->cantidad_inicial = $request->get('cantidadInicial');
         $producto->id_proveedor = $request->get('proveedor');
         
+
+        if($request->hasfile('foto')){
+       
+            $file =$request->foto;
+            
+            $producto['ruta_foto']=$request->file('foto')->store('fotos','public');
+            
+            //$file->move(public_path().'/firmas',$file->getClientOriginalName());
+            $producto->foto=$file->getClientOriginalName();
+        }
+
         $producto->save();
 
         return redirect('producto');
@@ -102,9 +115,18 @@ class ProductosController extends Controller
      * @param  \App\Productos  $productos
      * @return \Illuminate\Http\Response
      */
-    public function show(Productos $productos)
+    public function show(Productos $productos, $id)
     {
-        //
+        $producto = DB::table('productos')
+        ->select('*')
+        ->where('id','=',$id)->first();
+
+        $proveedors = DB::table('productos')
+        ->join('proveedors','productos.id_proveedor','=','proveedors.id')
+        ->select('*')
+        ->where('productos.id','=',$id)->first();
+
+        return view('producto.view',['producto' => $producto,'proveedors' => $proveedors]);
     }
 
     /**
@@ -113,9 +135,19 @@ class ProductosController extends Controller
      * @param  \App\Productos  $productos
      * @return \Illuminate\Http\Response
      */
-    public function edit(Productos $productos)
+    public function edit(Productos $productos,$id)
     {
-        //
+        $producto = DB::table('productos')
+        ->select('*')
+        ->where('id','=',$id)->first();
+
+        $proveedors = DB::table('productos')
+        ->join('proveedors','productos.id_proveedor','=','proveedors.id')
+        ->select('*')
+        ->where('productos.id','=',$id)->first();
+
+        $proveedor = Proveedor::all();
+        return view('producto.edit',['producto' => $producto,'proveedor' => $proveedor,'proveedors' => $proveedors]);
     }
 
     /**
@@ -125,9 +157,42 @@ class ProductosController extends Controller
      * @param  \App\Productos  $productos
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Productos $productos)
+    public function update(Request $request, Productos $productos, $id)
     {
-        //
+        $producto = Productos::FindOrFail($id);
+
+        $producto->codigo = request('codigo');
+        $producto->codigo_barra = request('codigoBarra');
+        $producto->nombre = request('nombre');
+        $producto->categoria = request('categoria');
+        $producto->marca = request('marca');
+        $producto->precio_costo = request('precioCosto');
+        $producto->precio_venta_mayor = request('precioVentaMayor');
+        $producto->precio_venta_menor = request('precioVentaMenor');
+        $producto->cantidad = $request->get('cantidad');
+        $producto->unidad = $request->get('unidad');
+        $producto->cantidad_inicial = $request->get('cantidadInicial');
+        $producto->id_proveedor = $request->get('proveedor');
+        
+        if($request->hasfile('foto')){
+
+            //Storage::disk('public')->delete('/firmas'.$auxiliar->firma);
+                 
+                $file =$request->foto;
+                Storage::delete('public/'.$producto->foto);
+                $producto['ruta_foto']=$request->file('foto')->store('fotos','public');
+               
+        
+                $producto->foto=$file->getClientOriginalName();
+
+            //$file->move(public_path().'/firmas',$file->getClientOriginalName());
+            //$auxiliar->firma=$file->getClientOriginalName();
+        }
+
+        $producto->update();
+
+        return redirect('producto');
+
     }
 
     /**
