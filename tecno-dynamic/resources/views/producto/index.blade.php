@@ -25,7 +25,6 @@
                 </tr>
             </thead>
             <tbody>
-                
                 <tr>
                     @foreach ($producto as $producto)
                     <td scope="row">{{$producto->codigo_barra}}</td>

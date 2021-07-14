@@ -1,6 +1,6 @@
 @extends('layouts.panel')
 
-@section('subtitulo','PRODUCTOS')
+@section('subtitulo',' ')
 @section('content')
 
 
@@ -8,6 +8,12 @@
 <div class="card shadow">
     <div class="card-header border-0">
          <h1 class="text-center">REGISTRO DE NUEVO PRODUCTO</h1>
+         
+    </div>
+    <div class="col-md-6 mx-auto " >
+            <h2 >
+             @include('Mensaje.nota')
+         </h2> 
     </div>
     
 <form action="{{url('/registrarProducto')}}" class="form" method="post" enctype="multipart/form-data">

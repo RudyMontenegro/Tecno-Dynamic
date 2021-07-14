@@ -78,35 +78,65 @@ class ProductosController extends Controller
         $this->validate($request,$campos,$Mensaje);
 */
 
-        $producto = new Productos();
-
-        $producto->codigo = request('codigo');
-        $producto->codigo_barra = request('codigoBarra');
-        $producto->nombre = request('nombre');
-        $producto->categoria = request('categoria');
-        $producto->marca = request('marca');
-        $producto->precio_costo = request('precioCosto');
-        $producto->precio_venta_mayor = request('precioVentaMayor');
-        $producto->precio_venta_menor = request('precioVentaMenor');
-        $producto->cantidad = $request->get('cantidad');
-        $producto->unidad = $request->get('unidad');
-        $producto->cantidad_inicial = $request->get('cantidadInicial');
-        $producto->id_proveedor = $request->get('proveedor');
+        $codigo = DB::table('productos')
+                ->select('codigo')
+                ->where('codigo','=',request('codigo'))
+                ->exists();
         
+        $codigoBarra = DB::table('productos')
+                ->select('codigo')
+                ->where('codigo_barra','=',request('codigoBarra'))
+                ->exists();
 
-        if($request->hasfile('foto')){
-       
-            $file =$request->foto;
+        if($codigo == false && $codigoBarra == false){
+
+            $producto = new Productos();
+
+            $producto->codigo = request('codigo');
+            $producto->codigo_barra = request('codigoBarra');
+            $producto->nombre = request('nombre');
+            $producto->categoria = request('categoria');
+            $producto->marca = request('marca');
+            $producto->precio_costo = request('precioCosto');
+            $producto->precio_venta_mayor = request('precioVentaMayor');
+            $producto->precio_venta_menor = request('precioVentaMenor');
+            $producto->cantidad = $request->get('cantidad');
+            $producto->unidad = $request->get('unidad');
+            $producto->cantidad_inicial = $request->get('cantidadInicial');
+            $producto->id_proveedor = $request->get('proveedor');
             
-            $producto['ruta_foto']=$request->file('foto')->store('fotos','public');
+
+            if($request->hasfile('foto')){
+        
+                $file =$request->foto;
+                
+                $producto['ruta_foto']=$request->file('foto')->store('fotos','public');
+                
+                //$file->move(public_path().'/firmas',$file->getClientOriginalName());
+                $producto->foto=$file->getClientOriginalName();
+            }
+
+            $producto->save();
+
+            return redirect('producto');
+        }else{
+
+            if ($codigo == true && $codigoBarra == false ) {
+                $proveedor = Proveedor::all();
+                return redirect('registrarProducto')->with(compact('proveedor'))->with('Estado','El codigo de producto ya esta registrado');
+            }else{
+                if($codigo == false && $codigoBarra == true){
+                $proveedor = Proveedor::all();
+                return redirect('registrarProducto')->with(compact('proveedor'))->with('Estado','El codigo barra de producto ya esta registrado');
+                }else{
+                    $proveedor = Proveedor::all();
+                    return redirect('registrarProducto')->with(compact('proveedor'))->with('Estado','El codigo y codigo barra del producto ya estan registrados');
+                }
+            }
             
-            //$file->move(public_path().'/firmas',$file->getClientOriginalName());
-            $producto->foto=$file->getClientOriginalName();
         }
 
-        $producto->save();
-
-        return redirect('producto');
+       
     }
 
     /**
