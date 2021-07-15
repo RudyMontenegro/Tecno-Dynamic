@@ -13,7 +13,7 @@ Route::get('/', function () {
 
 Route::get('/sucursal', 'SucursalController@index');
 
-//proveedor
+//PROVEEDOR
 Route::get('/proveedor', 'ProveedorController@index');
 Route::get('/proveedor/create', 'ProveedorController@create');
 Route::post('/proveedor', 'ProveedorController@store');
@@ -37,5 +37,6 @@ Route::post('/registrar','SucursalController@registrar');
 Route::get('/cliente', 'ClienteController@index');
 Route::get('/cliente/registrarCliente','ClienteController@create');
 Route::post('/registrarCliente','ClienteController@store');
-Route::get('/cliente/{cliente}/edit','ClienteController@edit');
-Route::put('/cliente/{cliente}','ClienteController@update');
+Route::get('/cliente/editar/{id}','ClienteController@edit');
+Route::patch('/cliente/{id}','ClienteController@update');
+Route::delete('/cliente/{id}', 'ClienteController@destroy');

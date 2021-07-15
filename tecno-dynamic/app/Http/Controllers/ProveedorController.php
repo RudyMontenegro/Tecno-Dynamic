@@ -73,7 +73,7 @@ class ProveedorController extends Controller
     public function edit(Proveedor $proveedor)
     {
         return view('proveedor.edit', compact('proveedor'));
-    }
+    } 
 
     /**
      * Update the specified resource in storage.
