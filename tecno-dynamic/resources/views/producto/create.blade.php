@@ -16,7 +16,7 @@
          </h2> 
     </div>
     
-<form action="{{url('/registrarProducto')}}" class="form" method="post" enctype="multipart/form-data">
+<form action="{{url('/producto/registrarProducto')}}" class="form" method="post" enctype="multipart/form-data">
 
     {{ csrf_field()}}
    
@@ -52,10 +52,13 @@
         {!!  $errors->first('nombre','<div class="invalid-feedback">:message</div>') !!}
     </div>
     <div class="col-5">
-        <label for="categoria"class="control-label">{{'Categoria'}}</label>
-        <input type="text" class="form-control  {{$errors->has('categoria')?'is-invalid':'' }}" name="categoria" id="categoria" 
-        value="{{ isset($personal->apellido)?$personal->apellido:old('categoria') }}"
-        >
+        <label for="categoria">Categoria</label>
+        <select name="categoria" id="categoria" class="form-control  {{$errors->has('categoria')?'is-invalid':'' }}">
+        <option selected disabled>Elige una Categoria</option>
+        @foreach ($categoria as $categoria)
+            <option {{ old('categoria') == $categoria->id ? "selected" : "" }} value="{{$categoria->id}}">{{$categoria->nombre}}</option>
+        @endforeach
+        </select>
         {!!  $errors->first('categoria','<div class="invalid-feedback">:message</div>') !!}
     </div>
                    
@@ -132,10 +135,10 @@
         <select name="proveedor" id="proveedor" class="form-control  {{$errors->has('proveedor')?'is-invalid':'' }}">
         <option selected disabled>Elige un Proveedor</option>
         @foreach ($proveedor as $proveedor)
-            <option value="{{$proveedor->id}}">{{$proveedor->nombre_empresa}}</option>
+            <option {{ old('proveedor') == $proveedor->id ? "selected" : "" }} value="{{$proveedor->id}}">{{$proveedor->nombre_empresa}}</option>
         @endforeach
         </select>
-        {!!  $errors->first('unidad','<div class="invalid-feedback">:message</div>') !!}
+        {!!  $errors->first('proveedor','<div class="invalid-feedback">:message</div>') !!}
     </div>
     <div class="col-5">
         

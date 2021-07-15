@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Categoria;
 use App\Productos;
 use App\Proveedor;
 use Illuminate\Http\Request;
@@ -18,7 +19,8 @@ class ProductosController extends Controller
     public function index()
     {
         $producto = Productos::all();
-        return view('producto.index',['producto'=>$producto]);
+        $categoria = Categoria::all();
+        return view('producto.index',['producto'=>$producto,'categoria'=>$categoria]);
     }
 
     /**
@@ -29,7 +31,8 @@ class ProductosController extends Controller
     public function create()
     {
         $proveedor = Proveedor::all();
-        return view('producto.create',['proveedor'=>$proveedor]);
+        $categoria = Categoria::all();
+        return view('producto.create',['proveedor'=>$proveedor,'categoria'=>$categoria]);
     }
 
     /**
@@ -76,26 +79,50 @@ class ProductosController extends Controller
             "email"=>'El correo no existe',
                    ];
         $this->validate($request,$campos,$Mensaje);
+                   regex:/^[\pL\s\-]+$/u
+
 */
 
-        $codigo = DB::table('productos')
-                ->select('codigo')
-                ->where('codigo','=',request('codigo'))
-                ->exists();
-        
-        $codigoBarra = DB::table('productos')
-                ->select('codigo')
-                ->where('codigo_barra','=',request('codigoBarra'))
-                ->exists();
+            $campos=[
+                'codigo' => 'required|unique:productos,codigo|max:50|min:3',
+                'codigoBarra' => 'required|unique:productos,codigo_barra|max:50|min:3',
+                'nombre' => 'required|unique:productos,nombre|max:50|min:3',
+                'categoria' => 'required',
+                'marca' => 'required',
+                'precioCosto' => 'required',
+                'precioVentaMayor' => 'required',
+                'precioVentaMenor' => 'required',
+                'cantidad' => 'required',
+                'unidad' => 'required',
+                'cantidadInicial' => 'required',
+                'proveedor' => 'required',
+                'foto' => 'required',
+            ];
 
-        if($codigo == false && $codigoBarra == false){
+            $Mensaje = [
+                
+                "required"=>'El campo es requerido',
+                "proveedor.required"=>'Seleccione un proveedor',
+                "categoria.required"=>'Seleccione una categoria',
+                "foto.required"=>'Seleccione una imagen',
+                "nombre.regex"=>'Solo se acepta caracteres A-Z',
+                "min"=>'Solo se acepta 3 caracteres como minimo',
+                "max"=>'Solo se acepta 50 caracteres como maximo',
+                "numeric"=>'Solo se acepta números',
+                "codigo.unique"=>'Codigo de producto ya registrado',
+                "codigoBarra.unique"=>'Codigo barra de producto ya registrado',
+                "nombre.unique"=>'Nombre de producto ya registrado',
+                "email.unique"=>'Correo ya registrado',
+                "email"=>'El correo no existe',
+            ];
+
+            $this->validate($request,$campos,$Mensaje);
 
             $producto = new Productos();
 
             $producto->codigo = request('codigo');
             $producto->codigo_barra = request('codigoBarra');
             $producto->nombre = request('nombre');
-            $producto->categoria = request('categoria');
             $producto->marca = request('marca');
             $producto->precio_costo = request('precioCosto');
             $producto->precio_venta_mayor = request('precioVentaMayor');
@@ -104,6 +131,7 @@ class ProductosController extends Controller
             $producto->unidad = $request->get('unidad');
             $producto->cantidad_inicial = $request->get('cantidadInicial');
             $producto->id_proveedor = $request->get('proveedor');
+            $producto->id_categoria = $request->get('categoria');
             
 
             if($request->hasfile('foto')){
@@ -119,22 +147,7 @@ class ProductosController extends Controller
             $producto->save();
 
             return redirect('producto');
-        }else{
-
-            if ($codigo == true && $codigoBarra == false ) {
-                $proveedor = Proveedor::all();
-                return redirect('registrarProducto')->with(compact('proveedor'))->with('Estado','El codigo de producto ya esta registrado');
-            }else{
-                if($codigo == false && $codigoBarra == true){
-                $proveedor = Proveedor::all();
-                return redirect('registrarProducto')->with(compact('proveedor'))->with('Estado','El codigo barra de producto ya esta registrado');
-                }else{
-                    $proveedor = Proveedor::all();
-                    return redirect('registrarProducto')->with(compact('proveedor'))->with('Estado','El codigo y codigo barra del producto ya estan registrados');
-                }
-            }
-            
-        }
+       
 
        
     }
