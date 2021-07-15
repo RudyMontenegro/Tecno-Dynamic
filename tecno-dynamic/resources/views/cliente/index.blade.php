@@ -1,16 +1,14 @@
 @extends('layouts.panel')
 @section('subtitulo','clientes')
 @section('content') 
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <a type="button" class="btn btn-secondary btn-sm" href="{{url('/registrarCliente')}}">Nuevo Cliente</a>
-
-
-    <a type="button" class="btn btn-secondary btn-sm" href="{{url('/')}}">Ventas Realizadas</a>
-    <a type="button" class="btn btn-secondary btn-sm" href="{{url('/')}}">Cuentas po Cobrar</a>
-  </ol>
-</nav>
-
+<div class= "card shadow">
+<div class="card-header border-0">
+       <div class="col text-right">
+                <a type="button" class="btn btn-secondary btn-sm" href="{{url('/cliente/registrarCliente')}}">Nuevo Cliente</a>
+                <a type="button" class="btn btn-secondary btn-sm" href="{{url('')}}">Ventas Realizadas</a>
+                <a type="button" class="btn btn-secondary btn-sm" href="{{url('')}}">Cuentas por cobrar</a>
+            </div>
+</div>
 <div class="table-responsive"> 
         <!-- Projects table -->
         <table class="table align-items-center table-flush">
@@ -39,7 +37,9 @@
                          {{ $cliente->direccion }}
                     </td>
                     <td>
-                        <a href="" class="btn btn-sm btn-primary">Editar</a>
+                    <form action="{{url('/cliente/'.$cliente->id) }}" method="POST">
+                        @csrf
+                        <a href="{{ url('/cliente/'.$cliente->id.'/edit') }}" class="btn btn-sm btn-primary">Editar</a>
                         <a href="" class="btn btn-sm btn-danger">Eliminar</a>
                     </td>
                 </tr>

@@ -1,4 +1,12 @@
  <!-- Navigation -->
+ <style>
+    .active{
+    background-color:lightblue;
+  
+}
+  
+  </style>
+
  <h6 class="navbar-heading text-muted">Gestionar Datos</h6>
  <ul class="navbar-nav">
      <li class="nav-item">
@@ -6,17 +14,17 @@
              <i class="ni ni-tv-2 text-primary"></i> Dashboard
          </a>
      </li>
-     <li class="nav-item">
+     <li class="nav-item {{ request()->is('producto') || request()->is('registrarProducto') ? 'active' : ''}}">
         <a class="nav-link" href="{{url('producto')}}">
             <i class="fab fa-product-hunt"></i></i> Producto
         </a>
       </li>
-     <li class="nav-item">
+      <li class="nav-item {{ request()->is('proveedor') || request()->is('proveedor/create*') ?  'active' : ''}}">
          <a class="nav-link" href="{{ url('/proveedor')}}">
              <i class="ni ni-delivery-fast text-blue"></i> Proveedores
          </a>
      </li>
-     <li class="nav-item">
+     <li class="nav-item {{ request()->is('cliente') || request()->is('cliente/registrarCliente*') || request()->is('cliente/{cliente}/edit*')? 'active' : ''}}">
          <a class="nav-link" href="{{url('cliente')}}">
              <i class="ni ni-single-02 text-blue"></i> Clientes
          </a>

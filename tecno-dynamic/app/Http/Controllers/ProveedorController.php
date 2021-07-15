@@ -12,7 +12,7 @@ class ProveedorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index() 
     {
         $proveedores = Proveedor::all();
         return view('proveedor.index', compact('proveedores'));
