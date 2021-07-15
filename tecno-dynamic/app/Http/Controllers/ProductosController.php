@@ -249,4 +249,4 @@ class ProductosController extends Controller
         Productos::destroy($id);
         return redirect('producto');
     }
-}
+} 

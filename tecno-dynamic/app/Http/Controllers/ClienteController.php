@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cliente;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
  
 class ClienteController extends Controller
@@ -65,8 +66,13 @@ class ClienteController extends Controller
      * @param  \App\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cliente $cliente)
+    public function edit($id)
     {
+    $cliente = DB::table('clientes')
+            ->select('*')
+            ->where('id','=',$id)
+            ->first();
+
         return view('cliente.editar', compact('cliente'));
     }
 
@@ -77,8 +83,9 @@ class ClienteController extends Controller
      * @param  \App\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cliente $cliente)
+    public function update(Request $request, $id)
     {
+        $cliente-> Clientes::FindOrAll($id);
         $cliente->nit = $request->input('nit');
         $cliente->nombre_empresa = $request->input('nombre_empresa');
         $cliente->nombre_contacto = $request->input('nombre_contacto');
@@ -96,9 +103,10 @@ class ClienteController extends Controller
      * @param  \App\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cliente $cliente)
+    public function destroy(Cliente $cliente, $id)
     {
-        //
+        Cliente::destroy($id);
+        return redirect('cliente');
     }
     //public function registro(){
      //   return view('cliente.registro');

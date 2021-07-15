@@ -1,14 +1,14 @@
 @extends('layouts.panel')
-
+@section('subtitulo','proveedores')
 @section('content')
 <div class="card shadow">
     <div class="card-header border-0">
         <div class="row align-items-center">
             <div class="col">
-                <h3 class="mb-0">Nuevo Proveedor</h3>
+                <h3 class="mb-0">EDITAR PROVEEDOR</h3>
             </div>
             <div class="col text-right">
-                <a href="{{ url('proveedor') }}" class="btn btn-sm btn-danger">Canselar y volver</a>
+                <a href="{{ url('proveedor') }}" class="btn btn-sm btn-danger">Cancelar y volver</a>
             </div>
         </div>
     </div>

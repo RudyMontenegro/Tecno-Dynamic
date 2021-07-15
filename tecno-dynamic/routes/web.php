@@ -42,5 +42,6 @@ Route::post('/registrar','SucursalController@registrar')->middleware('auth');
 Route::get('/cliente', 'ClienteController@index')->middleware('auth');
 Route::get('/cliente/registrarCliente','ClienteController@create')->middleware('auth');
 Route::post('/registrarCliente','ClienteController@store')->middleware('auth');
-Route::get('/cliente/{cliente}/edit','ClienteController@edit')->middleware('auth');
-Route::put('/cliente/{cliente}','ClienteController@update')->middleware('auth');
+Route::get('/cliente/editar/{id}','ClienteController@edit')->middleware('auth');
+Route::patch('/cliente/{id}','ClienteController@update')->middleware('auth');
+Route::delete('/cliente/{id}', 'ClienteController@destroy')->middleware('auth');
