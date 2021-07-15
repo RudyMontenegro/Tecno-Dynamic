@@ -18,7 +18,6 @@ class CreateProductosTable extends Migration
             $table->string('codigo');
             $table->string('codigo_barra');
             $table->string('nombre');
-            $table->string('categoria');
             $table->string('marca');
             $table->decimal('precio_costo', 8, 2);
             $table->decimal('precio_venta_mayor', 8, 2);
@@ -27,12 +26,18 @@ class CreateProductosTable extends Migration
             $table->string('unidad');
             $table->bigInteger('cantidad_inicial');
             $table->unsignedBigInteger('id_proveedor');
+            $table->unsignedBigInteger('id_categoria');
             $table->string('ruta_foto')->nullable();
             $table->string('foto')->nullable();
 
             $table->foreign('id_proveedor')
             ->references('id')
             ->on('proveedors')
+            ->onDelete('cascade');
+
+            $table->foreign('id_categoria')
+            ->references('id')
+            ->on('categorias')
             ->onDelete('cascade');
 
             $table->timestamps();

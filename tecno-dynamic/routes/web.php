@@ -11,31 +11,35 @@ Route::get('/', function () {
 
 //Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/sucursal', 'SucursalController@index');
+Route::get('/sucursal', 'SucursalController@index')->middleware('auth');
 
 //proveedor
-Route::get('/proveedor', 'ProveedorController@index');
-Route::get('/proveedor/create', 'ProveedorController@create');
-Route::post('/proveedor', 'ProveedorController@store');
-Route::get('/proveedor/{proveedor}/edit', 'ProveedorController@edit');
-Route::put('/proveedor/{proveedor}', 'ProveedorController@update');
+Route::get('/proveedor', 'ProveedorController@index')->middleware('auth');
+Route::get('/proveedor/create', 'ProveedorController@create')->middleware('auth');
+Route::post('/proveedor', 'ProveedorController@store')->middleware('auth');
+Route::get('/proveedor/{proveedor}/edit', 'ProveedorController@edit')->middleware('auth');
+Route::put('/proveedor/{proveedor}', 'ProveedorController@update')->middleware('auth');
 
 //PRODUCTO
-Route::get('/producto', 'ProductosController@index');
-Route::get('/producto/{id}', 'ProductosController@show');
-Route::get('/producto/editar/{id}', 'ProductosController@edit');
-Route::patch('/producto/editar/{id}', 'ProductosController@update');
-Route::delete('/producto/{id}', 'ProductosController@destroy');
-Route::get('/registrarProducto', 'ProductosController@create');
-Route::post('/registrarProducto', 'ProductosController@store');
+Route::get('/producto', 'ProductosController@index')->middleware('auth');
+Route::get('/producto/registrarProducto', 'ProductosController@create')->middleware('auth');
+Route::post('/producto/registrarProducto', 'ProductosController@store')->middleware('auth');
+Route::get('/producto/{id}', 'ProductosController@show')->middleware('auth');
+Route::get('/producto/editar/{id}', 'ProductosController@edit')->middleware('auth');
+Route::patch('/producto/editar/{id}', 'ProductosController@update')->middleware('auth');
+Route::delete('/producto/{id}', 'ProductosController@destroy')->middleware('auth');
 
-Route::get('/registrar','SucursalController@registro');
-Route::get('/registrar','SucursalController@registro');
-Route::post('/registrar','SucursalController@registrar');
+
+//CATEGORIA
+Route::post('/producto/registrarCategoria', 'CategoriaController@store')->middleware('auth');
+
+Route::get('/registrar','SucursalController@registro')->middleware('auth');
+Route::get('/registrar','SucursalController@registro')->middleware('auth');
+Route::post('/registrar','SucursalController@registrar')->middleware('auth');
 
 //CLIENTE
-Route::get('/cliente', 'ClienteController@index');
-Route::get('/cliente/registrarCliente','ClienteController@create');
-Route::post('/registrarCliente','ClienteController@store');
-Route::get('/cliente/{cliente}/edit','ClienteController@edit');
-Route::put('/cliente/{cliente}','ClienteController@update');
+Route::get('/cliente', 'ClienteController@index')->middleware('auth');
+Route::get('/cliente/registrarCliente','ClienteController@create')->middleware('auth');
+Route::post('/registrarCliente','ClienteController@store')->middleware('auth');
+Route::get('/cliente/{cliente}/edit','ClienteController@edit')->middleware('auth');
+Route::put('/cliente/{cliente}','ClienteController@update')->middleware('auth');
