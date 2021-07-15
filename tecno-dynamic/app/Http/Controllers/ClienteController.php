@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cliente;
 use Illuminate\Http\Request;
-
+ 
 class ClienteController extends Controller
 {
     /**
@@ -45,7 +45,6 @@ class ClienteController extends Controller
         $cliente->email = $request->input('email');
         $cliente->web_site = $request->input('web_site');
         $cliente->save();
-
         return redirect('cliente');
     }
 
@@ -68,7 +67,7 @@ class ClienteController extends Controller
      */
     public function edit(Cliente $cliente)
     {
-        //
+        return view('cliente.editar', compact('cliente'));
     }
 
     /**
@@ -80,7 +79,15 @@ class ClienteController extends Controller
      */
     public function update(Request $request, Cliente $cliente)
     {
-        //
+        $cliente->nit = $request->input('nit');
+        $cliente->nombre_empresa = $request->input('nombre_empresa');
+        $cliente->nombre_contacto = $request->input('nombre_contacto');
+        $cliente->direccion = $request->input('direccion');
+        $cliente->telefono = $request->input('telefono');
+        $cliente->email = $request->input('email');
+        $cliente->web_site = $request->input('web_site');
+        $cliente->save();
+        return redirect('cliente');
     }
 
     /**

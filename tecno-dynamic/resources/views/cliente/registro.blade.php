@@ -1,20 +1,17 @@
 @extends('layouts.panel')
 @section('subtitulo','clientes')
 @section('content')
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-   
-  </ol>
-</nav>
 
+<div class="card shadow">
 <div class="box-header ">
                   <h3 class="text-center">INFORMACION PERSONAL</h3>
-            </div></br>    
+            </div></br>   
+ 
 <form action="{{ url('registrarCliente')}}" method="post">
     {{csrf_field()}}
 <div class="col-md-11 mx-auto">
 
-
+ 
 <div class = 'row'>
 
     <div class="col-5">

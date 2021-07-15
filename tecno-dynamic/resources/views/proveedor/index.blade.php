@@ -45,7 +45,7 @@
                     </td>
                     <td>
                         {{ $proveedor->email }}
-                    </td>
+                    </td> 
                     <td>
                         {{ $proveedor->web_site }}
                     </td>
@@ -56,7 +56,7 @@
                     <td>
                         <form action="{{url('/proveedor/'.$proveedor->id) }}" method="POST">
                         @csrf
-                        @method('DELETE')
+                        @method('DELETE')   
                         <a href="{{ url('/proveedor/'.$proveedor->id.'/edit') }}"
                             class="btn btn-sm btn-primary">Editar</a>
                         <button class="btn btn-sm btn-danger" type="submit">Eliminar</button>

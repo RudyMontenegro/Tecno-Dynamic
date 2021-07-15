@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="card-body">
-        @if ($errors->any())
+        @if ($errors->any()) 
         <div class="alert alert-danger" role="alert">
             <ul>
                 @foreach ($errors->all() as $error)

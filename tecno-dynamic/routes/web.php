@@ -19,12 +19,9 @@ Route::get('/proveedor/create', 'ProveedorController@create');
 Route::post('/proveedor', 'ProveedorController@store');
 Route::get('/proveedor/{proveedor}/edit', 'ProveedorController@edit');
 Route::put('/proveedor/{proveedor}', 'ProveedorController@update');
-route::delete('/proveedor/{proveedor}','ProveedorController@destroy');
+
 //PRODUCTO
 Route::get('/producto', 'ProductosController@index');
-Route::get('/producto/{id}', 'ProductosController@show');
-Route::get('/producto/editar/{id}', 'ProductosController@edit');
-Route::patch('/producto/editar/{id}', 'ProductosController@update');
 Route::get('/registrarProducto', 'ProductosController@create');
 Route::post('/registrarProducto', 'ProductosController@store');
 
@@ -32,6 +29,9 @@ Route::get('/registrar','SucursalController@registro');
 Route::get('/registrar','SucursalController@registro');
 Route::post('/registrar','SucursalController@registrar');
 
+//CLIENTE
 Route::get('/cliente', 'ClienteController@index');
-Route::get('/registrarCliente','ClienteController@create');
+Route::get('/cliente/registrarCliente','ClienteController@create');
 Route::post('/registrarCliente','ClienteController@store');
+Route::get('/cliente/{cliente}/edit','ClienteController@edit');
+Route::put('/cliente/{cliente}','ClienteController@update');
