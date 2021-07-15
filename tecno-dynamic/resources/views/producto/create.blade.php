@@ -7,8 +7,87 @@
 
 <div class="card shadow">
     <div class="card-header border-0">
-        <h1 class="text-center">REGISTRO DE NUEVO PRODUCTO</h1>
+         <h1 class="text-center">REGISTRO DE NUEVO PRODUCTO</h1>
+         
+    </div>
+    <div class="col-md-6 mx-auto " >
+            <h2 >
+             @include('Mensaje.nota')
+         </h2> 
+    </div>
+    
+<form action="{{url('/producto/registrarProducto')}}" class="form" method="post" enctype="multipart/form-data">
 
+    {{ csrf_field()}}
+   
+
+   <div class="col-md-11 mx-auto "> 
+
+<div class="row">
+    <div class="col-5">
+
+        <label for="codigo" class="control-label">{{'Codigo'}}</label>
+        <input type="text" class="form-control  {{$errors->has('codigo')?'is-invalid':'' }}" name="codigo" id="codigo" 
+        value="{{ isset($personal->nombre)?$personal->nombre:old('codigo') }}"
+        >
+        {!!  $errors->first('codigo','<div class="invalid-feedback">:message</div>') !!}
+       
+
+    </div> 
+    <div class="col-5">
+        <label for="codigoBarra"class="control-label">{{'Codigo Barra'}}</label>
+        <input type="text" class="form-control  {{$errors->has('codigoBarra')?'is-invalid':'' }}" name="codigoBarra" id="codigoBarra" 
+        value="{{ isset($personal->email)?$personal->email:old('codigoBarra')  }}"
+        >
+    {!!  $errors->first('codigoBarra','<div class="invalid-feedback">:message</div>') !!}
+    </div>
+   
+</div>
+<div class="row">
+    <div class="col-5">
+        <label for="nombre"class="control-label">{{'Nombre'}}</label>
+        <input type="text" class="form-control  {{$errors->has('nombre')?'is-invalid':'' }}" name="nombre" id="nombre" 
+        value="{{ isset($personal->apellido)?$personal->apellido:old('nombre') }}"
+        >
+        {!!  $errors->first('nombre','<div class="invalid-feedback">:message</div>') !!}
+    </div>
+    <div class="col-5">
+        <label for="categoria">Categoria</label>
+        <select name="categoria" id="categoria" class="form-control  {{$errors->has('categoria')?'is-invalid':'' }}">
+        <option selected disabled>Elige una Categoria</option>
+        @foreach ($categoria as $categoria)
+            <option {{ old('categoria') == $categoria->id ? "selected" : "" }} value="{{$categoria->id}}">{{$categoria->nombre}}</option>
+        @endforeach
+        </select>
+        {!!  $errors->first('categoria','<div class="invalid-feedback">:message</div>') !!}
+    </div>
+                   
+    
+</div>
+<div class="row">
+    <div class="col-5">
+        <label for="marca"class="control-label">{{'Marca'}}</label>
+        <input type="text" class="form-control  {{$errors->has('marca')?'is-invalid':'' }}" name="marca" id="marca" 
+        value="{{ isset($personal->codigoSis)?$personal->codigoSis:old('marca') }}"
+        >
+        {!!  $errors->first('marca','<div class="invalid-feedback">:message</div>') !!}
+    </div>
+    <div class="col-5">
+        <label for="precioCosto"class="control-label">{{'Precio Costo'}}</label>
+        <input type="number" step="0.01" class="form-control  {{$errors->has('precioCosto')?'is-invalid':'' }}" name="precioCosto" id="precioCosto" 
+        value="{{ isset($personal->codigoSis)?$personal->codigoSis:old('precioCosto') }}"
+        >
+        {!!  $errors->first('precioCosto','<div class="invalid-feedback">:message</div>') !!}
+    </div>
+       
+</div>
+<div class="row">
+    <div class="col-5">
+        <label for="precioVentaMayor"class="control-label">{{'Precio Venta Mayor'}}</label>
+        <input type="number" step="0.01"class="form-control  {{$errors->has('precioVentaMayor')?'is-invalid':'' }}" name="precioVentaMayor" id="precioVentaMayor" 
+        value="{{ isset($personal->telefono)?$personal->telefono:old('precioVentaMayor')  }}"
+        >
+        {!!  $errors->first('precioVentaMayor','<div class="invalid-feedback">:message</div>') !!}
     </div>
     <div class="col-md-6 mx-auto ">
         <h2>
@@ -152,8 +231,36 @@
                 </div>
             </div>
         </div>
-    </form>
-    <br>
+</div>  
+<div class="row">
+    <div class="col-5">
+        <label for="proveedor">Proveedor</label>
+        <select name="proveedor" id="proveedor" class="form-control  {{$errors->has('proveedor')?'is-invalid':'' }}">
+        <option selected disabled>Elige un Proveedor</option>
+        @foreach ($proveedor as $proveedor)
+            <option {{ old('proveedor') == $proveedor->id ? "selected" : "" }} value="{{$proveedor->id}}">{{$proveedor->nombre_empresa}}</option>
+        @endforeach
+        </select>
+        {!!  $errors->first('proveedor','<div class="invalid-feedback">:message</div>') !!}
+    </div>
+    <div class="col-5">
+        
+    </div>
+       
+</div> 
+<br>
+<div class="row">
+    
+    <div class="col-5">  
+        <a href="{{url('producto')}}"class="btn btn-primary">Regresar</a>
+    </div>
+    <div class="col-5">       
+        <input type="submit" class="btn btn-success float-right" value="Guardar">
+    </div>
+</div>
+</div>
+</form>
+<br>
 
 </div>
 
