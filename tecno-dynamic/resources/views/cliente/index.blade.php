@@ -51,14 +51,14 @@
                                 </div>
                                 <div class="modal-body">
                                     <h2 class="text-center">
-                                        ¿Esta seguro de eliminar este producto?
+                                        ¿Esta seguro de eliminar este cliente?
                                     </h2>
                                 </div>
                                 <div class="modal-footer">
                                             <form method="post" action="{{url('/cliente/'.$cliente->id)}}" style="display:inline">
                                                 {{csrf_field()}}
                                                 {{method_field('DELETE')}}
-                                                <button id="confirm" type="submit" class="btn btn-danger float-right">Borrar</button>
+                                                <button id="confirm" type="submit" class="btn btn-danger float-right">Eliminar</button>
                                             </form> 
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                                        
