@@ -67,40 +67,6 @@
     </div>
 
     
-    <script type="text/javascript">
-        formulario.addEventListener('submit', (e) => {
-            e.preventDefault();
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                    }
-                });
-                $.ajax({
-                    url: "{{ url('/producto/registrarCategoria') }}",
-                    method: 'post',
-                    data: {
-                        nombre: $('#nombre').val(),
-                        description: $('#description').val(),
-                    },
-                    success: function(result){
-                        if(result.errors)
-                        {
-                            $('.alert-danger').html('');
-
-                            $.each(result.errors, function(key, value){
-                                $('.alert-danger').show();
-                                $('.alert-danger').append('<li>'+value+'</li>');
-                            });
-                        }
-                        else
-                        {
-                            $('.alert-danger').hide();
-                            $('#exampleModal').modal('hide');
-                        }
-                    }
-                });
-         });
-        </script>
     
     <div class="card shadow">
         <div class="card-header border-0">
