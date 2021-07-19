@@ -18,13 +18,9 @@
             <thead class="thead-light">
                 <tr>
                     <th scope="col">Empresa</th>
-                    <th scope="col">NIT</th>
                     <th scope="col">Contacto</th>
-                    <th scope="col">Direccion</th>
                     <th scope="col">Telefono</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Sitio Web</th>
-                    <th scope="col">Categoria</th>
                     <th scope="col">Opciones</th>
                 </tr>
             </thead>
@@ -35,13 +31,7 @@
                         {{ $proveedor->nombre_empresa }}
                     </th>
                     <td>
-                        {{ $proveedor->nit }}
-                    </td>
-                    <td>
                         {{ $proveedor->nombre_contacto }}
-                    </td>
-                    <td>
-                        {{ $proveedor->direccion }}
                     </td>
                     <td>
                         {{ $proveedor->telefono }}
@@ -50,13 +40,8 @@
                         {{ $proveedor->email }}
                     </td>
                     <td>
-                        {{ $proveedor->web_site }}
-                    </td>
-                    <td>
-                        {{ $proveedor->categoria }}
-                    </td>
-
-                    <td>
+                        <a href="{{ url('/proveedor/'.$proveedor->id.'/show') }}"
+                            class="btn btn-sm btn-info">Ver</a>
                         <a href="{{ url('/proveedor/'.$proveedor->id.'/edit') }}"
                             class="btn btn-sm btn-primary">Editar</a>
                         <button class="btn btn-sm btn-danger" type="submit" data-toggle="modal"
@@ -96,5 +81,5 @@
             </tbody>
         </table>
     </div>
-</div> 
+</div>
 @endsection

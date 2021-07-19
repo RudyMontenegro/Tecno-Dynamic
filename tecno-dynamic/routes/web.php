@@ -14,13 +14,13 @@ Route::get('/', function () {
 Route::get('/sucursal', 'SucursalController@index')->middleware('auth');
 
 //PROVEEDOR
-Route::get('/proveedor', 'ProveedorController@index');
-Route::get('/proveedor/create', 'ProveedorController@create');
-Route::post('/proveedor', 'ProveedorController@store');
-Route::get('/proveedor/{proveedor}/edit', 'ProveedorController@edit');
-Route::put('/proveedor/{proveedor}', 'ProveedorController@update');
-Route::delete('/proveedor/{proveedor}', 'ProveedorController@destroy');
-
+Route::get('/proveedor', 'ProveedorController@index')->middleware('auth');
+Route::get('/proveedor/{proveedor}/show', 'ProveedorController@show')->middleware('auth');
+Route::get('/proveedor/create', 'ProveedorController@create')->middleware('auth');
+Route::post('/proveedor', 'ProveedorController@store')->middleware('auth');
+Route::get('/proveedor/{proveedor}/edit', 'ProveedorController@edit')->middleware('auth');
+Route::put('/proveedor/{proveedor}', 'ProveedorController@update')->middleware('auth');
+Route::delete('/proveedor/{proveedor}', 'ProveedorController@destroy')->middleware('auth');
 //PRODUCTO
 Route::get('/producto', 'ProductosController@index')->middleware('auth');
 Route::get('/producto/registrarProducto', 'ProductosController@create')->middleware('auth');
@@ -29,15 +29,11 @@ Route::get('/producto/{id}', 'ProductosController@show')->middleware('auth');
 Route::get('/producto/editar/{id}', 'ProductosController@edit')->middleware('auth');
 Route::patch('/producto/editar/{id}', 'ProductosController@update')->middleware('auth');
 Route::delete('/producto/{id}', 'ProductosController@destroy')->middleware('auth');
-
-
 //CATEGORIA
 Route::post('/producto/registrarCategoria', 'CategoriaController@store')->middleware('auth');
-
 Route::get('/registrar','SucursalController@registro')->middleware('auth');
 Route::get('/registrar','SucursalController@registro')->middleware('auth');
 Route::post('/registrar','SucursalController@registrar')->middleware('auth');
-
 //CLIENTE
 Route::get('/cliente', 'ClienteController@index')->middleware('auth');
 Route::get('/cliente/registrarCliente','ClienteController@create')->middleware('auth');

@@ -29,7 +29,6 @@ class ProveedorController extends Controller
     {
         return view('proveedor.crear');
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -81,7 +80,7 @@ class ProveedorController extends Controller
      */
     public function show(Proveedor $proveedor)
     {
-        //
+        return view('proveedor.view', compact('proveedor'));
     }
 
     /**
