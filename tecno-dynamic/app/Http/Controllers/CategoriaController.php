@@ -35,6 +35,7 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
+
         $categoria = new Categoria();
         $categoria->nombre = request('nombre');
         $categoria->descripcion = request('descripcion');

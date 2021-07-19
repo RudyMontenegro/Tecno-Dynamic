@@ -22,7 +22,7 @@
                         </button>
                     </div>
                     <div class="container">
-                                <form action="{{url('/producto/registrarCategoria')}}" class="form" method="post" enctype="multipart/form-data">
+                                <form id="formulario" action="{{url('/producto/registrarCategoria')}}" class="form" method="post" enctype="multipart/form-data">
                                     {{ csrf_field()}}
 
                                     <div class="form-group col-md-12">
@@ -44,29 +44,64 @@
                                     </div>
                                     <div class="form-group col-md-12">
                                         <div class="col5">
-                                            <button type="button" class="btn btn-secondary float-left" data-dismiss="modal">Cancelar</button>
+                                            <button  type="button" class="btn btn-secondary float-left" data-dismiss="modal">Cancelar</button>
                                         </div>  
                                         <div class="col5">
-                                            <button id="confirm" type="submit" class="btn btn-success float-right">Añadir</button>
+                                            <button  type="submit" class="btn btn-success float-right">Guardar</button>
                                         </div>
                                                                   
                                     </div>
                                     <br>
                                     <br>
                                      </form> 
-                                
-                           
+                                     
                     </div>
                     </div>
                 </div>
                 </div>
-
+             
                 <a type="button" class="btn btn-primary btn-sm float-left" href="{{url('/producto/registrarProducto')}}">Nuevo Producto</a>
     
             </div>
         </div>
     </div>
 
+    
+    <script type="text/javascript">
+        formulario.addEventListener('submit', (e) => {
+            e.preventDefault();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url: "{{ url('/producto/registrarCategoria') }}",
+                    method: 'post',
+                    data: {
+                        nombre: $('#nombre').val(),
+                        description: $('#description').val(),
+                    },
+                    success: function(result){
+                        if(result.errors)
+                        {
+                            $('.alert-danger').html('');
+
+                            $.each(result.errors, function(key, value){
+                                $('.alert-danger').show();
+                                $('.alert-danger').append('<li>'+value+'</li>');
+                            });
+                        }
+                        else
+                        {
+                            $('.alert-danger').hide();
+                            $('#exampleModal').modal('hide');
+                        }
+                    }
+                });
+         });
+        </script>
+    
     <div class="card shadow">
         <div class="card-header border-0">
             <div class="row align-items-center">    
@@ -89,14 +124,13 @@
                     <td>{{$categoria->descripcion}}</td>
                     <td>
                         
-                          
-                          <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#exampleModal">
+                        <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#exampleModal2">
                             Borrar
                             </button>
 
                             <!-- Modal -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                 <div class="modal-header">
@@ -107,7 +141,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <h2 class="text-center">
-                                        ¿Esta seguro de eliminar este producto?
+                                        ¿Esta seguro de eliminar esta categoria?
                                     </h2>
                                 </div>
                                 <div class="modal-footer">
@@ -149,6 +183,7 @@
     </div>
 
     
+
     <div class="card shadow">
         <div class="card-header border-0">
             <div class="row align-items-center">    
@@ -241,4 +276,7 @@
     </div>
 
 </div>
+
+
+
 @endsection
