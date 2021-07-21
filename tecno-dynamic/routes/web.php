@@ -22,6 +22,7 @@ Route::put('/proveedor/{proveedor}', 'ProveedorController@update')->middleware('
 
 //PRODUCTO
 Route::get('/producto', 'ProductosController@index')->middleware('auth');
+Route::get('/producto/prueba', 'ProductosController@prueba')->middleware('auth');
 Route::get('/producto/registrarProducto', 'ProductosController@create')->middleware('auth');
 Route::post('/producto/registrarProducto', 'ProductosController@store')->middleware('auth');
 Route::get('/producto/{id}', 'ProductosController@show')->middleware('auth');
