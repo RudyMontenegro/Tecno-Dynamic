@@ -6,9 +6,9 @@
                   <h3 class="text-center">EDITAR CLIENTE</h3>
             </div></br>   
   
-<form action="{{ url('cliente/'.$cliente->id) }}" method="post">
+<form action="{{ url('cliente/'.$cliente->id) }}" method="post" enctype="multipart/form-data">
     {{csrf_field()}}
-    {{ method_field('PATH') }}
+    {{ method_field('PATCH') }} 
 <div class="col-md-11 mx-auto">
 
  

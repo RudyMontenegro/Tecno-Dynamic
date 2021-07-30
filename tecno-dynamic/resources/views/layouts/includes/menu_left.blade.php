@@ -29,6 +29,12 @@
              <i class="ni ni-single-02 text-blue"></i> Clientes
          </a>
      </li>
+
+     <li class="nav-item {{ request()->is('compra') || request()->is('compra/registrarCompra*') ? 'active' : ''}}">
+         <a class="nav-link" href="{{url('compra')}}">
+             <i class="ni ni-cart text-black"></i> Compra
+         </a>
+     </li>
      <li class="nav-item">
          <a class="nav-link" href="./examples/tables.html">
              <i class="ni ni-bullet-list-67 text-blue"></i> Tables
