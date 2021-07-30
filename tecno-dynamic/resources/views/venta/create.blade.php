@@ -62,15 +62,14 @@
                         </div>
                     </div>
                 </div>
-                </div>
+            </div>
             <div class="card-body">
                 <div class="form-group">
                     <label for="telefono">Observaciones</label>
                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                 </div>
             </div>
-            <
-        </form>
+             </form>
     </div>
 </div>
 <div class="card shadow">

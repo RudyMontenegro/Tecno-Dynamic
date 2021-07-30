@@ -23,6 +23,10 @@ class ProductosController extends Controller
         return view('producto.index',['producto'=>$producto,'categoria'=>$categoria]);
     }
 
+    public function prueba(){
+        return view('producto.prueba');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

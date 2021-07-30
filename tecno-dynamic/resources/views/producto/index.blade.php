@@ -22,39 +22,134 @@
                         </button>
                     </div>
                     <div class="container">
-                                <form id="formulario" action="{{url('/producto/registrarCategoria')}}" class="form" method="post" enctype="multipart/form-data">
+                                <form id="updateform" action="{{url('/producto/registrarCategoria')}}" class="form"  method="post" enctype="multipart/form-data">
                                     {{ csrf_field()}}
 
                                     <div class="form-group col-md-12">
                                     
-                                            <label for="nombre" class="control-label float-left">{{'Nombre'}}</label>
-                                            <input type="text" class="form-control  {{$errors->has('nombre')?'is-invalid':'' }}" name="nombre" id="nombre" 
+                                            <label for="Nombre" class="control-label float-left">{{'Nombre'}}</label>
+                                            <input type="text" class="form-control" name="nombre" id="nombre" 
                                             value="{{ isset($personal->nombre)?$personal->nombre:old('nombre') }}"
-                                            >
-                                            {!!  $errors->first('nombre','<div class="invalid-feedback">:message</div>') !!}
+                                            ><p class="help-block"></p>
                                            
                                     </div>
                                     <div class="form-group col-md-12">
                                             <label for="descripcion"class="control-label float-left">{{'Descripcion'}}</label>
-                                            <input type="text" height="100px" class="form-control  {{$errors->has('descripcion')?'is-invalid':'' }}" name="descripcion" id="descripcion" 
+                                            <input type="text" height="100px" class="form-control" name="descripcion" id="descripcion" 
                                             value="{{ isset($personal->email)?$personal->email:old('descripcion')  }}"
-                                            >
-                                        {!!  $errors->first('descripcion','<div class="invalid-feedback">:message</div>') !!}
+                                            ><p class="help-block"></p>
                                    
                                     </div>
                                     <div class="form-group col-md-12">
+                                        <span id="returnMessage" class="glyphicon"> </span>
                                         <div class="col5">
                                             <button  type="button" class="btn btn-secondary float-left" data-dismiss="modal">Cancelar</button>
                                         </div>  
                                         <div class="col5">
-                                            <button  type="submit" class="btn btn-success float-right">Guardar</button>
+                                            <button id="submitBtn" type="submit" class="btn btn-success float-right">Guardar</button>
                                         </div>
                                                                   
                                     </div>
                                     <br>
                                     <br>
                                      </form> 
-                                     
+                                    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+                                    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+                                    <script src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/bootstrapValidator.js"></script>
+                                    
+                                    <style>
+                                        .has-error .invalid-selection {
+                                            border-color: rgb(185, 74, 72) !important;
+                                        }
+                                    </style>
+
+                                    <style type="text/css">
+                                    .has-error .form-control-fields {
+                                        color: #E74C3C;
+                                    }
+                                    .has-success .form-control-fields {
+                                        color: #18BCA0;
+                                    }
+                                    </style>
+
+                                    <script type='text/javascript'>
+                                        var form = $('#updateform');
+                                        $(document).ready(function () {
+                                    
+                                            form.bootstrapValidator({
+                                                message: 'El valor de entrada es ilegal',
+                                                feedbackIcons: {
+                                                    valid: 'glyphicon glyphicon-ok',
+                                                    invalid: 'glyphicon glyphicon-remove',
+                                                    validating: 'glyphicon glyphicon-refresh'
+                                                },
+                                                fields: {
+                                                    nombre: {
+                                                        message: 'Nombre de usuario es ilegal',
+                                                        validators: {
+                                                            notEmpty: {
+                                                                message: 'Campo requerido'
+                                                            },
+                                                            stringLength: {
+                                                                min: 3,
+                                                                max: 50,
+                                                                message: 'Ingrese de 3 a 50 caracteres'
+                                                            },
+                                                            regexp: {
+                                                                regexp: /^[a-zA-Z0-9_\. \u4e00-\u9fa5 ]+$/,
+                                                                message: 'El nombre de usuario solo puede consistir en letras, números, puntos, guiones bajos y caracteres chinos'
+                                                            }
+                                                        }
+                                                    }
+                                                    , descripcion: {
+                                                        validators: {
+                                                            notEmpty: {
+                                                                message: 'Campo requerido'
+                                                            },
+                                                            stringLength: {
+                                                                min: 3,
+                                                                max: 50,
+                                                                message: 'Ingrese de 3 a 50 caracteres'
+                                                            },
+                                                            regexp: {
+                                                                regexp: /^[a-zA-Z0-9_\. \u4e00-\u9fa5 ]+$/,
+                                                                message: 'El nombre de usuario solo puede consistir en letras, números, puntos, guiones bajos y caracteres chinos'
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                        });
+                                        $("#submitBtn").click(function () {
+                                            // Realizar validación de formulario
+                                            var bv = form.data('bootstrapValidator');
+                                            bv.validate();
+                                            if (bv.isValid()) {
+                                                console.log(form.serialize());
+                                                // Enviar solicitud ajax
+                                                $.ajax({
+                                                    url: '/producto/registrarCategoria',
+                                                    async: false,// La sincronización bloqueará la operación
+                                                    type: 'POST',//PUT DELETE POST
+                                                    data: form.serialize(),
+                                                    complete: function (msg) {
+                                                        console.log('terminado');
+                                                    },
+                                                    success: function (result) {
+                                                        console.log(result);
+                                                        if (result) {
+                                                            window.location.reload();
+                                                        } else {
+                                                            $("#returnMessage").hide().html('<label class = "label label-danger"> ¡Error en el registro de categoria! </label>').show(300);
+                                                        }
+                                                    }, error: function () {
+                                                        $("#returnMessage").hide().html('<label class = "label label-danger"> ¡Error en el registro de categoria! </label>').show(300);
+                                                    }
+                                                })
+                                            }
+                                        });
+                                    
+                                    </script>
                     </div>
                     </div>
                 </div>
@@ -66,8 +161,6 @@
         </div>
     </div>
 
-    
-    
     <div class="card shadow">
         <div class="card-header border-0">
             <div class="row align-items-center">    
