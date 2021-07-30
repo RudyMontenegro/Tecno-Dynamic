@@ -41,3 +41,11 @@ Route::post('/registrarCliente','ClienteController@store')->middleware('auth');
 Route::get('/cliente/editar/{id}','ClienteController@edit')->middleware('auth');
 Route::patch('/cliente/{id}','ClienteController@update')->middleware('auth');
 Route::delete('/cliente/{id}', 'ClienteController@destroy')->middleware('auth');
+//VENTA
+Route::get('/venta', 'VentaController@index')->middleware('auth');
+Route::get('/venta/{ventas}/show', 'VentaController@show')->middleware('auth');
+Route::get('/venta/create', 'VentaController@create')->middleware('auth');
+Route::post('/venta', 'VentaController@store')->middleware('auth');
+Route::get('/venta/{ventas}/edit', 'VentaController@edit')->middleware('auth');
+Route::put('/venta/{ventas}', 'VentaController@update')->middleware('auth');
+Route::delete('/venta/{ventas}', 'VentaController@destroy')->middleware('auth');     

@@ -8,7 +8,7 @@
                 <h3 class="mb-0">EDITAR PROVEEDOR</h3>
             </div>
             <div class="col text-right">
-                <a href="{{ url('proveedor') }}" class="btn btn-sm btn-danger">Volver</a>
+                <a href="{{ url('proveedor') }}" class="btn btn-sm btn-danger">Cancelar y volver</a>
             </div>
         </div>
     </div>
