@@ -14,6 +14,11 @@
              <i class="ni ni-tv-2 text-primary"></i> Dashboard
          </a>
      </li>
+     <li class="nav-item {{ request()->is('venta') || request()->is('venta/create*') || request()->is('venta/{venta}*')?  'active' : ''}}">
+         <a class="nav-link" href="{{ url('/venta')}}">
+             <i class="ni ni-basket text-blue"></i> Ventas
+         </a>
+     </li>
      <li class="nav-item {{ request()->is('producto') || request()->is('registrarProducto') || request()->is('producto/editar*')? 'active' : ''}}">
         <a class="nav-link" href="{{url('producto')}}">
             <i class="fab fa-product-hunt"></i></i> Producto

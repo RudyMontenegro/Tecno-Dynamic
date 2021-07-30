@@ -1,17 +1,15 @@
 @extends('layouts.panel')
-@section('subtitulo','proveedores')
+@section('subtitulo','ventas')
 @section('content')
-
-
 
 <div class="card shadow">
     <div class="card-header border-0">
         <div class="row align-items-center">
         <div class="col">
-                <h3 class="mb-0">Lista de proveedores</h3>
+                <h3 class="mb-0">Lista de ultimas ventas</h3>
             </div>
             <div class="col text-right">
-                <a href="{{ url('proveedor/create') }}" class="btn btn-sm btn-primary">Nueva Proveedor</a>
+                <a href="{{ url('venta/create') }}" class="btn btn-sm btn-primary">Nueva Venta</a>
             </div>
         </div>
     </div>
@@ -28,24 +26,23 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($proveedores as $proveedor)
+                @foreach ($ventas as $venta)
                 <tr>
                     <th scope="row">
-                        {{ $proveedor->nombre_empresa }}
+                        {{ $venta->nombre_empresa }}
                     </th>
                     <td>
-                        {{ $proveedor->nombre_contacto }}
+                        {{ $venta->nombre_contacto }}
                     </td>
                     <td>
-                        {{ $proveedor->telefono }}
+                        {{ $venta->telefono }}
                     </td>
                     <td>
-                        {{ $proveedor->email }}
+                        {{ $venta->email }}
                     </td>
                     <td>
-                        <a href="{{ url('/proveedor/'.$proveedor->id.'/show') }}"
-                            class="btn btn-sm btn-info">Ver</a>
-                        <a href="{{ url('/proveedor/'.$proveedor->id.'/edit') }}"
+                        <a href="{{ url('/venta/'.$venta->id.'/show') }}" class="btn btn-sm btn-info">Ver</a>
+                        <a href="{{ url('/venta/'.$venta->id.'/edit') }}"
                             class="btn btn-sm btn-primary">Editar</a>
                         <button class="btn btn-sm btn-danger" type="submit" data-toggle="modal"
                             data-target="#exampleModal">Eliminar</button>
@@ -66,7 +63,7 @@
                                         </h2>
                                     </div>
                                     <div class="modal-footer">
-                                        <form method="POST" action="{{url('/proveedor/'.$proveedor->id) }}">
+                                        <form method="POST" action="{{url('/venta/'.$venta->id) }}">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger float-right">Borrar</button>

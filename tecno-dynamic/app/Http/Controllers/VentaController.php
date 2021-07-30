@@ -3,18 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Venta;
+use App\VentaDetalle;
 use Illuminate\Http\Request;
 
 class VentaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index() 
     {
-        //
+        $ventas = Venta::all();
+        return view('venta.index', compact('ventas'));
     }
 
     /**
@@ -24,9 +21,8 @@ class VentaController extends Controller
      */
     public function create()
     {
-        //
+        return view('venta.create');
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -35,7 +31,39 @@ class VentaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       // dd($request->all());
+      
+       // $this->validate($request);
+
+       $nitBD = DB::table('proveedors')
+                ->select('nit')
+                ->where('nit','=',request('nit'))
+                ->exists();
+        
+        $nomBD = DB::table('proveedors')
+                ->select('nombre_empresa')
+                ->where('nombre_empresa','=',request('nombre_empresa'))
+                ->exists();
+
+        if($nitBD == false && $nomBD==false){
+            
+       
+        $venta = new Venta();
+        $venta->nit = $request->input('nit');
+        $venta->nombre_empresa = $request->input('nombre_empresa');
+        $venta->nombre_contacto = $request->input('nombre_contacto');
+        $venta->direccion = $request->input('direccion');
+        $venta->telefono = $request->input('telefono');
+        $venta->email = $request->input('email');
+        $venta->web_site = $request->input('web_site');
+        $venta->categoria = $request->input('categoria');
+        $venta->save();
+        return redirect('/venta');
+        }
+
+        else{
+        return redirect('/venta')->with('Estado','El codigo de producto ya esta registrado'); 
+        }
     }
 
     /**
@@ -46,7 +74,7 @@ class VentaController extends Controller
      */
     public function show(Venta $venta)
     {
-        //
+        return view('venta.view', compact('venta'));
     }
 
     /**
@@ -57,8 +85,8 @@ class VentaController extends Controller
      */
     public function edit(Venta $venta)
     {
-        //
-    }
+        return view('venta.edit', compact('venta'));
+    } 
 
     /**
      * Update the specified resource in storage.
@@ -69,7 +97,16 @@ class VentaController extends Controller
      */
     public function update(Request $request, Venta $venta)
     {
-        //
+        $venta->nit = $request->input('nit');
+        $venta->nombre_empresa = $request->input('nombre_empresa');
+        $venta->nombre_contacto = $request->input('nombre_contacto');
+        $venta->direccion = $request->input('direccion');
+        $venta->telefono = $request->input('telefono');
+        $venta->email = $request->input('email');
+        $venta->web_site = $request->input('web_site');
+        $venta->categoria = $request->input('categoria');
+        $venta->save();
+        return redirect('/venta');
     }
 
     /**
@@ -80,6 +117,7 @@ class VentaController extends Controller
      */
     public function destroy(Venta $venta)
     {
-        //
+        $venta->delete();
+        return redirect('/venta');
     }
 }
