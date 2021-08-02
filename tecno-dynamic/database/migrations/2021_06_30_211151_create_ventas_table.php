@@ -19,7 +19,7 @@ class CreateVentasTable extends Migration
             $table->string('cliente')->nullable();
             $table->string('responsable_venta')->nullable();
             $table->date('fecha')->nullable();
-            $table->string('tipo_venta'); ->nullable();
+            $table->string('tipo_venta')->nullable();
             $table->string('observaciones')->nullable();
             $table->unsignedBigInteger('id_sucursal')->nullable();
             $table->unsignedBigInteger('id_cliente')->nullable();
