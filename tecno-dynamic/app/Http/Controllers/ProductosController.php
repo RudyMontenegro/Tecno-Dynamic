@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+ 
 use App\Categoria;
 use App\Productos;
 use App\Proveedor;
@@ -119,7 +119,7 @@ class ProductosController extends Controller
                 "email.unique"=>'Correo ya registrado',
                 "email"=>'El correo no existe',
             ];
-
+ 
             $this->validate($request,$campos,$Mensaje);
 
             $producto = new Productos();

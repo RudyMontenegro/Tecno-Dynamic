@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Compra;
+use App\Proveedor;
 use Illuminate\Http\Request;
 
 class CompraController extends Controller
@@ -14,7 +15,7 @@ class CompraController extends Controller
      */
     public function index()
     {
-        //
+        return view('compra.index');
     }
 
     /**
@@ -24,7 +25,8 @@ class CompraController extends Controller
      */
     public function create()
     {
-        //
+        $proveedor = Proveedor::all();
+        return view('compra.create',['proveedor'=>$proveedor]);
     }
 
     /**
@@ -35,7 +37,26 @@ class CompraController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+    
+
+        $compra = new Compra();
+
+        $compra-> comprobante = request('comprobante');
+        $compra-> id_proveedor = $request -> get('proveedor');
+        $compra-> responsable_compra = request('responsable_compra');
+        $compra-> fecha = request('fecha');
+        $compra-> tipo_compra = request('tipo_compra');
+        $compra-> observaciones = request('observaciones');
+        $compra-> save();
+
+        return redirect('compra');
+        /*
+        $this->validate( $request, [ 'fecha' => 'required',])
+
+        $compra ->fecha= Carbon::now();
+        $compra ->save();
+        */
     }
 
     /**
