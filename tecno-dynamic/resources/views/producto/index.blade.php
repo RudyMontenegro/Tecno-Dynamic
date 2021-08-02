@@ -56,13 +56,7 @@
                                     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
                                     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
                                     <script src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/bootstrapValidator.js"></script>
-                                    
-                                    <style>
-                                        .has-error .invalid-selection {
-                                            border-color: rgb(185, 74, 72) !important;
-                                        }
-                                    </style>
-
+                
                                     <style type="text/css">
                                     .has-error .form-control-fields {
                                         color: #E74C3C;
