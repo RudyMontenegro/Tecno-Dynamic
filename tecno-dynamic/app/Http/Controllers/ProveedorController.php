@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Proveedor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ProveedorController extends Controller
 {
@@ -27,7 +29,6 @@ class ProveedorController extends Controller
     {
         return view('proveedor.crear');
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -40,6 +41,19 @@ class ProveedorController extends Controller
       
        // $this->validate($request);
 
+       $nitBD = DB::table('proveedors')
+                ->select('nit')
+                ->where('nit','=',request('nit'))
+                ->exists();
+        
+        $nomBD = DB::table('proveedors')
+                ->select('nombre_empresa')
+                ->where('nombre_empresa','=',request('nombre_empresa'))
+                ->exists();
+
+        if($nitBD == false && $nomBD==false){
+            
+       
         $proveedor = new Proveedor();
         $proveedor->nit = $request->input('nit');
         $proveedor->nombre_empresa = $request->input('nombre_empresa');
@@ -51,6 +65,11 @@ class ProveedorController extends Controller
         $proveedor->categoria = $request->input('categoria');
         $proveedor->save();
         return redirect('/proveedor');
+        }
+
+        else{
+        return redirect('/proveedor')->with('Estado','El codigo de producto ya esta registrado'); 
+        }
     }
 
     /**
@@ -61,7 +80,7 @@ class ProveedorController extends Controller
      */
     public function show(Proveedor $proveedor)
     {
-        //
+        return view('proveedor.view', compact('proveedor'));
     }
 
     /**
@@ -73,7 +92,7 @@ class ProveedorController extends Controller
     public function edit(Proveedor $proveedor)
     {
         return view('proveedor.edit', compact('proveedor'));
-    }
+    } 
 
     /**
      * Update the specified resource in storage.

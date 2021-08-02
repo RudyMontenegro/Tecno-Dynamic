@@ -15,14 +15,14 @@ class CreateVentasTable extends Migration
     {
         Schema::create('ventas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('comprobante');
-            $table->string('cliente');
-            $table->string('responsable_venta');
-            $table->date('fecha');
-            $table->string('tipo_venta');  
-            $table->string('observaciones');
-            $table->unsignedBigInteger('id_sucursal');
-            $table->unsignedBigInteger('id_cliente');
+            $table->string('comprobante')->nullable();
+            $table->string('cliente')->nullable();
+            $table->string('responsable_venta')->nullable();
+            $table->date('fecha')->nullable();
+            $table->string('tipo_venta')->nullable();
+            $table->string('observaciones')->nullable();
+            $table->unsignedBigInteger('id_sucursal')->nullable();
+            $table->unsignedBigInteger('id_cliente')->nullable();
 
             $table->foreign('id_sucursal')
             ->references('id')
