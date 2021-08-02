@@ -42,13 +42,6 @@ Route::post('/registrarCliente','ClienteController@store')->middleware('auth');
 Route::get('/cliente/editar/{id}','ClienteController@edit')->middleware('auth');
 Route::patch('/cliente/editar/{id}','ClienteController@update')->middleware('auth');
 Route::delete('/cliente/{id}', 'ClienteController@destroy')->middleware('auth');
-<<<<<<< HEAD
-
-//COMPRA
-Route::get('/compra', 'CompraController@index')->middleware('auth');
-Route::get('/compra/registrarCompra','CompraController@create')->middleware('auth');
-Route::post('/registrarCompra','CompraController@store')->middleware('auth');
-=======
 //VENTA
 Route::get('/venta', 'VentaController@index')->middleware('auth');
 Route::get('/venta/{ventas}/show', 'VentaController@show')->middleware('auth');
@@ -57,4 +50,8 @@ Route::post('/venta', 'VentaController@store')->middleware('auth');
 Route::get('/venta/{ventas}/edit', 'VentaController@edit')->middleware('auth');
 Route::put('/venta/{ventas}', 'VentaController@update')->middleware('auth');
 Route::delete('/venta/{ventas}', 'VentaController@destroy')->middleware('auth');     
->>>>>>> 534cb1738fa2f6c074ffd07b612a8bcd2436f67e
+
+//COMPRA
+Route::get('/compra', 'CompraController@index')->middleware('auth');
+Route::get('/compra/registrarCompra','CompraController@create')->middleware('auth');
+Route::post('/registrarCompra','CompraController@store')->middleware('auth');
