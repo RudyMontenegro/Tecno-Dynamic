@@ -14,7 +14,7 @@
 
         {{csrf_field()}}
         {{method_field('PATCH')}}
-   
+    
     <div class="col-md-11 mx-auto "> 
 
         <div class="row">

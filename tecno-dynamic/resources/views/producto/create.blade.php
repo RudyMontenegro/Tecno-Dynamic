@@ -15,7 +15,7 @@
              @include('Mensaje.nota')
          </h2> 
     </div>
-    
+     
 <form action="{{url('/producto/registrarProducto')}}" class="form" method="post" enctype="multipart/form-data">
 
     {{ csrf_field()}}

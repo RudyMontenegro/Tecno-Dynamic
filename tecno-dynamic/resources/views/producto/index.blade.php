@@ -59,55 +59,64 @@
                                     </div>
                                     <br>
                                     <br>
-                                </form>
-                                <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-                                <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-                                <script
-                                    src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/bootstrapValidator.js">
-                                </script>
+                                     </form> 
+                                    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+                                    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+                                    <script src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/bootstrapValidator.js"></script>
+                
+                                    <style type="text/css">
+                                    .has-error .form-control-fields {
+                                        color: #E74C3C;
+                                    }
+                                    .has-success .form-control-fields {
+                                        color: #18BCA0;
+                                    }
+                                    </style>
 
-                                <style>
-                                .has-error .invalid-selection {
-                                    border-color: rgb(185, 74, 72) !important;
-                                }
-                                </style>
-
-                                <style type="text/css">
-                                .has-error .form-control-fields {
-                                    color: #E74C3C;
-                                }
-
-                                .has-success .form-control-fields {
-                                    color: #18BCA0;
-                                }
-                                </style>
-
-                                <script type='text/javascript'>
-                                var form = $('#updateform');
-                                $(document).ready(function() {
-
-                                    form.bootstrapValidator({
-                                        message: 'El valor de entrada es ilegal',
-                                        feedbackIcons: {
-                                            valid: 'glyphicon glyphicon-ok',
-                                            invalid: 'glyphicon glyphicon-remove',
-                                            validating: 'glyphicon glyphicon-refresh'
-                                        },
-                                        fields: {
-                                            nombre: {
-                                                message: 'Nombre de usuario es ilegal',
-                                                validators: {
-                                                    notEmpty: {
-                                                        message: 'Campo requerido'
-                                                    },
-                                                    stringLength: {
-                                                        min: 3,
-                                                        max: 50,
-                                                        message: 'Ingrese de 3 a 50 caracteres'
-                                                    },
-                                                    regexp: {
-                                                        regexp: /^[a-zA-Z0-9_\. \u4e00-\u9fa5 ]+$/,
-                                                        message: 'El nombre de usuario solo puede consistir en letras, números, puntos, guiones bajos y caracteres chinos'
+                                    <script type='text/javascript'>
+                                        var form = $('#updateform');
+                                        $(document).ready(function () {
+                                    
+                                            form.bootstrapValidator({
+                                                message: 'El valor de entrada es ilegal',
+                                                feedbackIcons: {
+                                                    valid: 'glyphicon glyphicon-ok',
+                                                    invalid: 'glyphicon glyphicon-remove',
+                                                    validating: 'glyphicon glyphicon-refresh'
+                                                },
+                                                fields: {
+                                                    nombre: {
+                                                        message: 'Nombre de usuario es ilegal',
+                                                        validators: {
+                                                            notEmpty: {
+                                                                message: 'Campo requerido'
+                                                            },
+                                                            stringLength: {
+                                                                min: 3,
+                                                                max: 50,
+                                                                message: 'Ingrese de 3 a 50 caracteres'
+                                                            },
+                                                            regexp: {
+                                                                regexp: /^[a-zA-Z0-9_\. \u4e00-\u9fa5 ]+$/,
+                                                                message: 'El nombre de usuario solo puede consistir en letras, números, puntos, guiones bajos y caracteres chinos'
+                                                            }
+                                                        }
+                                                    }
+                                                    , descripcion: {
+                                                        validators: {
+                                                            notEmpty: {
+                                                                message: 'Campo requerido'
+                                                            },
+                                                            stringLength: {
+                                                                min: 3,
+                                                                max: 50,
+                                                                message: 'Ingrese de 3 a 50 caracteres'
+                                                            },
+                                                            regexp: {
+                                                                regexp: /^[a-zA-Z0-9_\. \u4e00-\u9fa5 ]+$/,
+                                                                message: 'El nombre de usuario solo puede consistir en letras, números, puntos, guiones bajos y caracteres chinos'
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             },

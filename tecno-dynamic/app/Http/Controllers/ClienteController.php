@@ -37,6 +37,48 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
+        $campos=[
+            'nit' => 'required|unique:clientes,nit|max:50|min:3',
+            'nombre_empresa' => 'required|unique:clientes,nombre_empresa|max:50|min:3',
+            'nombre_contacto' => 'required|unique:clientes,nombre_contacto|max:50|min:3',
+            'direccion' => 'required',
+            'telefono' => 'required|unique:clientes,telefono',
+            'email' => 'required ',
+            'web_site' => 'required',
+        
+        ];
+
+        $Mensaje = [
+            
+            "required"=>'El campo es requerido',
+            "regex"=>'Solo se admiten letras',
+            "min"=>'Solo se acepta 3 caracteres como minimo',
+            "max"=>'Solo se acepta 50 caracteres como maximo',
+            "numeric"=>'Solo se acepta números' ,
+            "telefono.unique" => 'El numero de telefono ya esta registrado',
+            "nombre_contacto" => 'El nombre del contacto ya esta registrado', 
+        ];
+
+        $this->validate($request,$campos,$Mensaje);
+
+            $cliente = new Cliente();
+
+            $cliente->nit = request('nit');
+            $cliente->nombre_empresa = request('nombre_empresa');
+            $cliente->nombre_contacto = request('nombre_contacto');
+            $cliente->direccion = request('direccion');
+            $cliente->telefono = request('telefono');
+            $cliente->email = request('email');
+            $cliente->web_site = request('web_site');
+            
+            $cliente->save();
+            return redirect('cliente');
+
+    }
+
+    /*
+
+
         $cliente = new Cliente();
         $cliente->nit = $request->input('nit');
         $cliente->nombre_empresa = $request->input('nombre_empresa');
@@ -48,7 +90,9 @@ class ClienteController extends Controller
         $cliente->save();
         return redirect('cliente');
     }
-
+    */
+    
+    
     /**
      * Display the specified resource.
      *
@@ -93,7 +137,8 @@ class ClienteController extends Controller
         $cliente->telefono = $request->input('telefono');
         $cliente->email = $request->input('email');
         $cliente->web_site = $request->input('web_site');
-        $cliente->save();
+
+        $cliente->update();
         return redirect('cliente');
     }
 

@@ -18,6 +18,7 @@
                     <th scope="col">Contacto</th>
                     <th scope="col">Telefono</th>
                     <th scope="col">Direccion</th>
+                    <th scope="col">Correo</th>
                     <th scope="col">Opciones</th>
                 </tr>
             </thead>
@@ -37,6 +38,9 @@
                          {{ $cliente->direccion }}
                     </td>
                     <td>
+                        {{ $cliente->email}}
+                    </td>
+                    <td>
 
 
                             <!-- Modal -->
@@ -51,27 +55,25 @@
                                 </div>
                                 <div class="modal-body">
                                     <h2 class="text-center">
-                                        ¿Esta seguro de eliminar este producto?
+                                        ¿Esta seguro de eliminar este cliente?
                                     </h2>
                                 </div>
                                 <div class="modal-footer">
                                             <form method="post" action="{{url('/cliente/'.$cliente->id)}}" style="display:inline">
                                                 {{csrf_field()}}
                                                 {{method_field('DELETE')}}
-                                                <button id="confirm" type="submit" class="btn btn-danger float-right">Borrar</button>
+                                                <button id="confirm" type="submit" class="btn btn-sm btn-danger">Eliminar</button>
                                             </form> 
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                            <a type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancelar</a>
                                        
                                 </div>
                                 </div>
                             </div>
                             </div>
-
-                    <form action="{{url('/cliente/'.$cliente->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <a href="{{ url('/cliente/editar/'.$cliente->id) }}" class="btn btn-sm btn-primary">Editar</a>
-                        <a class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" type="submit">Eliminar</a>
+                        <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" type="submit">Eliminar</button>
                     </td>
                 </tr>
                 @endforeach
