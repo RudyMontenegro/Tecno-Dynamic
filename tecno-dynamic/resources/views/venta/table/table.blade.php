@@ -65,7 +65,6 @@
                     </table>
                     <button type="button" class="btn btn-success btn-lg btn-block" id="adicional"
                                         name="adicional" >Añadir items</button>
-                   
                 </div>
             </div>
         </div>
