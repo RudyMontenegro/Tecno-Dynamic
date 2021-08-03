@@ -144,12 +144,16 @@
                                     aria-describedby="basic-addon1">
                             </div>
                         </div>
-                        <table class="table table-bordered" id="dynamic_field4">
-                                 <tr>
-                                            <td> <h4>Añadir nuevo registro de compra </h4></td>
-                                        <td><button type="button" name="add" id="add4" class="btn btn-primary"><i class="fa fa-plus"></i> </button></td>
-                                     </tr>
-                        </table>
+                        <<div class="box-body">
+                             <div class="table-responsive">
+                                 <table class="table table-bordered" id="dynamic_field">
+                                     <tr>
+                                      <td> <h4>Añadir nuevo requisito </h4></td>
+                                      <td><button type="button" name="add" id="add" class="btn btn-primary "> <i class="fa fa-plus"></i>  </button></td>
+                                    </tr>
+                                 </table>
+                                     </div>
+                                </div>
                     </div>
                 </div>
                 <div class="row">
@@ -200,17 +204,17 @@
              $(document).ready(function(){
                             var i = 1;
 
-                            $('#add4').click(function () {
+                            $('#add').click(function () {
                                 i++;
-                                $('#dynamic_field4').append('<tr id="row4'+i+'">' +
+                                $('#dynamic_field').append('<tr id="row'+i+'">' +
                                                             '<td><input autocomplete="off" type="text" name="requisito[]" placeholder="Ingrese requisito" class="form-control name_list" /></td>' +
-                                                            '<td><button type="button" name="remove" id4="'+i+'" class="btn btn-danger btn_remove">X</button></td>' +
+                                                            '<td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td>' +
                                                             '</tr>');
                             });
                             
                             $(document).on('click', '.btn_remove', function () {
-                                var id4 = $(this).attr('id4');
-                            $('#row4'+ id4).remove();
+                                var id = $(this).attr('id');
+                            $('#row'+ id).remove();
                             });   
                         })
 
