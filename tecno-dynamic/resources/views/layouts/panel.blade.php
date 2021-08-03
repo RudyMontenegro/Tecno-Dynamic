@@ -16,6 +16,9 @@
     <link href="{{ asset('vendor/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
     <!-- Argon CSS -->
     <link href="{{ asset('css/argon.css?v=1.0.0') }}" rel="stylesheet">
+    
+ 
+
 </head>
 
 <body>
