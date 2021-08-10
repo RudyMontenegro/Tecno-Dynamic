@@ -72,7 +72,7 @@ class VentaController extends Controller
      * @param  \App\Venta  $venta
      * @return \Illuminate\Http\Response
      */
-    public function show(Venta $venta)
+    public function show(Venta $venta) 
     {
         return view('venta.view', compact('venta'));
     }
@@ -120,4 +120,4 @@ class VentaController extends Controller
         $venta->delete();
         return redirect('/venta');
     }
-}
+} 
