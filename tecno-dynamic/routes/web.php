@@ -50,8 +50,11 @@ Route::post('/venta', 'VentaController@store')->middleware('auth');
 Route::get('/venta/{ventas}/edit', 'VentaController@edit')->middleware('auth');
 Route::put('/venta/{ventas}', 'VentaController@update')->middleware('auth');
 Route::delete('/venta/{ventas}', 'VentaController@destroy')->middleware('auth');     
-
 //COMPRA
 Route::get('/compra', 'CompraController@index')->middleware('auth');
+Route::get('/compra/{compras}/show', 'CompraController@show')->middleware('auth');
 Route::get('/compra/registrarCompra','CompraController@create')->middleware('auth');
 Route::post('/registrarCompra','CompraController@store')->middleware('auth');
+Route::get('/compra/{compras}/edit', 'CompraController@edit')->middleware('auth');
+Route::put('/compra/{compras}', 'CompraController@update')->middleware('auth');
+Route::delete('/compra/{compras}', 'CompraController@destroy')->middleware('auth');

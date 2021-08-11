@@ -35,7 +35,7 @@ class CompraController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) 
     {
         
     
@@ -79,7 +79,7 @@ class CompraController extends Controller
     public function edit(Compra $compra)
     {
         //
-    }
+    } 
 
     /**
      * Update the specified resource in storage.
@@ -101,6 +101,7 @@ class CompraController extends Controller
      */
     public function destroy(Compra $compra)
     {
-        //
+        $compra->delete();
+        return redirect('compra');
     }
 }

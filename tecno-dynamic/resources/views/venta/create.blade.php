@@ -1,6 +1,6 @@
 @extends('layouts.panel')
 @section('subtitulo','proveedores')
-@section('content')
+@section('content') 
 <div class="card shadow" style="background-color:#11cdef; color: white; font color: yellow !important">
     <div class="card-header border-0">
         <div class="row align-items-center">

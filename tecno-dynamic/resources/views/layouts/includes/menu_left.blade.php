@@ -37,7 +37,7 @@
 
      <li class="nav-item {{ request()->is('compra') || request()->is('compra/registrarCompra*') ? 'active' : ''}}">
          <a class="nav-link" href="{{url('compra')}}">
-             <i class="ni ni-cart text-black"></i> Compra
+             <i class="ni ni-cart text-blue"></i> Compras
          </a>
      </li>
      <li class="nav-item">
