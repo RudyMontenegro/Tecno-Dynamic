@@ -14,7 +14,7 @@ class TransferenciaController extends Controller
      */
     public function index()
     {
-        //
+        return view('transferencia.index');
     }
 
     /**

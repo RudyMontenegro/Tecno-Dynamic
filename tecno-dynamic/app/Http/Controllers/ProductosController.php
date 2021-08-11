@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Categoria;
 use App\Productos;
 use App\Proveedor;
+use App\Sucursal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -36,7 +37,8 @@ class ProductosController extends Controller
     {
         $proveedor = Proveedor::all();
         $categoria = Categoria::all();
-        return view('producto.create',['proveedor'=>$proveedor,'categoria'=>$categoria]);
+        $sucursal = Sucursal::all();
+        return view('producto.create',['proveedor'=>$proveedor,'categoria'=>$categoria,'sucursal'=>$sucursal]);
     }
 
     /**
@@ -250,6 +252,8 @@ class ProductosController extends Controller
      */
     public function destroy(Productos $productos,$id)
     {
+        $producto = Productos::FindOrFail($id);
+        Storage::delete('public/'.$producto->ruta_foto);
         Productos::destroy($id);
         return redirect('producto');
     }

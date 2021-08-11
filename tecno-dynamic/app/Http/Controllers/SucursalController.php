@@ -14,7 +14,8 @@ class SucursalController extends Controller
      */
     public function index()
     {
-        return view('sucursal.index');
+        $sucursal = Sucursal::all();
+        return view('sucursal.index',compact('sucursal'));
     }
 
     /**
@@ -24,7 +25,7 @@ class SucursalController extends Controller
      */
     public function create()
     {
-        //
+        return view('sucursal.create');
     }
 
     /**
@@ -35,7 +36,11 @@ class SucursalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $sucursal = new Sucursal();
+        $sucursal->nombre = request('nombre');
+        $sucursal->responsable = request('responsable');
+        $sucursal->save();
+        return redirect('sucursal');
     }
 
     /**
@@ -55,9 +60,10 @@ class SucursalController extends Controller
      * @param  \App\Sucursal  $sucursal
      * @return \Illuminate\Http\Response
      */
-    public function edit(Sucursal $sucursal)
+    public function edit(Sucursal $sucursal, $id)
     {
-        //
+        $sucursal = Sucursal::findOrFail($id);
+        return view('sucursal.edit',compact('sucursal'));
     }
 
     /**
@@ -67,9 +73,16 @@ class SucursalController extends Controller
      * @param  \App\Sucursal  $sucursal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sucursal $sucursal)
+    public function update(Request $request, $id)
     {
-        //
+        $sucursal = Sucursal::FindOrFail($id);
+
+        $sucursal->nombre = request('nombre');
+        $sucursal->responsable = request('responsable');
+        
+        $sucursal->update();
+
+        return redirect('sucursal');
     }
 
     /**
@@ -78,16 +91,10 @@ class SucursalController extends Controller
      * @param  \App\Sucursal  $sucursal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sucursal $sucursal)
+    public function destroy(Sucursal $sucursal,$id)
     {
-        //
-    }
-    public function registro(){
-        return view('sucursal.registro');
-    }
-     
-    public function registrar(){
-        return view('sucursal.registro');
+        Sucursal::destroy($id);
+        return redirect('sucursal');
     }
 
 }
