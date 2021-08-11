@@ -1,6 +1,6 @@
 @extends('layouts.panel')
 @section('subtitulo','proveedores')
-@section('content')
+@section('content') 
 <div class="card shadow" style="background-color:#11cdef; color: white; font color: yellow !important">
     <div class="card-header border-0">
         <div class="row align-items-center">
@@ -24,9 +24,7 @@
         @endif
         <form action="{{ url('proveedor') }}" method="post">
             @csrf
-
             <div class="col-md-12 mx-auto ">
-
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group">
@@ -52,14 +50,12 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="direccion">Tipo de Venta</label>
-                            <select class="form-control">
-                                <option>Default select</option>
-                            </select>
+                            <input type="text" name="tipo_venta" class="form-control" placeholder="Efectivo"
+                                value="{{ old('tipo_venta')}}" required>
                         </div>
                     </div>
                 </div>
             </div>
-
             @include('venta.table.table')
             <div class="col-md-12 mx-auto ">
                 <div class="row">

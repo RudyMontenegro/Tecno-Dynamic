@@ -64,11 +64,12 @@ class ProveedorController extends Controller
         $proveedor->web_site = $request->input('web_site');
         $proveedor->categoria = $request->input('categoria');
         $proveedor->save();
-        return redirect('/proveedor');
+        return redirect('/proveedor')->with('Estado','El proveedor registrado correctamente'); 
+        return view('proveedor.index', compact('proveedores'));
         }
 
         else{
-        return redirect('/proveedor')->with('Estado','El codigo de producto ya esta registrado'); 
+        return redirect('/proveedor')->with('Estado','El proveedor ya esta registrado'); 
         }
     }
 

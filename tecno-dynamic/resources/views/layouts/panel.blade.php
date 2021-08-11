@@ -20,6 +20,7 @@
 
     <script src="/assets/vendor/js-cookie/js.cookie.js"></script>
 <script src="/assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
 </head>
 
 <body>

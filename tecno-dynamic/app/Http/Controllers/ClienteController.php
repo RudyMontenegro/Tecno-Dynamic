@@ -48,7 +48,7 @@ class ClienteController extends Controller
         
         ];
 
-        $Mensaje = [
+        $Mensaje = [ 
             
             "required"=>'El campo es requerido',
             "regex"=>'Solo se admiten letras',
