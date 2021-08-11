@@ -1,7 +1,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
 
 <div class="card shadow">
-<form action="{{ url('proveedor') }}" method="post">
+<form action="{{ url('venta') }}" method="post">
             @csrf
     <div class="card-header border-0">
         <div class="row align-items-center">
@@ -66,12 +66,13 @@
                             </div>
                         </tbody>
                     </table>
-                    <button type="button" class="btn btn-success btn-lg btn-block" id="adicional"
+                    <button type="submit" class="btn btn-success btn-lg btn-block" id="adicional4x| "
                         name="adicional">Gurdar y añadir</button>
                 </div>
             </div>
         </div>
     </div>
+</form>
 </div>
 
 <script>

@@ -47,6 +47,7 @@ Route::get('/venta', 'VentaController@index')->middleware('auth');
 Route::get('/venta/{ventas}/show', 'VentaController@show')->middleware('auth');
 Route::get('/venta/create', 'VentaController@create')->middleware('auth');
 Route::post('/venta', 'VentaController@store')->middleware('auth');
+Route::post('/ventaDetalle', 'VentaController@store')->middleware('auth');
 Route::get('/venta/{ventas}/edit', 'VentaController@edit')->middleware('auth');
 Route::put('/venta/{ventas}', 'VentaController@update')->middleware('auth');
 Route::delete('/venta/{ventas}', 'VentaController@destroy')->middleware('auth');     
