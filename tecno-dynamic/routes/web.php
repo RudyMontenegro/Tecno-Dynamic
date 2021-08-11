@@ -21,6 +21,19 @@ Route::post('/proveedor', 'ProveedorController@store')->middleware('auth');
 Route::get('/proveedor/{proveedor}/edit', 'ProveedorController@edit')->middleware('auth');
 Route::put('/proveedor/{proveedor}', 'ProveedorController@update')->middleware('auth');
 Route::delete('/proveedor/{proveedor}', 'ProveedorController@destroy')->middleware('auth');
+//SUCURSALES
+Route::get('/sucursal', 'SucursalController@index')->middleware('auth');
+Route::get('/sucursal/registrarSucursal', 'SucursalController@create')->middleware('auth');
+Route::post('/sucursal/registrarSucursal', 'SucursalController@store')->middleware('auth');
+Route::get('/sucursal/editar/{id}', 'SucursalController@edit')->middleware('auth')->name('sucursal.edit');
+Route::patch('/sucursal/editar/{id}', 'SucursalController@update')->middleware('auth');
+Route::delete('/sucursal/{id}', 'SucursalController@destroy')->middleware('auth');
+//TRANFERENCIAS
+Route::get('/transferencia', 'TransferenciaController@index')->middleware('auth');
+Route::get('/transferencia/registrarTransferencia', 'TransferenciaController@create')->middleware('auth');
+Route::post('/transferencia/registrarTransferencia', 'TransferenciaController@store')->middleware('auth');
+Route::get('/transferencia/editar/{id}', 'TransferenciaController@edit')->middleware('auth')->name('sucursal.edit');
+Route::patch('/transferencia/editar/{id}', 'TransferenciaController@update')->middleware('auth');
 //PRODUCTO
 Route::get('/producto', 'ProductosController@index')->middleware('auth');
 Route::get('/producto/prueba', 'ProductosController@prueba')->middleware('auth');

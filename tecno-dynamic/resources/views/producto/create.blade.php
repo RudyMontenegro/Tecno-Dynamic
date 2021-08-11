@@ -141,7 +141,14 @@
         {!!  $errors->first('proveedor','<div class="invalid-feedback">:message</div>') !!}
     </div>
     <div class="col-5">
-        
+        <label for="sucursal">Sucursal</label>
+        <select name="sucursal" id="sucursal" class="form-control  {{$errors->has('sucursal')?'is-invalid':'' }}">
+        <option selected disabled>Elige una Sucursal</option>
+        @foreach ($sucursal as $sucursal)
+            <option {{ old('sucursal') == $sucursal->id ? "selected" : "" }} value="{{$sucursal->id}}">{{$sucursal->nombre}}</option>
+        @endforeach
+        </select>
+        {!!  $errors->first('sucursal','<div class="invalid-feedback">:message</div>') !!}
     </div>
        
 </div> 

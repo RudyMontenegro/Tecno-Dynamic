@@ -27,6 +27,7 @@ class CreateProductosTable extends Migration
             $table->bigInteger('cantidad_inicial');
             $table->unsignedBigInteger('id_proveedor');
             $table->unsignedBigInteger('id_categoria');
+            $table->unsignedBigInteger('id_sucursal');
             $table->string('ruta_foto')->nullable();
             $table->string('foto')->nullable();
 
@@ -38,6 +39,11 @@ class CreateProductosTable extends Migration
             $table->foreign('id_categoria')
             ->references('id')
             ->on('categorias')
+            ->onDelete('cascade');
+
+            $table->foreign('id_sucursal')
+            ->references('id')
+            ->on('sucursals')
             ->onDelete('cascade');
 
             $table->timestamps();

@@ -14,14 +14,24 @@
              <i class="ni ni-tv-2 text-primary"></i> Dashboard
          </a>
      </li>
+     <li class="nav-item {{ request()->is('sucursal') || request()->is('sucursal/create*') || request()->is('sucursal/editar*')?  'active' : ''}}">
+        <a class="nav-link" href="{{ url('/sucursal')}}">
+            <i class="ni ni-shop text-blue"></i> Sucursales
+        </a>
+    </li>
+    <li class="nav-item {{ request()->is('transferencia') || request()->is('transferencia/create*') || request()->is('transferencia/editar*')?  'active' : ''}}">
+        <a class="nav-link" href="{{ url('/transferencia')}}">
+            <i class="fas fa-sync-alt text-blue"></i> Transferencias
+        </a>
+    </li>
      <li class="nav-item {{ request()->is('venta') || request()->is('venta/create*') || request()->is('venta/{venta}*')?  'active' : ''}}">
          <a class="nav-link" href="{{ url('/venta')}}">
              <i class="ni ni-basket text-blue"></i> Ventas
          </a>
      </li>
-     <li class="nav-item {{ request()->is('producto') || request()->is('registrarProducto') || request()->is('producto/editar*')? 'active' : ''}}">
+     <li class="nav-item {{ request()->is('producto') || request()->is('producto/registrarProducto*') || request()->is('producto/editar*')? 'active' : ''}}">
         <a class="nav-link" href="{{url('producto')}}">
-            <i class="fab fa-product-hunt"></i></i> Producto
+            <i class="fab fa-product-hunt text-blue"></i> Productos
         </a>
       </li>
       <li class="nav-item {{ request()->is('proveedor') || request()->is('proveedor/create*') || request()->is('proveedor/{proveedor}*')?  'active' : ''}}">
