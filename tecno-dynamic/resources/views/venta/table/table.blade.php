@@ -1,5 +1,8 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
+
 <div class="card shadow">
+<form action="{{ url('proveedor') }}" method="post">
+            @csrf
     <div class="card-header border-0">
         <div class="row align-items-center">
             <div class="col text-right">
@@ -64,7 +67,7 @@
                         </tbody>
                     </table>
                     <button type="button" class="btn btn-success btn-lg btn-block" id="adicional"
-                                        name="adicional" >Añadir items</button>
+                        name="adicional">Gurdar y añadir</button>
                 </div>
             </div>
         </div>
@@ -76,6 +79,7 @@ $(function() {
     // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
     $("#adicional").on('click', function() {
         $("#tabla tbody tr:eq(0)").clone().removeClass('fila-fija').appendTo("#tabla");
+        $(this).val('');
     });
 
     // Evento que selecciona la fila y la elimina 
