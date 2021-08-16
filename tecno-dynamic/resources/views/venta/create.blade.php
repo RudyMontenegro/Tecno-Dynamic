@@ -1,7 +1,7 @@
 @extends('layouts.panel')
 @section('subtitulo','proveedores')
 @section('content') 
-<div class="card shadow" style="background-color:#11cdef; color: white; font color: yellow !important">
+<div class="card shadow" >
     <div class="card-header border-0">
         <div class="row align-items-center">
             <div class="col">
@@ -22,8 +22,7 @@
             </ul>
         </div>
         @endif
-        <form action="{{ url('proveedor') }}" method="post">
-            @csrf
+        
             <div class="col-md-12 mx-auto ">
                 <div class="row">
                     <div class="col-6">
@@ -96,7 +95,7 @@
                     Guardar
                 </button>
             </div>
-        </form>
+       
     </div>
 </div>
 @endsection
