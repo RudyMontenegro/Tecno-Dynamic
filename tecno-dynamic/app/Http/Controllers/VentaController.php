@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Cliente;
 use App\Venta;
 use App\VentaDetalle;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class VentaController extends Controller
@@ -20,19 +22,19 @@ class VentaController extends Controller
  
     public function store(Request $request)
     {
-       // dd($request->all());
+     //  dd($request->all());
       
        // $this->validate($request);
 
-       $nitBD = DB::table('proveedors')
-                ->select('nit')
-                ->where('nit','=',request('nit'))
-                ->exists();
+      //* $nitBD = DB::table('proveedors')
+               // ->select('nit')
+                //->where('nit','=',request('nit'))
+                //->exists();
         
-        $nomBD = DB::table('proveedors')
-                ->select('nombre_empresa')
-                ->where('nombre_empresa','=',request('nombre_empresa'))
-                ->exists();
+        //$nomBD = DB::table('proveedors')
+                //->select('nombre_empresa')
+                //->where('nombre_empresa','=',request('nombre_empresa'))
+                //->exists();
 
        // if($nitBD == false && $nomBD==false){
             
@@ -45,14 +47,14 @@ class VentaController extends Controller
         $ventaDetalle->precio = $request->input('precio');
         $ventaDetalle->sub_total = $request->input('sub_total');
         $ventaDetalle->id_venta = $request->input('id_venta');
-        dd($ventaDetalle);
+        //dd($ventaDetalle);
         $ventaDetalle->save();
 
-        return redirect('/venta');
+      //  return redirect('/venta');
       //  }
 
       //  else{
-        return redirect('/venta')->with('Estado','Se guaardo detaller'); 
+      //  return redirect('/venta')->with('Estado','Se guaardo detaller'); 
         //}
     }
    
@@ -81,5 +83,24 @@ class VentaController extends Controller
     {
         $venta->delete();
         return redirect('/venta');
+    }
+    function fetch(Request $request)
+    {
+     if($request->get('query'))
+     {
+      $query = $request->get('query');
+      $data = DB::table('clientes')
+        ->where('nombre_contacto', 'LIKE', "%{$query}%")
+        ->get();
+      $output = '<datalist id="datalistOptions">';
+      foreach($data as $row)
+      {
+       $output .= '
+       <option>'.$row->nombre_contacto.'</option>
+       ';
+      }
+      $output .= '</datalist>';
+      echo $output;
+     }
     }
 } 
