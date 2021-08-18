@@ -17,12 +17,11 @@ class CreateTransferenciasTable extends Migration
             $table->bigIncrements('id');
             $table->string('comprobante');
             $table->string('responsable_transferencia');
-            $table->date('fecha');
-            $table->string('sucursal_origen');
+            $table->dateTime('fecha');
+            $table->unsignedBigInteger('sucursal_origen');
             $table->string('sucursal_destino');
-            $table->unsignedBigInteger('id_sucursal');
 
-            $table->foreign('id_sucursal')
+            $table->foreign('sucursal_origen')
             ->references('id')
             ->on('sucursals')
             ->onDelete('cascade');

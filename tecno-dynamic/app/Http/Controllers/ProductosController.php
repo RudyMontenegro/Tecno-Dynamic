@@ -138,7 +138,7 @@ class ProductosController extends Controller
             $producto->cantidad_inicial = $request->get('cantidadInicial');
             $producto->id_proveedor = $request->get('proveedor');
             $producto->id_categoria = $request->get('categoria');
-            
+            $producto->id_sucursal = $request->get('sucursal');
 
             if($request->hasfile('foto')){
         

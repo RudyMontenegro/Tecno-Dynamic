@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Sucursal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SucursalController extends Controller
 {
@@ -14,6 +15,7 @@ class SucursalController extends Controller
      */
     public function index()
     {
+        
         $sucursal = Sucursal::all();
         return view('sucursal.index',compact('sucursal'));
     }
@@ -95,6 +97,19 @@ class SucursalController extends Controller
     {
         Sucursal::destroy($id);
         return redirect('sucursal');
+    }
+    public function validar(Sucursal $sucursal)
+    {
+        $db_handle = new Sucursal();
+
+        if(!empty($_POST["nombre"])) {
+            $user_count = $db_handle->numRows($_POST["nombre"]);
+            if($user_count>0) {
+                echo "<span  class='estado-no-disponible-usuario'><h5 class='estado-no-disponible-usuario'>Nombre de sucursal no disponible</h5></span>";
+            }else{
+                echo "<span class='estado-disponible-usuario'><h5 class='estado-disponible-usuario'>Sucursal disponible</h5></span>";
+            }
+        }
     }
 
 }
