@@ -92,14 +92,14 @@ class VentaController extends Controller
       $data = DB::table('clientes')
         ->where('nombre_contacto', 'LIKE', "%{$query}%")
         ->get();
-      $output = '<ul class="dropdown-menu" style="display:block; position:relative">';
+      $output = '<datalist id="datalistOptions">';
       foreach($data as $row)
       {
        $output .= '
-       <li><a href="#">'.$row->nombre_contacto.'</a></li>
+       <option>'.$row->nombre_contacto.'</option>
        ';
       }
-      $output .= '</ul>';
+      $output .= '</datalist>';
       echo $output;
      }
     }

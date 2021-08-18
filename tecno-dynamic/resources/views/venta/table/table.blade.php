@@ -11,7 +11,6 @@
                     <div class="table-responsive">
 
                         <!-- Projects table -->
-                        <input class="form-control" id="search" type="text" placeholder="Default input" aria-label="default input example">
                         <table class="table align-items-center"  id="tabla">
                             <thead class="thead-light">
                                 <tr>
