@@ -96,5 +96,19 @@ class SucursalController extends Controller
         Sucursal::destroy($id);
         return redirect('sucursal');
     }
+    public function validar(Sucursal $sucursal)
+    {
+        $db_handle = new Sucursal();
+
+        if(!empty($_POST["nombre"])) {
+            $query = "SELECT * FROM sucursals WHERE nombre='" . $_POST["nombre"] . "'";
+            $user_count = $db_handle->numRows($_POST["nombre"]);
+            if($user_count>0) {
+                echo "<span class='estado-no-disponible-usuario'> Usuario NO Disponible.</span>";
+            }else{
+                echo "<span class='estado-disponible-usuario'> Usuario Disponible.</span>";
+            }
+        }
+    }
 
 }
