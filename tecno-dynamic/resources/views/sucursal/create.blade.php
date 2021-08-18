@@ -3,9 +3,7 @@
 @section('subtitulo','sucursal')
 @section('content')
 
-<head>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    </head>
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 <div class="card shadow">
     <div class="card-header border-0">
          <h1 class="text-center">REGISTRO DE NUEVA SUCURSAL</h1>
@@ -20,14 +18,13 @@
     <script>
         function comprobarSucursal() {
             $("#loaderIcon").show();
-            jQuery.ajaxSetup({
-                headers: {
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-              });
+            
             jQuery.ajax({
             url: "/sucursal/validar",
-            data:'nombre='+$("#nombre").val(),
+            data:{
+                "_token": "{{ csrf_token() }}",
+                "nombre": $("#nombre").val(),
+            },
             asycn:false,
             type: "POST",
             success:function(data){
@@ -40,7 +37,14 @@
             });
         }
         </script>
-
+        <style>
+            .estado-no-disponible-usuario {
+                color:#D60202;
+            }
+            .estado-disponible-usuario {
+                color:#2FC332;
+            }
+        </style>
 <form action="{{url('/sucursal/registrarSucursal')}}" class="form" method="post" enctype="multipart/form-data">
 
     {{ csrf_field()}}
@@ -54,7 +58,7 @@
     <div class="col-6">
         <label for="nombre"class="control-label">{{'Nombre'}}</label>
         <input type="text" class="form-control  {{$errors->has('nombre')?'is-invalid':'' }}" name="nombre" id="nombre" 
-        onBlur="comprobarSucursal()" value="{{ isset($sucursal->nombre)?$sucursal->nombre:old('nombre')  }}"
+        value="{{ isset($sucursal->nombre)?$sucursal->nombre:old('nombre')  }}" onBlur="comprobarSucursal()" 
         >
         <span id="estadoSucursal"></span>
     {!!  $errors->first('nombre','<div class="invalid-feedback">:message</div>') !!}

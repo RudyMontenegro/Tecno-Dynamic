@@ -19,8 +19,7 @@ class Sucursal extends Model
     function numRows($nombre) {
         $result  = DB::table('sucursals')
                     ->where('nombre','=', $nombre)
-                    ->selectRaw('count(*)')
-                    ->first();
+                    ->count();
         return $result;
     }
 }
