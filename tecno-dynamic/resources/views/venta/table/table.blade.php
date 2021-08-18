@@ -11,7 +11,7 @@
                     <div class="table-responsive">
 
                         <!-- Projects table -->
-                        <table class="table align-items-center"  id="tabla">
+                        <table class="table align-items-center" id="tabla">
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col">Codigo de producto</th>
@@ -33,31 +33,25 @@
                                             <input name="nombre" id="nombre" type="text" class="form-control">
                                         </td>
                                         <td>
-                                            <input name="cantidad" class="form-control" type="number" value="23"
-                                                id="example-number-input">
+                                            <input name="cantidad" id="cantidad" onBlur="calcular()"
+                                                class="form-control" type="number" id="example-number-input">
                                         </td>
                                         <td>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text">$</span>
+                                                    <span class="input-group-text">Bs</span>
                                                 </div>
-                                                <input type="text" name="unidad" class="form-control"
-                                                    aria-label="Amount (to the nearest dollar)">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text">.00</span>
-                                                </div>
+                                                <input type="number" name="precio" id="precio" onBlur="calcular()"
+                                                    class="form-control">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text">$</span>
+                                                    <span class="input-group-text">Bs</span>
                                                 </div>
-                                                <input type="text" name="precio" class="form-control" id="onlyIn" name="onlyIn
-                                                aria-label=" Amount (to the nearest dollar)">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text">.00</span>
-                                                </div>
+                                                <input type="number" name="sub_total" id="sub_total"
+                                                    class="form-control">
                                             </div>
                                         </td>
                                         <td class="eliminar" id="deletRow" name="deletRow">
@@ -81,17 +75,28 @@
 
 
 <script type="text/javascript">
+function calcular() {
+    try {
+        var a = $("input[name=cantidad]").val();
+        var b = $("input[name=precio]").val();
+        document.getElementById("sub_total").value = a * b;
+    } catch (e) {
+
+    }
+}
 
 function limpiarCampos() {
     $("#codigo_producto").val('');
- //   $("#apellidos").val('');
-   // $("#dni").val('');
+    $("#nombre").val('');
+    //  $("#sub_total").val('');
+    $("#cantidad").val('');
+    $("#precio").val('');
 
 }
 $(".btnenviar").click(function(e) {
 
     $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla").removeClass('fila-fija');
-   // $(this).val(''); // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
+    // $(this).val(''); // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
 
     $(document).on("click", ".eliminar", function() {
         var parent = $(this).parents().get(0);
@@ -100,15 +105,23 @@ $(".btnenviar").click(function(e) {
 
     e.preventDefault(); //evitar recargar la pagina..
     var codigo_producto = $("input[name=codigo_producto]").val();
-
+    var nombre = $("input[name=nombre]").val();
+    var cantidad = $("input[name=cantidad]").val();
+    var precio = $("input[name=precio]").val();
+    var sub_total = $("input[name=sub_total]").val();
     $.ajax({
         type: 'POST',
         url: '/venta',
         data: {
             "_token": "{{ csrf_token() }}",
             codigo_producto: codigo_producto,
+            nombre:nombre,
+            cantidad:cantidad,
+            precio:precio,
+            sub_total:sub_total
         },
     });
     limpiarCampos();
+    calcular();
 });
 </script>

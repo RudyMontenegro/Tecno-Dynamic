@@ -74,3 +74,4 @@ Route::put('/compra/{compras}', 'CompraController@update')->middleware('auth');
 Route::delete('/compra/{compras}', 'CompraController@destroy')->middleware('auth');
 //jquery
 Route::post('/autocomplete', 'VentaController@fetch');
+Route::get('/autocompleteNit/{cliente}', 'VentaController@fetchNit');

@@ -35,20 +35,26 @@
         <div class="col-md-12 mx-auto ">
             <div class="row">
 
-           
+
                 <div class="col-6">
                     <div class="form-group">
 
                         <label for="nombre_empresa">Cliente</label>
-                        <input class="form-control"  name="nombre_contacto" id="nombre_contacto"  list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+                        <input class="form-control" name="nombre_contacto" id="nombre_contacto" list="datalistOptions"
+                            id="exampleDataList" placeholder="Type to search...">
                         <datalist id="countryList">
-                </datalist>
+                        </datalist>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="form-group">
                         <label for="nit">Nit</label>
-                        <input type="text" name="nombre_empresa" class="form-control" value="{{ old('name')}}" required>
+                        <input class="form-control" name="nombre_contacto" id="nombre_contacto" list="datalistOptions2"
+                            id="exampleDataList" placeholder="123456"   readonly >
+
+                        <datalist id="countryList">
+                        </datalist>
+
                     </div>
                 </div>
                 <div class="col-6">
@@ -113,7 +119,6 @@
 
     <script>
     $(document).ready(function() {
-
         $('#nombre_contacto').keyup(function() {
             var query = $(this).val();
             if (query != '') {
@@ -130,14 +135,9 @@
                         $('#countryList').html(data);
                     }
                 });
+
             }
         });
-
-        $(document).on('click', 'li', function() {
-            $('#nombre_contacto').val($(this).text());
-            $('#countryList').fadeOut();
-        });
-
     });
     </script>
 

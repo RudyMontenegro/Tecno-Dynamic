@@ -103,4 +103,13 @@ class VentaController extends Controller
       echo $output;
      }
     }
+
+    public function getNit(Request $request)
+    {
+        if ($request->ajax()) {
+            $clienteNit = Cliente::where('nombre_contacto', $request->nombre_contacto)->get();
+          
+            return response()->json($clienteNit);
+        }
+    }
 } 
