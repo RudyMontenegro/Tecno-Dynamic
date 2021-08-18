@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             'telefono' => '',
             'nivel_usuario'=> 'admin'
         ]);
-        //factory(Cliente::class, 50)->create();
+        factory(Cliente::class, 50)->create();
     }
     
 }

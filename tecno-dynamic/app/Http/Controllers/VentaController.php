@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Cliente;
 use App\Venta;
 use App\VentaDetalle;
@@ -88,14 +89,14 @@ class VentaController extends Controller
      if($request->get('query'))
      {
       $query = $request->get('query');
-      $data = Cliente::table('nombre_contacto')
+      $data = DB::table('clientes')
         ->where('nombre_contacto', 'LIKE', "%{$query}%")
         ->get();
       $output = '<ul class="dropdown-menu" style="display:block; position:relative">';
       foreach($data as $row)
       {
        $output .= '
-       <li><a href="#">'.$row->country_name.'</a></li>
+       <li><a href="#">'.$row->nombre_contacto.'</a></li>
        ';
       }
       $output .= '</ul>';

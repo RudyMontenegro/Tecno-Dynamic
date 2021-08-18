@@ -2,9 +2,12 @@
 @section('subtitulo','proveedores')
 @section('content')
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
-<script src="http://code.jquery.com/jquery-1.12.1.min.js"></script>
+<head>
+  <title>Ajax Autocomplete Textbox in Laravel using JQuery</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+
+ </head>
 
 <div class="card shadow">
     <div class="card-header border-0">
@@ -122,7 +125,7 @@ $(document).ready(function() {
             var _token = $('input[name="_token"]').val();
             $.ajax({
                 url: '/autocomplete',
-                method: "POST",
+                method: 'POST',
                 data: {
                     query: query,
                     _token: _token
