@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
+use App\Cliente;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -20,7 +21,7 @@ class DatabaseSeeder extends Seeder
             'telefono' => '',
             'nivel_usuario'=> 'admin'
         ]);
-        // $this->call(UsersTableSeeder::class);
+        //factory(Cliente::class, 50)->create();
     }
     
 }

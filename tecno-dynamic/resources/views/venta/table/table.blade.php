@@ -1,21 +1,22 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
-<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.12.1.min.js"></script>
+
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <div class="card shadow">
     <form>
-   @csrf
+        @csrf
         <div class="card-header border-0">
             <div class="row align-items-center">
                 <div class="col text-right">
                     <div class="table-responsive">
 
                         <!-- Projects table -->
-
-                        <table class="table align-items-center" id="tabla">
+                        <input class="form-control" id="search" type="text" placeholder="Default input" aria-label="default input example">
+                        <table class="table align-items-center"  id="tabla">
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col">Codigo de producto</th>
-                                    <th scope="col">Nombre del prodcuto</th>
+                                    <th scope="col">Nombre</th>
                                     <th scope="col">Cantidad</th>
                                     <th scope="col">Precio/Unidad</th>
                                     <th scope="col">Subtotal</th>
@@ -41,7 +42,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">$</span>
                                                 </div>
-                                                <input type="text" name="unidad"  class="form-control"
+                                                <input type="text" name="unidad" class="form-control"
                                                     aria-label="Amount (to the nearest dollar)">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">.00</span>
@@ -53,8 +54,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">$</span>
                                                 </div>
-                                                <input type="text" name="precio" class="form-control"
-                                                    id="onlyIn" name="onlyIn
+                                                <input type="text" name="precio" class="form-control" id="onlyIn" name="onlyIn
                                                 aria-label=" Amount (to the nearest dollar)">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">.00</span>
@@ -80,53 +80,36 @@
     </form>
 </div>
 
-<script>
-$(function() {
-    // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
-    $("#adicional").on('click', function() {
-      //  $("#tabla tbody tr:eq(0)").clone().removeClass('fila-fija').appendTo("#tabla");
-       // $(this).val('');
-    });
 
-    // Evento que selecciona la fila y la elimina 
+<script type="text/javascript">
+
+function limpiarCampos() {
+    $("#codigo_producto").val('');
+ //   $("#apellidos").val('');
+   // $("#dni").val('');
+
+}
+$(".btnenviar").click(function(e) {
+
+    $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla").removeClass('fila-fija');
+   // $(this).val(''); // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
+
     $(document).on("click", ".eliminar", function() {
         var parent = $(this).parents().get(0);
         $(parent).remove();
-    });
-});
-</script>
-<script type="text/javascript">
-
-function limpiarCampos(){
-      $("#nombres").val('');
-      $("#apellidos").val('');
-      $("#dni").val('');
-      
-   }
-
-$.ajaxSetup({
-    headers: {
-      //  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      //  'X-CSRF-TOKEN': $("input[name=_token]").val()
-        
-    }
-});
-
-$(".btnenviar").click(function(e) {
-
-    $("#tabla tbody tr:eq(0)").clone().removeClass('fila-fija').appendTo("#tabla");
-        $(this).val('');
+    }); // Evento que selecciona la fila y la elimina 
 
     e.preventDefault(); //evitar recargar la pagina..
     var codigo_producto = $("input[name=codigo_producto]").val();
-    
+
     $.ajax({
-        type:'POST',
-           url:'/venta',
+        type: 'POST',
+        url: '/venta',
         data: {
-            "_token": "{{ csrf_token() }}", codigo_producto: codigo_producto,
+            "_token": "{{ csrf_token() }}",
+            codigo_producto: codigo_producto,
         },
     });
-
+    limpiarCampos();
 });
 </script>
