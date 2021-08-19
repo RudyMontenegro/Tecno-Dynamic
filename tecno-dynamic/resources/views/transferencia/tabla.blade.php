@@ -30,7 +30,7 @@
                                 </select>
                             </div>
                             <div class="col-6">
-                                <label for="nombre"class="control-label text-darker float-left">{{'Nombre'}}</label>
+                                <label for="nombre"class="control-label text-darker float-left">{{'Nombree'}}</label>
                                 <input type="text" class="form-control  {{$errors->has('nombre')?'is-invalid':'' }}" name="nombre[]" id="nombre" 
                                 value="{{ isset($transferencia->nombre)?$transferencia->nombre:old('nombre')  }}"
                                 >

@@ -3,7 +3,7 @@
 @section('content')
 
 <head>
-    <title>Ajax Autocomplete Textbox in Laravel using JQuery</title>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
 
@@ -16,7 +16,7 @@
                 <h3 class="mb-0">Nueva Venta</h3>
             </div>
             <div class="col text-right">
-                <a href="{{ url('proveedor') }}" class="btn btn-sm btn-danger">Canselar y volver</a>
+                <a href="{{ url('/venta') }}" class="btn btn-sm btn-danger">Canselar y volver</a>
             </div>
         </div>
     </div>

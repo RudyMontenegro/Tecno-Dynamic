@@ -3,6 +3,8 @@
 use Illuminate\Database\Seeder;
 use App\User;
 use App\Cliente;
+use App\Proveedor;
+use App\Categoria;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -21,7 +23,9 @@ class DatabaseSeeder extends Seeder
             'telefono' => '',
             'nivel_usuario'=> 'admin'
         ]);
-        factory(Cliente::class, 50)->create();
+        factory(Proveedor::class, 10)->create();
+        factory(Categoria::class, 2)->create();
+        factory(Cliente::class, 100)->create();
     }
     
 }

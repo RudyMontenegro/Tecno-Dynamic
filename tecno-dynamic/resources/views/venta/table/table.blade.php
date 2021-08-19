@@ -30,19 +30,26 @@
                                                 class="form-control">
                                         </th>
                                         <td>
-                                            <input name="nombre" id="nombre" type="text" class="form-control">
+                                            <input type="text"
+                                                class="form-control  {{$errors->has('nombre')?'is-invalid':'' }}"
+                                                name="nombre[]" id="nombre"
+                                                value="{{ isset($transferencia->nombre)?$transferencia->nombre:old('nombre')  }}">
                                         </td>
                                         <td>
-                                            <input name="cantidad" id="cantidad" onBlur="calcular()"
-                                                class="form-control" type="number" id="example-number-input">
+                                            <input type="number" onBlur="calcular()"
+                                                class="form-control  {{$errors->has('cantidad')?'is-invalid':'' }}"
+                                                name="cantidad[]" id="cantidad"
+                                                value="{{ isset($transferencia->cantidad)?$transferencia->cantidad:old('cantidad')  }}">
                                         </td>
                                         <td>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">Bs</span>
                                                 </div>
-                                                <input type="number" name="precio" id="precio" onBlur="calcular()"
-                                                    class="form-control">
+                                                <input type="number" onBlur="calcular()"
+                                                    class="form-control  {{$errors->has('precio')?'is-invalid':'' }}"
+                                                    name="precio[]" id="precio"
+                                                    value="{{ isset($transferencia->precio)?$transferencia->precio:old('precio')  }}">
                                             </div>
                                         </td>
                                         <td>
@@ -50,9 +57,11 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">Bs</span>
                                                 </div>
-                                                <input type="number" name="sub_total" id="sub_total"
-                                                    class="form-control">
-                                            </div>
+
+                                                <input type="number"
+                                                    class="form-control  {{$errors->has('sub_total')?'is-invalid':'' }}"
+                                                    name="sub_total[]" id="sub_total"
+                                                    value="{{ isset($transferencia->sub_total)?$transferencia->sub_total:old('sub_total')  }}">
                                         </td>
                                         <td class="eliminar" id="deletRow" name="deletRow">
                                             <button class="btn btn-icon btn-danger " type="button">
@@ -64,8 +73,7 @@
                             </tbody>
                         </table>
                         <button type="submit" class="btn btn-success btn-lg btn-block btnenviar" id="adicional"
-                            name="adicional">Gurdar y añadir</button>
-
+                            name="adicional">Añadir</button>
                     </div>
                 </div>
             </div>
@@ -77,24 +85,23 @@
 <script type="text/javascript">
 function calcular() {
     try {
-        var a = $("input[name=cantidad]").val();
-        var b = $("input[name=precio]").val();
+        var a = $("input[id=cantidad]").val();
+        var b = $("input[id=precio]").val();
         document.getElementById("sub_total").value = a * b;
     } catch (e) {
 
     }
 }
-
 function limpiarCampos() {
     $("#codigo_producto").val('');
     $("#nombre").val('');
-    //  $("#sub_total").val('');
+    $("#sub_total").val('');
     $("#cantidad").val('');
     $("#precio").val('');
 
 }
 $(".btnenviar").click(function(e) {
-
+    e.preventDefault(); //evitar recargar la pagina..
     $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla").removeClass('fila-fija');
     // $(this).val(''); // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
 
@@ -102,26 +109,6 @@ $(".btnenviar").click(function(e) {
         var parent = $(this).parents().get(0);
         $(parent).remove();
     }); // Evento que selecciona la fila y la elimina 
-
-    e.preventDefault(); //evitar recargar la pagina..
-    var codigo_producto = $("input[name=codigo_producto]").val();
-    var nombre = $("input[name=nombre]").val();
-    var cantidad = $("input[name=cantidad]").val();
-    var precio = $("input[name=precio]").val();
-    var sub_total = $("input[name=sub_total]").val();
-    $.ajax({
-        type: 'POST',
-        url: '/venta',
-        data: {
-            "_token": "{{ csrf_token() }}",
-            codigo_producto: codigo_producto,
-            nombre:nombre,
-            cantidad:cantidad,
-            precio:precio,
-            sub_total:sub_total
-        },
-    });
     limpiarCampos();
-    calcular();
 });
 </script>
