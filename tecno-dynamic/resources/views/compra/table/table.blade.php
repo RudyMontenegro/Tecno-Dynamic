@@ -55,7 +55,7 @@
                               <thead class="thead-light">
                                     <tr>
                                       <th scope="col">
-                                          <button type="button" class="btn btn-sm btn-warning">Añadir</button>
+                                          <button type="button" class="btn btn-sm btn-block btn-success">Añadir</button>
                                      </th>
                                         <th scope="col"></th>
                                         <th scope="col"></th>

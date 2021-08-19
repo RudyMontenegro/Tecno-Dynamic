@@ -2,7 +2,7 @@
 @section('subtitulo','compras')
 @section('content')
  
-<div class="card shadow" style="background-color:#11cdef; color: white; font color: yellow !important">
+<div class="card shadow" style="background-color:#4F9BF6; color: white; font color: yellow !important">
    <div class="card-header border-0">
        <div class="row align-items-center">
               <div class="col">
