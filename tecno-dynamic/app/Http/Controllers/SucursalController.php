@@ -104,11 +104,17 @@ class SucursalController extends Controller
 
         if(!empty($_POST["nombre"])) {
             $user_count = $db_handle->numRows($_POST["nombre"]);
-            if($user_count>0) {
-                echo "<span  class='estado-no-disponible-usuario'><h5 class='estado-no-disponible-usuario'>Nombre de sucursal no disponible</h5></span>";
+            $contador = $db_handle->cuenta($_POST["nombre"]);
+            if($contador < 3){
+                echo "<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>";
             }else{
-                echo "<span class='estado-disponible-usuario'><h5 class='estado-disponible-usuario'>Sucursal disponible</h5></span>";
+                if($user_count>0) {
+                    echo "<span  class='estado-no-disponible-usuario'><h5 class='estado-no-disponible-usuario'>Nombre de sucursal no disponible</h5></span>";
+                }else{
+                    echo "<span class='estado-disponible-usuario'><h5 class='estado-disponible-usuario'>Sucursal disponible</h5></span>";
+                }
             }
+            
         }
     }
 
