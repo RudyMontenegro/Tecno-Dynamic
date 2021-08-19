@@ -22,4 +22,8 @@ class Sucursal extends Model
                     ->count();
         return $result;
     }
+    function cuenta($nombre) {
+        $result  =  strlen($nombre);
+        return $result;
+    }
 }
