@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Sucursal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SucursalController extends Controller
 {
@@ -14,7 +15,9 @@ class SucursalController extends Controller
      */
     public function index()
     {
-        return view('sucursal.index');
+        
+        $sucursal = Sucursal::all();
+        return view('sucursal.index',compact('sucursal'));
     }
 
     /**
@@ -24,7 +27,7 @@ class SucursalController extends Controller
      */
     public function create()
     {
-        //
+        return view('sucursal.create');
     }
 
     /**
@@ -35,7 +38,11 @@ class SucursalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $sucursal = new Sucursal();
+        $sucursal->nombre = request('nombre');
+        $sucursal->responsable = request('responsable');
+        $sucursal->save();
+        return redirect('sucursal');
     }
 
     /**
@@ -55,9 +62,10 @@ class SucursalController extends Controller
      * @param  \App\Sucursal  $sucursal
      * @return \Illuminate\Http\Response
      */
-    public function edit(Sucursal $sucursal)
+    public function edit(Sucursal $sucursal, $id)
     {
-        //
+        $sucursal = Sucursal::findOrFail($id);
+        return view('sucursal.edit',compact('sucursal'));
     }
 
     /**
@@ -67,9 +75,16 @@ class SucursalController extends Controller
      * @param  \App\Sucursal  $sucursal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sucursal $sucursal)
+    public function update(Request $request, $id)
     {
-        //
+        $sucursal = Sucursal::FindOrFail($id);
+
+        $sucursal->nombre = request('nombre');
+        $sucursal->responsable = request('responsable');
+        
+        $sucursal->update();
+
+        return redirect('sucursal');
     }
 
     /**
@@ -78,16 +93,29 @@ class SucursalController extends Controller
      * @param  \App\Sucursal  $sucursal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sucursal $sucursal)
+    public function destroy(Sucursal $sucursal,$id)
     {
-        //
+        Sucursal::destroy($id);
+        return redirect('sucursal');
     }
-    public function registro(){
-        return view('sucursal.registro');
-    }
-     
-    public function registrar(){
-        return view('sucursal.registro');
+    public function validar(Sucursal $sucursal)
+    {
+        $db_handle = new Sucursal();
+
+        if(!empty($_POST["nombre"])) {
+            $user_count = $db_handle->numRows($_POST["nombre"]);
+            $contador = $db_handle->cuenta($_POST["nombre"]);
+            if($contador < 3){
+                echo "<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>";
+            }else{
+                if($user_count>0) {
+                    echo "<span  class='estado-no-disponible-usuario'><h5 class='estado-no-disponible-usuario'>Nombre de sucursal no disponible</h5></span>";
+                }else{
+                    echo "<span class='estado-disponible-usuario'><h5 class='estado-disponible-usuario'>Sucursal disponible</h5></span>";
+                }
+            }
+            
+        }
     }
 
 }

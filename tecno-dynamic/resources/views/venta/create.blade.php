@@ -1,7 +1,15 @@
 @extends('layouts.panel')
 @section('subtitulo','proveedores')
-@section('content') 
-<div class="card shadow" style="background-color:#11cdef; color: white; font color: yellow !important">
+@section('content')
+
+<head>
+    <title>Ajax Autocomplete Textbox in Laravel using JQuery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+
+</head>
+
+<div class="card shadow">
     <div class="card-header border-0">
         <div class="row align-items-center">
             <div class="col">
@@ -22,44 +30,43 @@
             </ul>
         </div>
         @endif
-        <form action="{{ url('proveedor') }}" method="post">
-            @csrf
 
-            <div class="col-md-12 mx-auto ">
+        {{ csrf_field() }}
+        <div class="col-md-12 mx-auto ">
+            <div class="row">
 
-                <div class="row">
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="nombre_empresa">Cliente</label>
-                            <input type="text" name="nombre_empresa" class="form-control" value="{{ old('name')}}"
-                                required>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="nit">Nit</label>
-                            <input type="text" name="nombre_empresa" class="form-control" value="{{ old('name')}}"
-                                required>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="nanombre_contactome">Fecha</label>
-                            <input class="form-control" type="datetime-local" value="2018-11-23T10:30:00"
-                                id="example-datetime-local-input">
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="direccion">Tipo de Venta</label>
-                            <select class="form-control">
-                                <option>Default select</option>
-                            </select>
-                        </div>
+           
+                <div class="col-6">
+                    <div class="form-group">
+
+                        <label for="nombre_empresa">Cliente</label>
+                        <input class="form-control"  name="nombre_contacto" id="nombre_contacto"  list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+                        <datalist id="countryList">
+                </datalist>
                     </div>
                 </div>
-            </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="nit">Nit</label>
+                        <input type="text" name="nombre_empresa" class="form-control" value="{{ old('name')}}" required>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="nanombre_contactome">Fecha</label>
+                        <input class="form-control" type="datetime-local" value="2018-11-23T10:30:00"
+                            id="example-datetime-local-input">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="direccion">Tipo de Venta</label>
+                        <input type="text" name="tipo_venta" class="form-control" placeholder="Efectivo"
+                            value="{{ old('tipo_venta')}}" required>
+                    </div>
+                </div>
 
+            </div>
             @include('venta.table.table')
             <div class="col-md-12 mx-auto ">
                 <div class="row">
@@ -100,7 +107,39 @@
                     Guardar
                 </button>
             </div>
-        </form>
+
+        </div>
     </div>
-</div>
-@endsection
+
+    <script>
+    $(document).ready(function() {
+
+        $('#nombre_contacto').keyup(function() {
+            var query = $(this).val();
+            if (query != '') {
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url: '/autocomplete',
+                    method: 'POST',
+                    data: {
+                        query: query,
+                        _token: _token
+                    },
+                    success: function(data) {
+                        $('#countryList').fadeIn();
+                        $('#countryList').html(data);
+                    }
+                });
+            }
+        });
+
+        $(document).on('click', 'li', function() {
+            $('#nombre_contacto').val($(this).text());
+            $('#countryList').fadeOut();
+        });
+
+    });
+    </script>
+
+
+    @endsection

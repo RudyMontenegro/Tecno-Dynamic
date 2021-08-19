@@ -1,3 +1,9 @@
+import $ from 'jquery';
+window.$ = window.jQuery = $;
+
+$('#datepicker').datepicker();
+import 'jquery-ui/themes/base/all.css';
+import 'jquery-ui/ui/widgets/autocomplete.js';
 
 /**
  * First we will load all of this project's JavaScript dependencies which

@@ -163,4 +163,136 @@
  
 </script>
 </body>
+<script languaje="javascript">
+    function validar(){
+    elemento = document.getElementById('nombre').value;
+    if (!elemento){
+    window.alert("No has ingresado nada");
+    }
+    else{
+    window.alert("Adelante");
+    }
+    }
+    </script>
+    <form>
+    <input type="text" id="nombre">
+    <input type="submit" onclick="javascript:validar()">
+    </form>
+
+    <form id="prueba">
+        <label for="loginname" class="control-label">nombre de usuario:</label>
+        <input type="text" class="form-control" id="loginname" name="loginname">
+
+        <button type="submit">hola</button>
+    </form>
+
+    <script type='text/javascript'>
+    function validInput(input){
+        var type = $(input).attr('type');
+        var id = $(input).attr('id');
+        var error=false;
+        var msg= "";
+        var str_e = /^[a-zA-Z0-9_\.\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/;
+        if(id === "loginname"){
+            if (input.val().length === 0) {
+            error=true;
+            msg= "Porfavor ingresa un nombre";
+            }else if(input.val().length > 30){
+            error=true;
+            msg= "El nombre es muy largo";
+            }
+        }
+    
+        if (error=== true) {
+            input.removeClass().addClass('error-input');
+            input.next().removeClass().addClass("error");
+            var next = input.next('.error');
+            $(next).children(".msg").text(msg);
+        }else{
+            
+            input.removeClass().addClass('succes-input');
+            input.next().removeClass().addClass("succes");
+            var next = input.next('.succes');
+            $(next).children(".msg").text();
+        }
+        return input;
+        
+    }
+     
+    $('input').keyup(function(){
+        validInput($(this));
+    });
+</script>
 </html>
+
+<!DOCTYPE html>
+
+<html><head><title>Ejemplo aprenderaprogramar.com</title><meta charset="utf-8">
+
+<style type="text/css">body {background-color:yellow; font-family: sans-serif;} label{color: maroon; display:block; padding:5px;}
+
+</style>
+
+<script type="text/javascript">
+
+window.onload = function () {
+
+document.formularioContacto.nombre.focus();
+
+document.formularioContacto.addEventListener('submit', validarFormulario);
+
+}
+
+ 
+
+function validarFormulario(evObject) {
+
+evObject.preventDefault();
+
+var todoCorrecto = true;
+
+var formulario = document.formularioContacto;
+
+for (var i=0; i<formulario.length; i++) {
+
+                if(formulario[i].type =='text') {
+
+                               if (formulario[i].value == null || formulario[i].value.length == 0 || /^\s*$/.test(formulario[i].value)){
+
+                               alert (formulario[i].name+ ' no puede estar vacío o contener sólo espacios en blanco');
+
+                               todoCorrecto=false;
+
+                               }
+
+                }
+
+                }
+
+if (todoCorrecto ==true) {formulario.submit();}
+
+}
+
+ 
+
+</script></head>
+
+<body><div id="cabecera"><h1>Portal web aprenderaprogramar.com</h1><h2>Didáctica y divulgación de la programación</h2>
+
+</div>
+
+<!-- Formulario de contacto -->
+
+<form name ="formularioContacto" class="formularioTipo1" method="get" action="http://aprenderaprogramar.com">
+
+<p>Si quieres contactar con nosotros envíanos este formulario relleno:</p>
+
+<label for="nombre"><span>Nombre:</span> <input id="nombre" type="text" name="nombre" /></label>
+
+<label for="apellidos"><span>Apellidos:</span> <input id="apellidos" type="text" name="apellidos" /></label>
+
+<label for="email"><span>Correo electrónico:</span> <input id="email" type="text" name="email" /></label>
+
+<label><input type="submit" value="Enviar"><input type="reset" value="Cancelar"></label>
+
+</form></body></html>
