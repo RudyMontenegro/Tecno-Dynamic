@@ -71,7 +71,7 @@ class TransferenciaController extends Controller
         $transferencia->fecha = request('fecha');
         $transferencia->sucursal_origen = $request->get('sucursal_origen');
         $transferencia->sucursal_destino = $request->get('sucursal_destino');
-
+        
         $transferencia->save();
 
         $id_transferencia = DB::table('transferencias')
@@ -79,43 +79,27 @@ class TransferenciaController extends Controller
                                 ->where('fecha','=',request('fecha'))
                                 ->first();
         
-        $transferencia_detalle = new TransferenciaDetalle();
-
-        $transferencia_detalle->codigo_producto = request('codigo');;
-
-        if ($request->input('nombre')) {
+        if($request->input('nombre') && $request->input('cantidad') && $request->input('unidad') && $request->input('precio') && $request->input('subTotal')){
             $nombre = request('nombre');
-            foreach ($nombre as $nombre) {
-                $transferencia_detalle->nombre = $nombre;
-            }
-        }
-        if ($request->input('cantidad')) {
             $cantidad = request('cantidad');
-            foreach ($cantidad as $cantidad) {
-                $transferencia_detalle->cantidad = $cantidad;
-            }
-        }
-        if ($request->input('unidad')) {
             $unidad = request('unidad');
-            foreach ($unidad as $unidad) {
-                $transferencia_detalle->unidad = $unidad;
-            }
-        }
-        if ($request->input('precio')) {
             $precio = request('precio');
-            foreach ($precio as $precio) {
-                $transferencia_detalle->precio = $precio;
-            }
-        }
-        if ($request->input('subTotal')) {
             $subTotal = request('subTotal');
-            foreach ($subTotal as $subTotal) {
-                $transferencia_detalle->sub_total = $subTotal;
+            for ($i=0; $i < sizeOf($nombre); $i++) { 
+                $transferencia_detalle = new TransferenciaDetalle();
+
+                $transferencia_detalle->codigo_producto = request('codigo');
+                $transferencia_detalle->nombre = $nombre[$i];
+                $transferencia_detalle->cantidad = $cantidad[$i];
+                $transferencia_detalle->unidad = $unidad[$i];
+                $transferencia_detalle->precio = $precio[$i];
+                $transferencia_detalle->sub_total = $subTotal[$i];
+                $transferencia_detalle->id_transferencia = $id_transferencia->id;
+
+                $transferencia_detalle->save();
             }
         }
-        $transferencia_detalle->id_transferencia = $id_transferencia->id;
         
-        $transferencia_detalle->save();
 
         return redirect('transferencia');
     }
