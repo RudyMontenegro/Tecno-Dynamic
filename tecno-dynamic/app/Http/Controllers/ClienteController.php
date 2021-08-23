@@ -36,13 +36,10 @@ class ClienteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function imprimir(){
-        $clientes = DB::table('clientes')
-        ->select('clientes.*')
-        ->get();
-        
-        $pdf = \PDF::loadView('pdf.pdf',compact('clientes'))->setOptions(['defaultFont' => 'sans-serif']); 
+        $clientes = Cliente::all();
+        $pdf = \PDF::loadView('pdf.pdf',compact('clientes'));
     
-        return $pdf->download('invoice.pdf'); 
+        return $pdf->setPaper('a4', 'landscape')->stream('productoshorizontal.pdf');
         
     }
     public function store(Request $request)
