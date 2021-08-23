@@ -5,6 +5,8 @@ use App\User;
 use App\Cliente;
 use App\Proveedor;
 use App\Categoria;
+use App\Sucursal;
+use App\Productos;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -23,9 +25,18 @@ class DatabaseSeeder extends Seeder
             'telefono' => '',
             'nivel_usuario'=> 'admin'
         ]);
+        Sucursal::create([
+            'nombre' => 'Sucursal-Quillacollo',
+            'responsable' => 'Fernando'
+        ]);
+        Sucursal::create([
+            'nombre' => 'Sucursal-Sacaba',
+            'responsable' => 'Rudy'
+        ]);
         factory(Proveedor::class, 10)->create();
         factory(Categoria::class, 2)->create();
         factory(Cliente::class, 100)->create();
+       // factory(Productos::class, 100)->create();
     }
     
 }

@@ -40,4 +40,10 @@ $factory->define(App\Categoria::class, function (Faker $faker) {
         'descripcion' =>$faker-> paragraph($nbSentences = 3, $variableNbSentences = true)
     ];
 });
+//$factory->define(App\Productos::class, function (Faker $faker) {
+  //  return [
+       // 'codigo'=>$faker->randomElement(['intangible','tangible']),
+        //'descripcion' =>$faker-> paragraph($nbSentences = 3, $variableNbSentences = true)
+  //  ];
+//});
 

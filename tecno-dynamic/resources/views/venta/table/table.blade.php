@@ -11,6 +11,8 @@
                     <div class="table-responsive">
 
                         <!-- Projects table -->
+                        <input class="form-control" id="search" type="text" placeholder="Default input"
+                            aria-label="default input example">
                         <table class="table align-items-center" id="tabla">
                             <thead class="thead-light">
                                 <tr>
@@ -30,26 +32,20 @@
                                                 class="form-control">
                                         </th>
                                         <td>
-                                            <input type="text"
-                                                class="form-control  {{$errors->has('nombre')?'is-invalid':'' }}"
-                                                name="nombre[]" id="nombre"
-                                                value="{{ isset($transferencia->nombre)?$transferencia->nombre:old('nombre')  }}">
+                                            <input name="nombre" id="nombre" type="text" class="form-control">
                                         </td>
                                         <td>
-                                            <input type="number" onBlur="calcular()"
-                                                class="form-control  {{$errors->has('cantidad')?'is-invalid':'' }}"
-                                                name="cantidad[]" id="cantidad"
-                                                value="{{ isset($transferencia->cantidad)?$transferencia->cantidad:old('cantidad')  }}">
+                                            <input name="cantidad" id="cantidad" onBlur="calcular()"
+                                                class="form-control" type="number" id="example-number-input">
                                         </td>
                                         <td>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">Bs</span>
                                                 </div>
-                                                <input type="number" onBlur="calcular()"
-                                                    class="form-control  {{$errors->has('precio')?'is-invalid':'' }}"
-                                                    name="precio[]" id="precio"
-                                                    value="{{ isset($transferencia->precio)?$transferencia->precio:old('precio')  }}">
+                                                <input type="number" name="precio" id="precio" onBlur="calcular()"
+                                                    class="form-control">
+
                                             </div>
                                         </td>
                                         <td>
@@ -57,11 +53,10 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">Bs</span>
                                                 </div>
+                                                <input type="number" name="sub_total" id="sub_total"
+                                                    class="form-control">
 
-                                                <input type="number"
-                                                    class="form-control  {{$errors->has('sub_total')?'is-invalid':'' }}"
-                                                    name="sub_total[]" id="sub_total"
-                                                    value="{{ isset($transferencia->sub_total)?$transferencia->sub_total:old('sub_total')  }}">
+                                            </div>
                                         </td>
                                         <td class="eliminar" id="deletRow" name="deletRow">
                                             <button class="btn btn-icon btn-danger " type="button">
@@ -73,7 +68,8 @@
                             </tbody>
                         </table>
                         <button type="submit" class="btn btn-success btn-lg btn-block btnenviar" id="adicional"
-                            name="adicional">Añadir</button>
+                            name="adicional">Gurdar y añadir</button>
+
                     </div>
                 </div>
             </div>
@@ -82,33 +78,3 @@
 </div>
 
 
-<script type="text/javascript">
-function calcular() {
-    try {
-        var a = $("input[id=cantidad]").val();
-        var b = $("input[id=precio]").val();
-        document.getElementById("sub_total").value = a * b;
-    } catch (e) {
-
-    }
-}
-function limpiarCampos() {
-    $("#codigo_producto").val('');
-    $("#nombre").val('');
-    $("#sub_total").val('');
-    $("#cantidad").val('');
-    $("#precio").val('');
-
-}
-$(".btnenviar").click(function(e) {
-    e.preventDefault(); //evitar recargar la pagina..
-    $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla").removeClass('fila-fija');
-    // $(this).val(''); // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
-
-    $(document).on("click", ".eliminar", function() {
-        var parent = $(this).parents().get(0);
-        $(parent).remove();
-    }); // Evento que selecciona la fila y la elimina 
-    limpiarCampos();
-});
-</script>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Cliente;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
- 
+use \PDF;
 class ClienteController extends Controller
 {
     /**
@@ -35,6 +35,16 @@ class ClienteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function imprimir(){
+        $clientes = DB::table('clientes')
+        ->select('clientes.*')
+        ->get();
+        
+        $pdf = \PDF::loadView('pdf.pdf',compact('clientes'))->setOptions(['defaultFont' => 'sans-serif']); 
+    
+        return $pdf->download('invoice.pdf'); 
+        
+    }
     public function store(Request $request)
     {
         $campos=[

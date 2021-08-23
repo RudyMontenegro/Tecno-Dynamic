@@ -54,6 +54,7 @@ Route::get('/registrar','SucursalController@registro')->middleware('auth');
 Route::post('/registrar','SucursalController@registrar')->middleware('auth');
 //CLIENTE
 Route::get('/cliente', 'ClienteController@index')->middleware('auth');
+Route::get('/client/clientePDF', 'ClienteController@imprimir')->middleware('auth');
 Route::get('/cliente/registrarCliente','ClienteController@create')->middleware('auth');
 Route::post('/registrarCliente','ClienteController@store')->middleware('auth');
 Route::get('/cliente/editar/{id}','ClienteController@edit')->middleware('auth');
@@ -63,7 +64,7 @@ Route::delete('/cliente/{id}', 'ClienteController@destroy')->middleware('auth');
 Route::get('/venta', 'VentaController@index')->middleware('auth');
 Route::get('/venta/{ventas}/show', 'VentaController@show')->middleware('auth');
 Route::get('/venta/create', 'VentaController@create')->middleware('auth');
-Route::post('/venta', 'VentaController@store')->middleware('auth');
+Route::post('/venta', 'VentaController@store2')->middleware('auth');
 Route::post('/ventaDetalle', 'VentaController@store')->middleware('auth');
 Route::get('/venta/{ventas}/edit', 'VentaController@edit')->middleware('auth');
 Route::put('/venta/{ventas}', 'VentaController@update')->middleware('auth');
