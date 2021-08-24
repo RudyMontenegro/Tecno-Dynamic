@@ -30,6 +30,7 @@ Route::get('/sucursal/editar/{id}', 'SucursalController@edit')->middleware('auth
 Route::patch('/sucursal/editar/{id}', 'SucursalController@update')->middleware('auth');
 Route::delete('/sucursal/{id}', 'SucursalController@destroy')->middleware('auth');
 Route::post('/sucursal/validar', 'SucursalController@validar')->middleware('auth');
+Route::post('/sucursal/validarEditar', 'SucursalController@validarEditar')->middleware('auth');
 //TRANFERENCIAS
 Route::get('/transferencia', 'TransferenciaController@index')->middleware('auth');
 Route::get('transferencia/envio/{id}', 'TransferenciaController@sucursal')->middleware('auth');
