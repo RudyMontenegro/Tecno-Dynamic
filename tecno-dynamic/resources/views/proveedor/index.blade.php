@@ -11,7 +11,7 @@
                 <h3 class="mb-0">Lista de proveedores</h3>
             </div>
             <div class="col text-right">
-                <a href="{{url('/cliente/registrarCliente')}}" class="btn btn-sm btn-warning">Exportar a PDF</a>
+                <a href="{{url('proveedor/pdf')}}" class="btn btn-sm btn-warning">Exportar a PDF</a>
                 <a href="{{ url('proveedor/create') }}" class="btn btn-sm btn-primary">Nuevo Proveedor</a>
             </div>
         </div>

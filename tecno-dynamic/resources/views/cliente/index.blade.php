@@ -8,7 +8,7 @@
                 <h3>Lista de Clientes</h3>
             </div>
             <div class="col text-right">
-                <a href="{{url('/client/clientePDF')}}" class="btn btn-sm btn-warning">Exportar a PDF</a>
+                <a href="{{url('/cliente/pdf')}}" class="btn btn-sm btn-warning">Exportar a PDF</a>
                 <a href="{{url('/cliente/registrarCliente')}}" class="btn btn-sm btn-primary">Nuevo Cliente</a>
                 <a href="{{url('')}}" class="btn btn-sm btn-primary">Cuentas por Cobrar</a>
             </div>

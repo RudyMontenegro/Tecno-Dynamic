@@ -17,6 +17,7 @@ Route::get('/sucursal', 'SucursalController@index')->middleware('auth');
 Route::get('/proveedor', 'ProveedorController@index')->middleware('auth');
 Route::get('/proveedor/{proveedor}/show', 'ProveedorController@show')->middleware('auth');
 Route::get('/proveedor/create', 'ProveedorController@create')->middleware('auth');
+Route::get('/proveedor/pdf', 'ProveedorController@imprimir')->middleware('auth');
 Route::post('/proveedor', 'ProveedorController@store')->middleware('auth');
 Route::get('/proveedor/{proveedor}/edit', 'ProveedorController@edit')->middleware('auth');
 Route::put('/proveedor/{proveedor}', 'ProveedorController@update')->middleware('auth');
@@ -54,7 +55,7 @@ Route::get('/registrar','SucursalController@registro')->middleware('auth');
 Route::post('/registrar','SucursalController@registrar')->middleware('auth');
 //CLIENTE
 Route::get('/cliente', 'ClienteController@index')->middleware('auth');
-Route::get('/client/clientePDF', 'ClienteController@imprimir')->middleware('auth');
+Route::get('/cliente/pdf', 'ClienteController@imprimir')->middleware('auth');
 Route::get('/cliente/registrarCliente','ClienteController@create')->middleware('auth');
 Route::post('/registrarCliente','ClienteController@store')->middleware('auth');
 Route::get('/cliente/editar/{id}','ClienteController@edit')->middleware('auth');

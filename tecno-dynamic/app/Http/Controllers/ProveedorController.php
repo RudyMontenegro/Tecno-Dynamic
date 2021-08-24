@@ -19,22 +19,19 @@ class ProveedorController extends Controller
         $proveedores = Proveedor::all();
         return view('proveedor.index', compact('proveedores'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function imprimir(){
+        $proveedores = Proveedor::all();
+        $pdf = \PDF::loadView('proveedor.pdf',compact('proveedores'));// direccion del view, enviando variable.
+    
+        return $pdf->setPaper('a4', 'landscape')->stream('Preveedores.pdf');//stream-> solo muestra en el navegador
+        //a4, landscape-> enviar en formato horizontal
+    }
+   
     public function create()
     {
         return view('proveedor.crear');
     }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+   
     public function store(Request $request)
     {
        // dd($request->all());

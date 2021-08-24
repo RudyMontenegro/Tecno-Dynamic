@@ -37,7 +37,7 @@ class ClienteController extends Controller
      */
     public function imprimir(){
         $clientes = Cliente::all();
-        $pdf = \PDF::loadView('pdf.pdf',compact('clientes'));
+        $pdf = \PDF::loadView('cliente.pdf',compact('clientes'));
     
         return $pdf->setPaper('a4', 'landscape')->stream('productoshorizontal.pdf');
         
