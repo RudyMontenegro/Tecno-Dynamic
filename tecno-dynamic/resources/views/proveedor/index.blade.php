@@ -7,11 +7,12 @@
 <div class="card shadow">
     <div class="card-header border-0">
         <div class="row align-items-center">
-        <div class="col">
+            <div class="col">
                 <h3 class="mb-0">Lista de proveedores</h3>
             </div>
             <div class="col text-right">
-                <a href="{{ url('proveedor/create') }}" class="btn btn-sm btn-primary">Nueva Proveedor</a>
+                <a href="{{url('/cliente/registrarCliente')}}" class="btn btn-sm btn-warning">Exportar a PDF</a>
+                <a href="{{ url('proveedor/create') }}" class="btn btn-sm btn-primary">Nuevo Proveedor</a>
             </div>
         </div>
     </div>
@@ -43,8 +44,7 @@
                         {{ $proveedor->email }}
                     </td>
                     <td>
-                        <a href="{{ url('/proveedor/'.$proveedor->id.'/show') }}"
-                            class="btn btn-sm btn-info">Ver</a>
+                        <a href="{{ url('/proveedor/'.$proveedor->id.'/show') }}" class="btn btn-sm btn-info">Ver</a>
                         <a href="{{ url('/proveedor/'.$proveedor->id.'/edit') }}"
                             class="btn btn-sm btn-primary">Editar</a>
                         <button class="btn btn-sm btn-danger" type="submit" data-toggle="modal"

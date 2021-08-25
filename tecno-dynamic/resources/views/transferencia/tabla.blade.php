@@ -98,10 +98,8 @@
 $(function() {
     // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
     $("#adicional").on('click', function() {
-        $("#tabla2").clone().appendTo("#tabla2").find('input').val("");
-        
+        $("#tabla2").clone().appendTo("#tabla2").find('input').val("");  
     });
-    
     // Evento que selecciona la fila y la elimina 
     $(document).on("click", ".eliminar", function() {
         var parent = $(this).parents().get(0);

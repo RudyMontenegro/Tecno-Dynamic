@@ -22,23 +22,6 @@ class VentaController extends Controller
  
     public function store(Request $request)
     {
-     //  dd($request->all());
-      
-       // $this->validate($request);
-
-      //* $nitBD = DB::table('proveedors')
-               // ->select('nit')
-                //->where('nit','=',request('nit'))
-                //->exists();
-        
-        //$nomBD = DB::table('proveedors')
-                //->select('nombre_empresa')
-                //->where('nombre_empresa','=',request('nombre_empresa'))
-                //->exists();
-
-       // if($nitBD == false && $nomBD==false){
-            
-
         $ventaDetalle = new VentaDetalle();
         $ventaDetalle->codigo_producto = $request->input('codigo_producto');
         $ventaDetalle->nombre = $request->input('nombre');
@@ -47,15 +30,20 @@ class VentaController extends Controller
         $ventaDetalle->precio = $request->input('precio');
         $ventaDetalle->sub_total = $request->input('sub_total');
         $ventaDetalle->id_venta = $request->input('id_venta');
-        //dd($ventaDetalle);
         $ventaDetalle->save();
+    }
 
-      //  return redirect('/venta');
-      //  }
-
-      //  else{
-      //  return redirect('/venta')->with('Estado','Se guaardo detaller'); 
-        //}
+    public function store2(Request $request)
+    {
+        $venta = new Venta();
+        $venta->cliente = $request->input('cliente');
+     //   $venta->nombre = $request->input('nombre');
+       // $venta->cantidad = $request->input('cantidad');
+        //$venta->unidad = $request->input('unidad');
+      //  $venta->precio = $request->input('precio');
+      //  $venta->sub_total = $request->input('sub_total');
+     //   $venta->id_venta = $request->input('id_venta');
+        $venta->save();
     }
    
     public function show(Venta $venta)

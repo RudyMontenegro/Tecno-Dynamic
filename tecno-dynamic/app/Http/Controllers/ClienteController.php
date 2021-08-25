@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Cliente;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
- 
+use \PDF;
 class ClienteController extends Controller
 {
     /**
@@ -35,6 +35,13 @@ class ClienteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function imprimir(){
+        $clientes = Cliente::all();
+        $pdf = \PDF::loadView('pdf.pdf',compact('clientes'));
+    
+        return $pdf->setPaper('a4', 'landscape')->stream('productoshorizontal.pdf');
+        
+    }
     public function store(Request $request)
     {
         $campos=[
