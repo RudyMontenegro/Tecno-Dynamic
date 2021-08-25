@@ -8,7 +8,7 @@
     }
 </style>
 
-<div class="card shadow">
+<div class="card shadow" >
     <div class="card-header border-0">
         <div class="row align-items-center">
             <div class="col text-right">

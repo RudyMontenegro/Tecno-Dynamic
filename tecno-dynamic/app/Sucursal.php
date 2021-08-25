@@ -26,4 +26,10 @@ class Sucursal extends Model
         $result  =  strlen($nombre);
         return $result;
     }
+    function existe($nombre) {
+        $valida = DB::table('sucursals')
+                        ->where('nombre','=',$nombre)
+                        ->exists();
+        return $valida;
+    }
 }

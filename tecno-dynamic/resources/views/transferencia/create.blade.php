@@ -3,7 +3,7 @@
 @section('subtitulo','transferencia')
 @section('content')
 
-<div class="card shadow" style="background-color:#11cdef; color: white; font color: yellow !important">
+<div class="card shadow" style="background-color:#ffffff; color: rgb(0, 0, 0); font color: yellow !important">
     <div class="card-header border-0">
         <div class="row align-items-center">
             <div class="col">
@@ -24,6 +24,69 @@
             </ul>
         </div>
         @endif
+        <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+    <script>
+        
+        function validaComprobante() {
+
+            if($("#comprobante").val().length < 3){
+                $("#estadoComprobante").html("<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>");
+            }else{
+                if($("#comprobante").val().length > 50){
+                    $("#estadoComprobante").html("<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>");
+                }else{
+                    var re = new RegExp("^[0-9a-zA-Z ]+$");
+                    if(!re.test($("#comprobante").val())){
+                        $("#estadoComprobante").html("<span  class='menor'><h5 class='menor'>Solo se acepta caracteres [A-Z] y [0-9]</h5></span>");
+                    }else{
+                        $("#estadoComprobante").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+                    }
+                }
+                
+            }
+        }
+        
+        function validarResponsable() {
+
+            if($("#responsable").val().length < 3){
+                $("#estadoTransferencia").html("<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>");
+            }else{
+                if($("#responsable").val().length > 50){
+                    $("#estadoTransferencia").html("<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>");
+                }else{
+                     var re = new RegExp("^[a-zA-Z ]+$");
+                    if(!re.test($("#responsable").val())){
+                        $("#estadoTransferencia").html("<span  class='menor'><h5 class='menor'>Solo se acepta caracteres [A-Z]</h5></span>");
+                    }else{
+                         $("#estadoTransferencia").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+                    }
+                   
+                }
+                
+            }
+        }
+
+        function validarFecha(){
+            const date = new Date(),
+          ten = (i)=> ((i < 10 ? '0' : '') + i ),
+                YYYY = date.getFullYear(),
+                MTH = ten(date.getMonth() + 1),
+                DAY = ten(date.getDate()),
+                HH = ten(date.getHours()),
+                MM = ten(date.getMinutes()),
+                SS = ten(date.getSeconds())
+                // MS = ten(date.getMilliseconds())
+
+            document.getElementById("fecha").value=`${YYYY}-${MTH}-${DAY}T${HH}:${MM}`;
+        }
+        setTimeout(validarFecha,30000);
+        </script>
+        <style>
+            .menor {
+                color:#D60202;
+            }
+        </style>
+        
         <form action="{{ url('transferencia/registrarTransferencia') }}" method="post">
 
             {{ csrf_field()}}
@@ -33,22 +96,32 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="comprobante">Comprobante</label>
+<<<<<<< HEAD
                             <input type="text" name="comprobante" id="comprobante" class="form-control"
                                 value="{{ old('comprobante')}}">
+=======
+                            <input type="text" name="comprobante" id="comprobante" class="form-control" value="{{ old('comprobante')}}"
+                            onkeyup="validaComprobante()"><span id="estadoComprobante"></span>
+>>>>>>> f0c253d26985d75c15231889c185d7fabd0e1623
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label for="responsable">Responsable Transferencia</label>
+<<<<<<< HEAD
                             <input type="text" name="responsable" id="responsable" class="form-control"
                                 value="{{ old('responsable')}}">
+=======
+                            <input type="text" name="responsable" id="responsable" class="form-control" value="{{ old('responsable')}}"
+                            onkeyup="validarResponsable()"   ><span id="estadoTransferencia"></span>
+>>>>>>> f0c253d26985d75c15231889c185d7fabd0e1623
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label for="nanombre_contactome">Fecha</label>
-                            <input class="form-control" type="datetime-local" name="fecha"
-                                id="example-datetime-local-input">
+                            <input class="form-control text-dark" type="datetime-local" name="fecha" value=""
+                                id="fecha" onblur="validarFecha()">
                         </div>
                     </div>
                     <div class="col-6">
