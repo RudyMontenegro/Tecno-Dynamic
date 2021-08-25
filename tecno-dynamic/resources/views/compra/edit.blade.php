@@ -2,7 +2,7 @@
 @section('subtitulo','compras')
 @section('content')
 
-<head> 
+<head>
     <title>Ajax Autocomplete Textbox in Laravel using JQuery</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
@@ -20,7 +20,7 @@
 
     <div class="card-body">
  
-       <form action="{{ url('registrarCompra')}}" method="post">
+       <form action="{{ url('registrarCompra')}}" method="post" enctype="multipart/form-data">
          {{csrf_field()}}
           <div class="col-md-12 mx-auto">
 
@@ -29,7 +29,7 @@
                  <div class="col-6">
                       <label form="comprobante">Comprobante</label>
                       <input class="form-control {{$errors->has('nit')?'is-invalid':'' }}" type="text" name="comprobante" id="comprobante" 
-                             placeholder="Ingrese el comprobante" value="{{ old('comprobante') }}">
+                             placeholder="Ingrese el comprobante" value="{{ old('nit') }}">
 
                        {!!  $errors->first('nit','<div class="invalid-feedback">:message</div>') !!}
                  </div>  
@@ -51,7 +51,7 @@
 
                  <div class="col-6">
                     <div class="form-group">
-                        <label form="fecha">Fecha</label>
+                        <label for="nanombre_contactome">Fecha</label>
                         <input class="form-control" type="datetime-local" value="2018-11-23T10:30:00"
                             id="example-datetime-local-input">
                     </div>
@@ -76,7 +76,7 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group">
-                            <label form="total">Total</label>
+                            <label for="email">Total</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1">Bs.</span>
@@ -88,20 +88,20 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label form="observaciones">Observaciones</label>
-                    <textarea class="form-control" name="observaciones" id="observaciones" rows="3"></textarea>
+                    <label for="telefono">Observaciones</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                 </div>
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group">
-                            <label for="sucursal">ID Sucursal</label>
-                            <input type="text" name="id_sucursal" class="form-control" type="url" placeholder="001-cbba"
+                            <label for="web_site">ID Sucursal</label>
+                            <input type="text" name="web_site" class="form-control" type="url" placeholder="001-cbba"
                                 readonly>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
-                            <label form="responsable">Responsable de compra</label>
+                            <label for="nit">Responsable de compra</label>
                             <input type="text" name="web_site" class="form-control" type="url" placeholder="001-cbba"
                                 readonly value="{{ auth()->user()->name }}">
                         </div>
@@ -110,41 +110,10 @@
                 <button type="submit" class="btn btn-primary">
                     Guardar
                 </button>
-                <a href="{{ url('/compra')}}" class="btn btn-primary my-2 my-sm-0">Atras</a>
             </div>
 
         </div>
     </div>
-
-    <script>
-    $(document).ready(function() {
-
-        $('#nombre_contacto').keyup(function() {
-            var query = $(this).val();
-            if (query != '') {
-                var _token = $('input[name="_token"]').val();
-                $.ajax({
-                    url: '/autocomplete',
-                    method: 'POST',
-                    data: {
-                        query: query,
-                        _token: _token
-                    },
-                    success: function(data) {
-                        $('#countryList').fadeIn();
-                        $('#countryList').html(data);
-                    }
-                });
-            }
-        });
-
-        $(document).on('click', 'li', function() {
-            $('#nombre_contacto').val($(this).text());
-            $('#countryList').fadeOut();
-        });
-
-    });
-    </script>
 
 
     @endsection

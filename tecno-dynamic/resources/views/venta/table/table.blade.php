@@ -9,7 +9,7 @@
             <div class="row align-items-center">
                 <div class="col text-right">
                     <div class="table-responsive">
-
+ 
                         <!-- Projects table -->
                         <table class="table align-items-center"  id="tabla">
                             <thead class="thead-light">

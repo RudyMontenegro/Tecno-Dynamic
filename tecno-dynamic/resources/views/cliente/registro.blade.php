@@ -2,6 +2,12 @@
 @section('subtitulo','clientes')
 @section('content')
 
+<head>
+      <title>Ajax Autocomplete Textbox in Laravel using JQuery</title>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  
+  </head>
+
 <div class="card shadow" style="background-color:#4F9BF6; color: white; font color: yellow !important">
       <div class="card-header border-0">
             <div class="row align-items-center">
@@ -13,7 +19,7 @@
       </br>
 
 <form action="{{ url('registrarCliente')}}" method="post">
-    {{csrf_field()}}
+    {{csrf_field()}} 
       <div class="col-md-11 mx-auto">
 
   
@@ -59,7 +65,7 @@
                             {!!  $errors->first('telefono','<div class="invalid-feedback">:message</div>') !!}          
                    </div>
 
-                  <div class="col-6">
+                  <div class="col-6"> 
                          <label form="correo">Correo</label>
                          <input class="form-control {{$errors->has('email')?'is-invalid':'' }}" type="email" name="email" id="email" 
                                Placeholder="Ingrese su correo"  value="{{ old('correo') }}">

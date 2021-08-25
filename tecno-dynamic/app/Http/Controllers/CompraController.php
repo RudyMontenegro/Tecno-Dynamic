@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Compra;
+use App\CompraDetalle;
 use App\Proveedor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CompraController extends Controller
-{
+{ 
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +17,8 @@ class CompraController extends Controller
      */
     public function index()
     {
-        return view('compra.index');
+        $compras = Compra::all();
+        return view('compra.index', compact('compras'));
     }
 
     /**
@@ -38,8 +41,7 @@ class CompraController extends Controller
     public function store(Request $request) 
     {
         
-    
-
+    /*
         $compra = new Compra();
 
         $compra-> comprobante = request('comprobante');
@@ -51,12 +53,19 @@ class CompraController extends Controller
         $compra-> save();
 
         return redirect('compra');
-        /*
-        $this->validate( $request, [ 'fecha' => 'required',])
-
-        $compra ->fecha= Carbon::now();
-        $compra ->save();
         */
+
+
+        $compraDetalle = new CompraDetalle();
+        $compraDetalle->codigo_producto = $request->input('codigo_producto');
+        $compraDetalle->nombre = $request->input('nombre');
+        $compraDetalle->cantidad = $request->input('cantidad');
+        $compraDetalle->unidad = $request->input('unidad');
+        $compraDetalle->precio = $request->input('precio');
+        $compraDetalle->sub_total = $request->input('sub_total');
+        $compraDetalle->id_compra = $request->input('id_compra');
+        //dd($compraDetalle);
+        $compraDetalle->save();
     }
 
     /**
@@ -67,7 +76,7 @@ class CompraController extends Controller
      */
     public function show(Compra $compra)
     {
-        //
+        return view('compra.edit', compact('compra'));
     }
 
     /**
@@ -78,7 +87,7 @@ class CompraController extends Controller
      */
     public function edit(Compra $compra)
     {
-        //
+        return view('compra.edit', compact('compra'));
     } 
 
     /**
@@ -90,8 +99,48 @@ class CompraController extends Controller
      */
     public function update(Request $request, Compra $compra)
     {
-        //
+        /*
+        $compra->nit = $request->input('nit');
+        $compra->nombre_empresa = $request->input('nombre_empresa');
+        $compra->nombre_contacto = $request->input('nombre_contacto');
+        $compra->direccion = $request->input('direccion');
+        $compra->telefono = $request->input('telefono');
+        $compra->email = $request->input('email');
+        $compra->web_site = $request->input('web_site');
+        $compra->categoria = $request->input('categoria');
+        $compra->save();
+        return redirect('/compra');
+        */
+
+        $this->validate($request);
+
+        $compra = new Compra();
+
+        $compra->comprobante = request('comprobante');
+        $compra->proveedor = request('proveedor');
+        $compra->responsable_compra = request('responsable_compra');
+        $compra->fecha = request('fecha');
+        $compra->tipo_compra = request('tipo_compra');
+        $compra->observaciones = request('observaciones');
+        $compra->id_sucursal = request('os_sucursal');
+        
+        $compra->save();
+        return redirect('compra');
+
     }
+/*
+    public function calculoCostos(Request $request){
+        $request->validate([
+            'suma' => 'required',
+            'cantidad' => 'required',
+            'precio' => 'required',
+        ]);
+        $sumado = DB::table('compraDetalle')
+        -->select('compraDetalle, cantidad && precio')
+        -->where()
+
+    }
+    */
 
     /**
      * Remove the specified resource from storage.
@@ -104,4 +153,5 @@ class CompraController extends Controller
         $compra->delete();
         return redirect('compra');
     }
+
 }

@@ -46,7 +46,7 @@ class ClienteController extends Controller
             'email' => 'required ',
             'web_site' => 'required',
         
-        ];
+        ]; 
 
         $Mensaje = [ 
             
