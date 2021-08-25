@@ -39,6 +39,11 @@ Route::get('/transferencia/registrarTransferencia', 'TransferenciaController@cre
 Route::post('/transferencia/registrarTransferencia', 'TransferenciaController@store')->middleware('auth');
 Route::get('/transferencia/editar/{id}', 'TransferenciaController@edit')->middleware('auth');
 Route::patch('/transferencia/editar/{id}', 'TransferenciaController@update')->middleware('auth');
+//CATEGORIA
+Route::get('/producto/registrarCategoria', 'CategoriaController@create')->middleware('auth');
+Route::post('/producto/registrarCategoria', 'CategoriaController@store')->middleware('auth');
+Route::patch('/producto/categoria/editar/{id}', 'CategoriaController@edit')->middleware('auth');
+Route::post('/categoria/validar', 'CategoriaController@validar')->middleware('auth');
 //PRODUCTO
 Route::get('/producto', 'ProductosController@index')->middleware('auth');
 Route::get('/producto/prueba', 'ProductosController@prueba')->middleware('auth');
@@ -48,11 +53,7 @@ Route::get('/producto/{id}', 'ProductosController@show')->middleware('auth');
 Route::get('/producto/editar/{id}', 'ProductosController@edit')->middleware('auth');
 Route::patch('/producto/editar/{id}', 'ProductosController@update')->middleware('auth');
 Route::delete('/producto/{id}', 'ProductosController@destroy')->middleware('auth');
-//CATEGORIA
-Route::post('/producto/registrarCategoria', 'CategoriaController@store')->middleware('auth');
-Route::get('/registrar','SucursalController@registro')->middleware('auth');
-Route::get('/registrar','SucursalController@registro')->middleware('auth');
-Route::post('/registrar','SucursalController@registrar')->middleware('auth');
+Route::post('/producto/validar', 'ProductosController@validar')->middleware('auth');
 //CLIENTE
 Route::get('/cliente', 'ClienteController@index')->middleware('auth');
 Route::get('/cliente/registrarCliente','ClienteController@create')->middleware('auth');

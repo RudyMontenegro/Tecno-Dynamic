@@ -16,6 +16,41 @@
          </h2> 
     </div>
      
+
+    <script>
+        function comprobarNombre() {
+            $("#loaderIcon").show();
+            
+            jQuery.ajax({
+            url: "/producto/validar",
+            data:{
+                "_token": "{{ csrf_token() }}",
+                "nombre": $("#nombre").val(),
+            },
+            asycn:false,
+            type: "POST",
+            success:function(data){
+                $("#estadoProducto").html(data);
+                $("#loaderIcon").hide();
+            },
+            error:function (){
+                console.log('no da');
+            }
+            });
+        }
+    </script>
+    <style>
+        .estado-no-disponible-usuario {
+            color:#D60202;
+        }
+        .estado-disponible-usuario {
+            color:#2FC332;
+        }
+        .menor{
+            color:#D60202;
+        }
+    </style>
+
 <form action="{{url('/producto/registrarProducto')}}" class="form" method="post" enctype="multipart/form-data">
 
     {{ csrf_field()}}
@@ -47,8 +82,8 @@
     <div class="col-5">
         <label for="nombre"class="control-label">{{'Nombre'}}</label>
         <input type="text" class="form-control  {{$errors->has('nombre')?'is-invalid':'' }}" name="nombre" id="nombre" 
-        value="{{ isset($personal->apellido)?$personal->apellido:old('nombre') }}"
-        >
+        value="{{ isset($personal->apellido)?$personal->apellido:old('nombre') }}" onblur="comprobarNombre()"
+        ><span id="estadoProducto"></span>
         {!!  $errors->first('nombre','<div class="invalid-feedback">:message</div>') !!}
     </div>
     <div class="col-5">
