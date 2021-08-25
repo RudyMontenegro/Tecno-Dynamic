@@ -184,7 +184,7 @@ function limpiarCampos() {
 }
 $(".btnenviar").click(function(e) {
 
-    $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla").removeClass('fila-fija');
+    $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla");
     // $(this).val(''); // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
 
     $(document).on("click", ".eliminar", function() {
