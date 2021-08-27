@@ -1,4 +1,4 @@
-@extends('layouts.panel')
+~@extends('layouts.panel')
 
 @section('subtitulo','transferencia')
 @section('content')
@@ -65,7 +65,7 @@
                 
             }
         }
-
+ 
         function validarFecha(){
             const date = new Date(),
           ten = (i)=> ((i < 10 ? '0' : '') + i ),
@@ -96,25 +96,15 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="comprobante">Comprobante</label>
-<<<<<<< HEAD
-                            <input type="text" name="comprobante" id="comprobante" class="form-control"
-                                value="{{ old('comprobante')}}">
-=======
                             <input type="text" name="comprobante" id="comprobante" class="form-control" value="{{ old('comprobante')}}"
                             onkeyup="validaComprobante()"><span id="estadoComprobante"></span>
->>>>>>> f0c253d26985d75c15231889c185d7fabd0e1623
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label for="responsable">Responsable Transferencia</label>
-<<<<<<< HEAD
-                            <input type="text" name="responsable" id="responsable" class="form-control"
-                                value="{{ old('responsable')}}">
-=======
                             <input type="text" name="responsable" id="responsable" class="form-control" value="{{ old('responsable')}}"
                             onkeyup="validarResponsable()"   ><span id="estadoTransferencia"></span>
->>>>>>> f0c253d26985d75c15231889c185d7fabd0e1623
                         </div>
                     </div>
                     <div class="col-6">

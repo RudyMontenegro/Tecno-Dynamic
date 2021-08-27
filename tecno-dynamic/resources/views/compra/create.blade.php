@@ -52,8 +52,8 @@
                  <div class="col-6">
                     <div class="form-group">
                         <label form="fecha">Fecha</label>
-                        <input class="form-control" type="datetime-local" value="2018-11-23T10:30:00"
-                            id="example-datetime-local-input">
+                        <input class="form-control text-dark" type="datetime-local" value="" name="|fecha"
+                            id="fecha" onblur="validarFecha()">
                     </div>
                 </div>
              
@@ -117,26 +117,25 @@
     </div>
 
     <script>
-    $(document).ready(function() {
-
-        $('#nombre_contacto').keyup(function() {
-            var query = $(this).val();
-            if (query != '') {
-                var _token = $('input[name="_token"]').val();
-                $.ajax({
-                    url: '/autocomplete',
-                    method: 'POST',
-                    data: {
-                        query: query,
-                        _token: _token
-                    },
-                    success: function(data) {
-                        $('#countryList').fadeIn();
-                        $('#countryList').html(data);
-                    }
-                });
-            }
-        });
+          $(document).ready(function() {
+               $('#nombre_contacto').keyup(function() {
+                    var query = $(this).val();
+                          if (query != '') {
+                             var _token = $('input[name="_token"]').val();
+                            $.ajax({
+                             url: '/autocomplete',
+                             method: 'POST',
+                             data: {
+                                     query: query,
+                                     _token: _token
+                                    },
+                          success: function(data) {
+                                  $('#countryList').fadeIn();
+                                  $('#countryList').html(data);
+                                    }
+                             });
+                     }
+             });
 
         $(document).on('click', 'li', function() {
             $('#nombre_contacto').val($(this).text());
@@ -144,6 +143,21 @@
         });
 
     });
+    
+    function validarFecha(){
+            const date = new Date(),
+          ten = (i)=> ((i < 10 ? '0' : '') + i ),
+                YYYY = date.getFullYear(),
+                MTH = ten(date.getMonth() + 1),
+                DAY = ten(date.getDate()),
+                HH = ten(date.getHours()),
+                MM = ten(date.getMinutes()),
+                SS = ten(date.getSeconds())
+                // MS = ten(date.getMilliseconds())
+
+            document.getElementById("fecha").value=`${YYYY}-${MTH}-${DAY}T${HH}:${MM}`;
+        }
+        setTimeout(validarFecha,30000);
     </script>
 
 

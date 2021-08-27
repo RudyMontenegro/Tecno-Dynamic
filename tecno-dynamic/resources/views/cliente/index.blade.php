@@ -16,7 +16,7 @@
     </div>
     <div class="table-responsive">
         <!-- Projects table -->
-        <table class="table align-items-center table-flush">
+        <table class="table align-items-center table-flush" id="cliente-table">
             <thead class="thead-light">
                 <tr>
                     <th scope="col">Empresa</th>
@@ -89,6 +89,32 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="paginacion">
+            {{$clientes->links()}}
+        </div>
     </div>
 </div>
 @endsection
+<script>
+    $(function () {
+      $('#cliente-table').DataTable({
+			"paging":true,
+			"lengthChange":true,
+			"searching":true,
+			"ordering":false,
+			"info":false,
+			"autowidth":true
+	  });
+
+    });
+</script>
+<style>
+    /*
+    .paginacion{
+        padding: 10px;
+        margin: 10px;
+        background-color: #ADD8E6;
+        text-align: center;
+    }
+    */
+</style>

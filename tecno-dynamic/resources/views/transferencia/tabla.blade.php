@@ -14,14 +14,15 @@
             <div class="col text-right">
                 <div class="table-responsive">
                     <!-- Projects table -->
-                    <div id="tabla2">
-                        <div class="eliminar" id="deletRow" name="deletRow">
-                            <h1 class="text-center">Producto</h1>
-                            <button class="btn btn-icon btn-danger " type="button" >
+                    <div id="tabla2">   
+                        <h1 class="text-center">Producto</h1>
+                        <div class="eliminar" id="deletRow" style="display:none" name="deletRow">
+                            <button class="btn btn-icon btn-danger "  type="button" >
                                 <span class="btn-inner--icon"><i class="ni ni-fat-remove"></i></span>
                             </button>   
                         </div>
-                        
+                  
+
                         <div class="row" id="formulario1">
                             <div class="col-6">
                                 <label for="codigo"class="control-label text-darker float-left">{{'Codigo Producto'}}</label>
@@ -94,11 +95,13 @@
 </div>
                         
 
-<script>
+    <script>
 $(function() {
     // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
     $("#adicional").on('click', function() {
-        $("#tabla2").clone().appendTo("#tabla2").find('input').val("");  
+    
+        $("#tabla2").clone().appendTo("#tabla2").find('input').val("");
+        $('#deletRow').show();
     });
     // Evento que selecciona la fila y la elimina 
     $(document).on("click", ".eliminar", function() {

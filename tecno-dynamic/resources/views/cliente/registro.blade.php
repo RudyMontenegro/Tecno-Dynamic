@@ -18,6 +18,40 @@
           </div> 
       </br>
 
+      <script>
+            function comprobarNit() {
+                $("#loaderIcon").show();
+                
+                jQuery.ajax({
+                url: "/cliente/validar",
+                data:{
+                    "_token": "{{ csrf_token() }}",
+                    "nit": $("#nit").val(),
+                },
+                asycn:false,
+                type: "POST",
+                success:function(data){
+                    $("#estadoNit").html(data);
+                    $("#loaderIcon").hide();
+                },
+                error:function (){
+                    console.log('no da');
+                }
+                });
+            }
+        </script>
+        <style>
+            .estado-no-disponible-nit {
+                color:#D60202;
+            }
+            .estado-disponible-nit {
+                color:#2FC332;
+            }
+            .menor{
+                color:#D60202;
+            }
+        </style>
+
 <form action="{{ url('registrarCliente')}}" method="post">
     {{csrf_field()}} 
       <div class="col-md-11 mx-auto">
@@ -28,8 +62,8 @@
                   <div class="col-6">
                        <label form="nit">NIT</label>
                        <input class="form-control {{$errors->has('nit')?'is-invalid':'' }}" type="text" name="nit" id="nit" 
-                              placeholder="Ingrese el NIT" value="{{ old('nit') }}">
-
+                              placeholder="Ingrese el NIT" value="{{ old('nit') }}" onblur="comprobarNit()">
+                              <span id="estadoNit"></span>
                          {!!  $errors->first('nit','<div class="invalid-feedback">:message</div>') !!}
                    </div>  
 

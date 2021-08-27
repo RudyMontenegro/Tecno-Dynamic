@@ -15,6 +15,17 @@ class Productos extends Model
         return $persona;
     }
 
+    function numRows($nombre) {
+        $result  = DB::table('productos')
+                    ->where('nombre','=', $nombre)
+                    ->count();
+        return $result;
+    }
+    function cuenta($nombre) {
+        $result  =  strlen($nombre);
+        return $result;
+    }
+
     public static function codigo($id){
         $persona2 = DB::table('productos') 
         ->select('*')
@@ -22,4 +33,5 @@ class Productos extends Model
         ->get();
         return $persona2;
     }
-}
+
+} 

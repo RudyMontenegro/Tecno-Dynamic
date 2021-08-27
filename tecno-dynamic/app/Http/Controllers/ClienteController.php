@@ -15,7 +15,7 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $clientes = Cliente::all();
+        $clientes = Cliente::paginate(10);
         return view('cliente.index', compact('clientes'));
     }
 
@@ -134,9 +134,10 @@ class ClienteController extends Controller
      * @param  \App\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Cliente $cliente, $id)
     {
-        $cliente-> Clientes::FindOrAll($id);
+        $cliente = Cliente::FindOrAll($id);
+
         $cliente->nit = $request->input('nit');
         $cliente->nombre_empresa = $request->input('nombre_empresa');
         $cliente->nombre_contacto = $request->input('nombre_contacto');
@@ -160,10 +161,23 @@ class ClienteController extends Controller
         Cliente::destroy($id);
         return redirect('cliente');
     }
-    //public function registro(){
-     //   return view('cliente.registro');
-    //}
-    // public function registrarCliente(){
-       // return view('cliente.registro');
-    //}
+    public function validar(Cliente $cliente)
+    {
+        $db_handle = new Cliente();
+
+        if(!empty($_POST["nit"])) {
+            $user_count = $db_handle->numRows($_POST["nit"]);
+            $contador = $db_handle->cuenta($_POST["nit"]);
+            if($contador < 3){
+                echo "<span  class='menor'><h5 class='menor'>Ingrese de 1 a 10 caracteres</h5></span>";
+            }else{
+                if($user_count>0) {
+                    echo "<span  class='estado-no-disponible-nit'><h5 class='estado-no-disponible-nit'>Numero de NIT no disponible</h5></span>";
+                }else{
+                    echo "<span class='estado-disponible-nit'><h5 class='estado-disponible-nit'>Numero de NIT disponible</h5></span>";
+                }
+            }
+            
+        } 
+    }
 }

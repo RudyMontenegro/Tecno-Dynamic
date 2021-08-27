@@ -29,7 +29,7 @@
              <i class="ni ni-basket text-blue"></i> Ventas
          </a>
      </li>
-     <li class="nav-item {{ request()->is('producto') || request()->is('producto/registrarProducto*') || request()->is('producto/editar*')? 'active' : ''}}">
+     <li class="nav-item {{ request()->is('producto') || request()->is('producto/registrarCategoria*')||request()->is('producto/registrarProducto*') || request()->is('producto/editar*')? 'active' : ''}}">
         <a class="nav-link" href="{{url('producto')}}">
             <i class="fab fa-product-hunt text-blue"></i> Productos
         </a>
