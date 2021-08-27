@@ -88,9 +88,9 @@
         </style>
         
         <form action="{{ url('transferencia/registrarTransferencia') }}" method="post">
-            
+
             {{ csrf_field()}}
-            
+
             <div class="col-md-12 mx-auto ">
                 <div class="row">
                     <div class="col-6">
@@ -115,50 +115,52 @@
                         </div>
                     </div>
                     <div class="col-6">
-                       </div>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-6">
                         <label for="sucursal_origen">Sucursal Origen</label>
-                        <select name="sucursal_origen" id="sucursal_origen" class="form-control  {{$errors->has('sucursal_origen')?'is-invalid':'' }}">
-                        <option selected disabled>Elige una Sucursal de Origen</option>
-                        @foreach ($sucursal as $origen)
-                        <option {{ old('origen') == $origen->id ? "selected" : "" }} value="{{$origen->id}}">{{$origen->nombre}}</option>
-                        @endforeach
+                        <select name="sucursal_origen" id="sucursal_origen"
+                            class="form-control  {{$errors->has('sucursal_origen')?'is-invalid':'' }}">
+                            <option selected disabled>Elige una Sucursal de Origen</option>
+                            @foreach ($sucursal as $origen)
+                            <option {{ old('origen') == $origen->id ? "selected" : "" }} value="{{$origen->id}}">
+                                {{$origen->nombre}}</option>
+                            @endforeach
                         </select>
-                        {!!  $errors->first('sucursal_origen','<div class="invalid-feedback">:message</div>') !!}
-                    
+                        {!! $errors->first('sucursal_origen','<div class="invalid-feedback">:message</div>') !!}
+
                     </div>
                     <div class="col-6">
                         <label for="sucursal_destino">Sucursal Destino</label>
-                        <select name="sucursal_destino" id="sucursal_destino" class="form-control  {{$errors->has('sucursal_destino')?'is-invalid':'' }}">
-                        <option selected disabled>Elige una Sucursal de Destino</option>
-                       
+                        <select name="sucursal_destino" id="sucursal_destino"
+                            class="form-control  {{$errors->has('sucursal_destino')?'is-invalid':'' }}">
+                            <option selected disabled>Elige una Sucursal de Destino</option>
+
                         </select>
-                        {!!  $errors->first('sucursal_origen','<div class="invalid-feedback">:message</div>') !!}
-                    
+                        {!! $errors->first('sucursal_origen','<div class="invalid-feedback">:message</div>') !!}
+
                     </div>
                 </div>
                 <br>
             </div>
-            
+
             <script>
-                $("#sucursal_origen").change(event => {
-                    $.get(`envio/${event.target.value}`, function(res, sta){
-                        $("#sucursal_destino").empty();
-                        $("#sucursal_destino").append(`<option > Elige una Sucursal de Destino </option>`);
-                        res.forEach(element => {
-                            $("#sucursal_destino").append(`<option value=${element.id}> ${element.nombre} </option>`);
-                        });
+            $("#sucursal_origen").change(event => {
+                $.get(`envio/${event.target.value}`, function(res, sta) {
+                    $("#sucursal_destino").empty();
+                    $("#sucursal_destino").append(`<option > Elige una Sucursal de Destino </option>`);
+                    res.forEach(element => {
+                        $("#sucursal_destino").append(
+                            `<option value=${element.id}> ${element.nombre} </option>`);
                     });
                 });
-        
+            });
             </script>
             <div class="col-md-12 mx-auto ">
-               @include('transferencia.tabla')
-                
-<br>
-                
+                @include('transferencia.tabla')
+
+                <br>
                 <br>
                 <button type="submit" class="btn btn-primary">
                     Guardar
@@ -167,5 +169,17 @@
         </form>
     </div>
 </div>
-
+<script>
+var res = 0;
+function calcular() {
+    try {
+        var a = $("input[id=cantidad]").val();
+        var b = $("input[id=precio]").val();
+        res = (a * b) + res;
+        document.getElementById("subTotal").value = a * b;
+        document.getElementById("Total").value = res;
+    } catch (e) {
+    }
+}
+</script>
 @endsection

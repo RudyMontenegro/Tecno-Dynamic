@@ -1,114 +1,101 @@
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
-<script src="http://code.jquery.com/jquery-1.12.1.min.js"></script>
-
-<meta name="csrf-token" content="{{ csrf_token() }}" />
-<div class="card shadow">
-    <form>
-        @csrf
-        <div class="card-header border-0">
-            <div class="row align-items-center">
-                <div class="col text-right">
-                    <div class="table-responsive">
-
-                        <!-- Projects table -->
-                        <table class="table align-items-center"  id="tabla">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th scope="col">Codigo de producto</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Cantidad</th>
-                                    <th scope="col">Precio/Unidad</th>
-                                    <th scope="col">Subtotal</th>
-                                    <th scope="col">Eliminar</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <div class="fila-fija">
-                                    <tr>
-                                        <th>
-                                            <input name="codigo_producto" id="codigo_producto" type="text"
-                                                class="form-control">
-                                        </th>
-                                        <td>
-                                            <input name="nombre" id="nombre" type="text" class="form-control">
-                                        </td>
-                                        <td>
-                                            <input name="cantidad" class="form-control" type="number" value="23"
-                                                id="example-number-input">
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">$</span>
-                                                </div>
-                                                <input type="text" name="unidad" class="form-control"
-                                                    aria-label="Amount (to the nearest dollar)">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text">.00</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">$</span>
-                                                </div>
-                                                <input type="text" name="precio" class="form-control" id="onlyIn" name="onlyIn
-                                                aria-label=" Amount (to the nearest dollar)">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text">.00</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="eliminar" id="deletRow" name="deletRow">
-                                            <button class="btn btn-icon btn-danger " type="button">
-                                                <span class="btn-inner--icon"><i class="ni ni-fat-remove"></i></span>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </div>
-                            </tbody>
-                        </table>
-                        <button type="submit" class="btn btn-success btn-lg btn-block btnenviar" id="adicional"
-                            name="adicional">Gurdar y añadir</button>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
-
-
-<script type="text/javascript">
-
-function limpiarCampos() {
-    $("#codigo_producto").val('');
- //   $("#apellidos").val('');
-   // $("#dni").val('');
+<style>
+#formulario1 {
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid #ffffff;
+    width: 800px;
 
 }
-$(".btnenviar").click(function(e) {
+</style>
+<table class="table borderless" id="tabla">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Codigo de producto</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Unidad</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Subtotal</th>
+            <th scope="col">Eliminar</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>
+                <select name="codigo" id="codigo" class="form-control  {{$errors->has('codigo')?'is-invalid':'' }}">
+                    <option selected disabled>Seleccione un sucursal de origen</option>
+                </select>
+            </th>
+            <td>
+                <input type="text" class="form-control  {{$errors->has('nombre')?'is-invalid':'' }}" name="nombre[]"
+                    id="nombre" value="{{ isset($transferencia->nombre)?$transferencia->nombre:old('nombre')  }}">
+            </td>
+            <td>
+                <input type="text" class="form-control  {{$errors->has('cantidad')?'is-invalid':'' }}" name="cantidad[]"
+                    id="cantidad"
+                    value="{{ isset($transferencia->cantidad)?$transferencia->cantidad:old('cantidad')  }}">
+            </td>
+            <td>
+                <input type="text" class="form-control  {{$errors->has('unidad')?'is-invalid':'' }}" name="unidad[]"
+                    id="unidad" value="{{ isset($transferencia->unidad)?$transferencia->unidad:old('unidad')  }}">
+            </td>
+            <td>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Bs</span>
+                    </div>
+                    <input type="text" class="form-control  {{$errors->has('precio')?'is-invalid':'' }}" name="precio[]"
+                        id="precio" value="{{ isset($transferencia->precio)?$transferencia->precio:old('precio')  }}">
+                </div>
+            </td>
+            <td>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Bs</span>
+                    </div>
+                    <input type="text" class="form-control  {{$errors->has('subTotal')?'is-invalid':'' }}"
+                        name="subTotal[]" id="subTotal"
+                        value="{{ isset($transferencia->subTotal)?$transferencia->subTotal:old('subTotal')  }}">
+                </div>
+            </td>
+            <td class="eliminar" id="deletRow" name="deletRow">
+                <button class="btn btn-icon btn-danger"  type="button">
+                    <span class="btn-inner--icon"><i class="ni ni-fat-remove"></i></span>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<button type="button" class="btn btn-success btn-lg btn-block" id="adicional" name="adicional">Añadir</button>
+<script>
+$("#sucursal_origen").change(event => {
+    $.get(`envioP/${event.target.value}`, function(res, sta) {
+        $("#codigo").empty();
+        $("#codigo").append(`<option > Elige el codigo de producto </option>`);
+        res.forEach(element => {
+            $("#codigo").append(
+                `<option value=${element.id}> ${element.codigo} </option>`
+            );
+        });
+    });
+});
+</script>
 
-    $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla").removeClass('fila-fija');
-   // $(this).val(''); // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
-
+<script>
+    var bb= 0;
+$(function() {
+    $("#adicional").on('click', function() {
+        $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla").find('input').val(' ');
+        bb = bb +1;
+        $('#deletRow').show();
+    });
     $(document).on("click", ".eliminar", function() {
+        if(bb>0){
         var parent = $(this).parents().get(0);
         $(parent).remove();
-    }); // Evento que selecciona la fila y la elimina 
-
-    e.preventDefault(); //evitar recargar la pagina..
-    var codigo_producto = $("input[name=codigo_producto]").val();
-
-    $.ajax({
-        type: 'POST',
-        url: '/venta',
-        data: {
-            "_token": "{{ csrf_token() }}",
-            codigo_producto: codigo_producto,
-        },
+        bb = bb-1;
+        }
     });
-    limpiarCampos();
 });
 </script>

@@ -3,13 +3,12 @@
 use Illuminate\Database\Seeder;
 use App\User;
 use App\Cliente;
+use App\Proveedor;
+use App\Categoria;
+use App\Sucursal;
+use App\Productos;
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
     public function run()
     {
         User::create([
@@ -21,7 +20,22 @@ class DatabaseSeeder extends Seeder
             'telefono' => '',
             'nivel_usuario'=> 'admin'
         ]);
-        factory(Cliente::class, 50)->create();
+        Sucursal::create([
+            'nombre' => 'Sucursal-Quillacollo',
+            'responsable' => 'Fernando'
+        ]);
+        Sucursal::create([
+            'nombre' => 'Sucursal-Sacaba',
+            'responsable' => 'Rudy'
+        ]);
+        Sucursal::create([
+            'nombre' => 'Sucursal-ZonaSud',
+            'responsable' => 'Alex'
+        ]);
+        factory(Proveedor::class, 10)->create();
+        factory(Categoria::class, 2)->create();
+        factory(Cliente::class, 100)->create();
+       // factory(Productos::class, 100)->create();
     }
     
 }

@@ -12,7 +12,7 @@
             </div>
         </div>
     </div>
-    <div class="card-body">
+    <div class="card-body ">
         @if ($errors->any())
         <div class="alert alert-danger" role="alert">
             <ul>
@@ -24,9 +24,7 @@
         @endif
         <form action="{{ url('proveedor') }}" method="post">
             @csrf
-
-            <div class="col-md-12 mx-auto ">
-
+            <div class="col-md-15 mx-auto">
                 <div class="row">
                     <div class="col-5">
                         <div class="form-group">

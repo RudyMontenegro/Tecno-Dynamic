@@ -3,7 +3,15 @@
 @section('subtitulo','PRODUCTOS')
 @section('content')
 
-
+    <style>
+        #medio{
+            margin: 0 auto;
+            text-align: center;
+            border-radius: 10px;
+            border: 1px solid #ffffff;
+            width: 130px;
+        }
+    </style>
 <div class="card shadow">
     <div class="card-header border-0">
         <div class="row align-items-center">
@@ -35,9 +43,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    @foreach ($categoria as $categoria)
-                                    <td scope="row">{{$categoria->nombre}}</td>
-                                    <td>{{$categoria->descripcion}}</td>
+                                    @foreach ($categoria as $categorias)
+                                    <td scope="row">{{$categorias->nombre}}</td>
+                                    <td>{{$categorias->descripcion}}</td>
                                     <td>
 
                                         <!-- Button trigger modal -->
@@ -80,7 +88,7 @@
                                             </div>
                                         </div>
 
-                                        <a href="{{url('/producto/categoria/editar/'.$categoria->id)}}" class="btn btn-sm btn-warning float-right">
+                                        <a href="{{url('/producto/categoria/editar/'.$categorias->id)}}" class="btn btn-sm btn-warning float-right">
                                             Editar
                                         </a>
                                     </td>
@@ -97,7 +105,7 @@
                                 </tr>
                             </thead>
                         </table>
-                        
+                        <div id="medio">{{$categoria->links()}}</div>
 
                     </div>
                 </div>
@@ -126,10 +134,10 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    @foreach ($producto as $producto)
-                                    <td scope="row">{{$producto->codigo_barra}}</td>
-                                    <td>{{$producto->nombre}}</td>
-                                    <td>{{$producto->categoria}}</td>
+                                    @foreach ($producto as $productos)
+                                    <td scope="row">{{$productos->codigo_barra}}</td>
+                                    <td>{{$productos->nombre}}</td>
+                                    <td>{{$productos->categoria}}</td>
                                     <td>
 
 
@@ -158,7 +166,7 @@
                                                         </h2>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <form method="post" action="{{url('/producto/'.$producto->id)}}"
+                                                        <form method="post" action="{{url('/producto/'.$productos->id)}}"
                                                             style="display:inline">
                                                             {{csrf_field()}}
                                                             {{method_field('DELETE')}}
@@ -196,7 +204,7 @@
                                 </tr>
                             </thead>
                         </table>
-
+                        <div id="medio">{{$producto->links()}}</div>
                     </div>
                 </div>
             </div>

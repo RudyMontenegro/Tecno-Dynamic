@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cliente;
+use App\Sucursal;
 use App\Venta;
 use App\VentaDetalle;
 use Illuminate\Support\Facades\DB;
@@ -17,28 +18,21 @@ class VentaController extends Controller
     }
     public function create()
     {
-        return view('venta.create');
+        $sucursal = Sucursal::all();
+        return view('venta.create',compact('sucursal'));
     }
  
     public function store(Request $request)
     {
-     //  dd($request->all());
-      
-       // $this->validate($request);
-
-      //* $nitBD = DB::table('proveedors')
-               // ->select('nit')
-                //->where('nit','=',request('nit'))
-                //->exists();
-        
-        //$nomBD = DB::table('proveedors')
-                //->select('nombre_empresa')
-                //->where('nombre_empresa','=',request('nombre_empresa'))
-                //->exists();
-
-       // if($nitBD == false && $nomBD==false){
-            
-
+        $venta = new Venta();
+        $venta->cliente = $request->input('cliente');
+        $venta->comprobante = $request->input('comprobante');
+        $venta->responsable_venta = $request->input('responsable_venta');
+        $venta->fecha = $request->input('fecha');
+        $venta->tipo_venta = $request->input('tipo_venta');
+        $venta->observaciones = $request->input('observaciones');
+        $venta->id_venta = $request->input('id_venta');
+        $venta->save();
         $ventaDetalle = new VentaDetalle();
         $ventaDetalle->codigo_producto = $request->input('codigo_producto');
         $ventaDetalle->nombre = $request->input('nombre');
@@ -47,15 +41,20 @@ class VentaController extends Controller
         $ventaDetalle->precio = $request->input('precio');
         $ventaDetalle->sub_total = $request->input('sub_total');
         $ventaDetalle->id_venta = $request->input('id_venta');
-        //dd($ventaDetalle);
         $ventaDetalle->save();
+    }
 
-      //  return redirect('/venta');
-      //  }
-
-      //  else{
-      //  return redirect('/venta')->with('Estado','Se guaardo detaller'); 
-        //}
+    public function store2(Request $request)
+    {
+        $venta = new Venta();
+        $venta->cliente = $request->input('cliente');
+     //   $venta->nombre = $request->input('nombre');
+       // $venta->cantidad = $request->input('cantidad');
+        //$venta->unidad = $request->input('unidad');
+      //  $venta->precio = $request->input('precio');
+      //  $venta->sub_total = $request->input('sub_total');
+     //   $venta->id_venta = $request->input('id_venta');
+        $venta->save();
     }
    
     public function show(Venta $venta)
