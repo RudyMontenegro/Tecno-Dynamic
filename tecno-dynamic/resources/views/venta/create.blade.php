@@ -57,14 +57,35 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="nanombre_contactome">Fecha</label>
-                            <input class="form-control" type="datetime-local" value="2018-11-23T10:30:00"
-                                id="example-datetime-local-input">
+                            <input class="form-control" type="datetime-local" name="fecha" value=""
+                                id="fecha" >
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label for="direccion">Tipo de Venta</label>
                             <input type="text" name="tipo_venta" class="form-control" placeholder="Efectivo"
+                                value="{{ old('tipo_venta')}}" required>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="nanombre_contactome">Sucursal
+                            </label>
+                            <select class="form-control">
+                            @foreach ($sucursal as $origen)
+                            <option value="{{$origen->id}}">
+                                {{$origen->nombre}}</option>
+                            @endforeach
+                                
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="direccion">Comprobante</label>
+                            <input type="text" name="tipo_venta" class="form-control" 
                                 value="{{ old('tipo_venta')}}" required>
                         </div>
                     </div>
@@ -148,70 +169,10 @@ $(document).ready(function() {
             });
         }
     });
-
     $(document).on('click', 'li', function() {
         $('#nombre_contacto').val($(this).text());
         $('#countryList').fadeOut();
     });
-
-});
-//
-$(".btnenviarEnc").click(function(e) {
-
-    e.preventDefault(); //evitar recargar la pagina..
-    var cliente = $("input[name=nombre_contacto]").val();
-
-    $.ajax({
-        type: 'POST',
-        url: '/venta',
-        data: {
-            "_token": "{{ csrf_token() }}",
-            cliente: cliente,
-            //nombre: nombre,
-            // cantidad:cantidad
-        },
-    });
-    //limpiarCampos();
 });
 </script>
-<script type="text/javascript">
-function limpiarCampos() {
-    $("#codigo_producto").val('');
-    $("#nombre").val('');
-    $("#cantidad").val('');
-    $("#precio").val('');
-    $("#sub_total").val('');
-}
-$(".btnenviar").click(function(e) {
-
-    $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla").removeClass('fila-fija');
-    // $(this).val(''); // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
-
-    $(document).on("click", ".eliminar", function() {
-        var parent = $(this).parents().get(0);
-        $(parent).remove();
-    }); // Evento que selecciona la fila y la elimina 
-
-    e.preventDefault(); //evitar recargar la pagina..
-    var codigo_producto = $("input[name=codigo_producto]").val();
-    var nombre = $("input[name=nombre]").val();
-    var cantidad = $("input[name=cantidad]").val();
-    var precio = $("input[name=precio]").val();
-    var sub_total = $("input[name=sub_total]").val();
-    $.ajax({
-        type: 'POST',
-        url: '/ventaDetalle',
-        data: {
-            "_token": "{{ csrf_token() }}",
-            codigo_producto: codigo_producto,
-            nombre: nombre,
-            cantidad:cantidad,
-            precio:precio,
-            sub_total:sub_total,
-        },
-    });
-    limpiarCampos();
-});
-</script>
-
 @endsection

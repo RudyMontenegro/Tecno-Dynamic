@@ -1,80 +1,101 @@
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
-<script src="http://code.jquery.com/jquery-1.12.1.min.js"></script>
+<style>
+#formulario1 {
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid #ffffff;
+    width: 800px;
 
-<meta name="csrf-token" content="{{ csrf_token() }}" />
-<div class="card shadow">
-    <form>
-        @csrf
-        <div class="card-header border-0">
-            <div class="row align-items-center">
-                <div class="col text-right">
-                    <div class="table-responsive">
- 
-                        <!-- Projects table -->
-                        <input class="form-control" id="search" type="text" placeholder="Default input"
-                            aria-label="default input example">
-                        <table class="table align-items-center" id="tabla">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th scope="col">Codigo de producto</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Cantidad</th>
-                                    <th scope="col">Precio/Unidad</th>
-                                    <th scope="col">Subtotal</th>
-                                    <th scope="col">Eliminar</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <div class="fila-fija">
-                                    <tr>
-                                        <th>
-                                            <input name="codigo_producto" id="codigo_producto" type="text"
-                                                class="form-control">
-                                        </th>
-                                        <td>
-                                            <input name="nombre" id="nombre" type="text" class="form-control">
-                                        </td>
-                                        <td>
-                                            <input name="cantidad" id="cantidad" onBlur="calcular()"
-                                                class="form-control" type="number" id="example-number-input">
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">Bs</span>
-                                                </div>
-                                                <input type="number" name="precio" id="precio" onBlur="calcular()"
-                                                    class="form-control">
-
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">Bs</span>
-                                                </div>
-                                                <input type="number" name="sub_total" id="sub_total"
-                                                    class="form-control">
-
-                                            </div>
-                                        </td>
-                                        <td class="eliminar" id="deletRow" name="deletRow">
-                                            <button class="btn btn-icon btn-danger " type="button">
-                                                <span class="btn-inner--icon"><i class="ni ni-fat-remove"></i></span>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </div>
-                            </tbody>
-                        </table>
-                        <button type="submit" class="btn btn-success btn-lg btn-block btnenviar" id="adicional"
-                            name="adicional">Gurdar y añadir</button>
-
+}
+</style>
+<table class="table borderless" id="tabla">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Codigo de producto</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Unidad</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Subtotal</th>
+            <th scope="col">Eliminar</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>
+                <select name="codigo" id="codigo" class="form-control  {{$errors->has('codigo')?'is-invalid':'' }}">
+                    <option selected disabled>Seleccione un sucursal de origen</option>
+                </select>
+            </th>
+            <td>
+                <input type="text" class="form-control  {{$errors->has('nombre')?'is-invalid':'' }}" name="nombre[]"
+                    id="nombre" value="{{ isset($transferencia->nombre)?$transferencia->nombre:old('nombre')  }}">
+            </td>
+            <td>
+                <input type="text" class="form-control  {{$errors->has('cantidad')?'is-invalid':'' }}" name="cantidad[]"
+                    id="cantidad"
+                    value="{{ isset($transferencia->cantidad)?$transferencia->cantidad:old('cantidad')  }}">
+            </td>
+            <td>
+                <input type="text" class="form-control  {{$errors->has('unidad')?'is-invalid':'' }}" name="unidad[]"
+                    id="unidad" value="{{ isset($transferencia->unidad)?$transferencia->unidad:old('unidad')  }}">
+            </td>
+            <td>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Bs</span>
                     </div>
+                    <input type="text" class="form-control  {{$errors->has('precio')?'is-invalid':'' }}" name="precio[]"
+                        id="precio" value="{{ isset($transferencia->precio)?$transferencia->precio:old('precio')  }}">
                 </div>
-            </div>
-        </div>
-    </form>
-</div>
+            </td>
+            <td>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Bs</span>
+                    </div>
+                    <input type="text" class="form-control  {{$errors->has('subTotal')?'is-invalid':'' }}"
+                        name="subTotal[]" id="subTotal"
+                        value="{{ isset($transferencia->subTotal)?$transferencia->subTotal:old('subTotal')  }}">
+                </div>
+            </td>
+            <td class="eliminar" id="deletRow" name="deletRow">
+                <button class="btn btn-icon btn-danger"  type="button">
+                    <span class="btn-inner--icon"><i class="ni ni-fat-remove"></i></span>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<button type="button" class="btn btn-success btn-lg btn-block" id="adicional" name="adicional">Añadir</button>
+<script>
+$("#sucursal_origen").change(event => {
+    $.get(`envioP/${event.target.value}`, function(res, sta) {
+        $("#codigo").empty();
+        $("#codigo").append(`<option > Elige el codigo de producto </option>`);
+        res.forEach(element => {
+            $("#codigo").append(
+                `<option value=${element.id}> ${element.codigo} </option>`
+            );
+        });
+    });
+});
+</script>
 
-
+<script>
+    var bb= 0;
+$(function() {
+    $("#adicional").on('click', function() {
+        $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla").find('input').val(' ');
+        bb = bb +1;
+        $('#deletRow').show();
+    });
+    $(document).on("click", ".eliminar", function() {
+        if(bb>0){
+        var parent = $(this).parents().get(0);
+        $(parent).remove();
+        bb = bb-1;
+        }
+    });
+});
+</script>

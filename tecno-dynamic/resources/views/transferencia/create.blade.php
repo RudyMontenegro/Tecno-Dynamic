@@ -169,5 +169,17 @@
         </form>
     </div>
 </div>
-
+<script>
+var res = 0;
+function calcular() {
+    try {
+        var a = $("input[id=cantidad]").val();
+        var b = $("input[id=precio]").val();
+        res = (a * b) + res;
+        document.getElementById("subTotal").value = a * b;
+        document.getElementById("Total").value = res;
+    } catch (e) {
+    }
+}
+</script>
 @endsection

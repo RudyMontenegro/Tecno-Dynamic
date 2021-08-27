@@ -19,8 +19,12 @@ class ProductosController extends Controller
      */
     public function index()
     {
-        $producto = Productos::all();
-        $categoria = Categoria::all();
+        $producto = DB::table('productos')
+                    ->join('categorias', 'categorias.id', '=', 'productos.id_categoria')
+                    ->select('categorias.nombre as categoria','productos.codigo_barra','productos.nombre','productos.id')
+                    ->get();
+        
+        $categoria = Categoria::paginate(2);
         return view('producto.index',['producto'=>$producto,'categoria'=>$categoria]);
     }
 
@@ -49,81 +53,6 @@ class ProductosController extends Controller
      */
     public function store(Request $request)
     {
-        /*
-        $campos=[
-            'nombre' => 'required|regex:/^[\pL\s\-]+$/u|max:50',
-            'apellido' => 'required|regex:/^[\pL\s\-]+$/u|max:50',
-            'codigoSis' => 'required|numeric|unique:App\PersonalAcademico,codigoSis',
-            'email' => 'required|email:rfc,dns|max:30|unique:App\PersonalAcademico,email',
-            'telefono' => 'required|numeric|digits_between:7,8',
-            'password' => 'required|min:8|max:20',
-            'rol' => 'required',
-            'unidad' => 'required',
-            'facultad' => 'required',
-            'carrera' => 'required',
-            
-        ];
-
-        $Mensaje = [
-                
-            "required"=>'El campo es requerido',
-            "rol.required"=>'Seleccione un cargo',
-            "unidad.required"=>'Seleccione una unidad',
-            "facultad.required"=>'Seleccione una facultad',
-            "carrera.required"=>'Seleccione una carrera',
-            "nombre.regex"=>'Solo se acepta caracteres A-Z',
-            "apellido.regex"=>'Solo se acepta caracteres A-Z,chale',
-            "password.min"=>'Solo se acepta 8 caracteres como minimo',
-            "nombre.max"=>'Solo se acepta 50 caracteres como maximo',
-            "apellido.max"=>'Solo se acepta 50 caracteres como maximo',
-            "email.max"=>'Solo se acepta 30 caracteres como maximo',
-            "telefono.digits_between"=>'El numero no existe',
-            "password.max"=>'Solo se acepta 20 caracteres como maximo',
-            "numeric"=>'Solo se acepta números',
-            "codigoSis.unique"=>'Codigo Sis ya registrado',
-            "email.unique"=>'Correo ya registrado',
-            "email"=>'El correo no existe',
-                   ];
-        $this->validate($request,$campos,$Mensaje);
-                   regex:/^[\pL\s\-]+$/u
-
-*/
-
-            $campos=[
-                'codigo' => 'required|unique:productos,codigo|max:50|min:3',
-                'codigoBarra' => 'required|unique:productos,codigo_barra|max:50|min:3',
-                'nombre' => 'required|unique:productos,nombre|max:50|min:3',
-                'categoria' => 'required',
-                'marca' => 'required',
-                'precioCosto' => 'required',
-                'precioVentaMayor' => 'required',
-                'precioVentaMenor' => 'required',
-                'cantidad' => 'required',
-                'unidad' => 'required',
-                'cantidadInicial' => 'required',
-                'proveedor' => 'required',
-                'foto' => 'required',
-            ];
-
-            $Mensaje = [
-                
-                "required"=>'El campo es requerido',
-                "proveedor.required"=>'Seleccione un proveedor',
-                "categoria.required"=>'Seleccione una categoria',
-                "foto.required"=>'Seleccione una imagen',
-                "nombre.regex"=>'Solo se acepta caracteres A-Z',
-                "min"=>'Solo se acepta 3 caracteres como minimo',
-                "max"=>'Solo se acepta 50 caracteres como maximo',
-                "numeric"=>'Solo se acepta números',
-                "codigo.unique"=>'Codigo de producto ya registrado',
-                "codigoBarra.unique"=>'Codigo barra de producto ya registrado',
-                "nombre.unique"=>'Nombre de producto ya registrado',
-                "email.unique"=>'Correo ya registrado',
-                "email"=>'El correo no existe',
-            ];
- 
-            $this->validate($request,$campos,$Mensaje);
-
             $producto = new Productos();
 
             $producto->codigo = request('codigo');
@@ -276,5 +205,45 @@ class ProductosController extends Controller
             }
             
         } 
+    }
+
+    public function validarCodigo(Sucursal $sucursal)
+    {
+        $db_handle = new Productos();
+
+        if(!empty($_POST["codigo"])) {
+            $user_count = $db_handle->numRows2($_POST["codigo"]);
+            $contador = $db_handle->cuenta2($_POST["codigo"]);
+            if($contador < 3){
+                echo "<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>";
+            }else{
+                if($user_count>0) {
+                    echo "<span  class='estado-no-disponible-usuario'><h5 class='estado-no-disponible-usuario'>Codigo de producto no disponible</h5></span>";
+                }else{
+                    echo "<span class='estado-disponible-usuario'><h5 class='estado-disponible-usuario'>Codigo disponible</h5></span>";
+                }
+            }
+            
+        }
+    }
+
+    public function validarCodigoBarra(Sucursal $sucursal)
+    {
+        $db_handle = new Productos();
+
+        if(!empty($_POST["codigoBarra"])) {
+            $user_count = $db_handle->numRows3($_POST["codigoBarra"]);
+            $contador = $db_handle->cuenta3($_POST["codigoBarra"]);
+            if($contador < 3){
+                echo "<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>";
+            }else{
+                if($user_count>0) {
+                    echo "<span  class='estado-no-disponible-usuario'><h5 class='estado-no-disponible-usuario'>Codigo Barra de producto no disponible</h5></span>";
+                }else{
+                    echo "<span class='estado-disponible-usuario'><h5 class='estado-disponible-usuario'>Codigo Barra disponible</h5></span>";
+                }
+            }
+            
+        }
     }
 } 

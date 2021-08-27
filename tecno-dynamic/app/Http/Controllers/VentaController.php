@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cliente;
+use App\Sucursal;
 use App\Venta;
 use App\VentaDetalle;
 use Illuminate\Support\Facades\DB;
@@ -17,11 +18,21 @@ class VentaController extends Controller
     }
     public function create()
     {
-        return view('venta.create');
+        $sucursal = Sucursal::all();
+        return view('venta.create',compact('sucursal'));
     }
  
     public function store(Request $request)
     {
+        $venta = new Venta();
+        $venta->cliente = $request->input('cliente');
+        $venta->comprobante = $request->input('comprobante');
+        $venta->responsable_venta = $request->input('responsable_venta');
+        $venta->fecha = $request->input('fecha');
+        $venta->tipo_venta = $request->input('tipo_venta');
+        $venta->observaciones = $request->input('observaciones');
+        $venta->id_venta = $request->input('id_venta');
+        $venta->save();
         $ventaDetalle = new VentaDetalle();
         $ventaDetalle->codigo_producto = $request->input('codigo_producto');
         $ventaDetalle->nombre = $request->input('nombre');

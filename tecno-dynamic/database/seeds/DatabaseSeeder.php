@@ -9,11 +9,6 @@ use App\Sucursal;
 use App\Productos;
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
     public function run()
     {
         User::create([
@@ -33,9 +28,13 @@ class DatabaseSeeder extends Seeder
             'nombre' => 'Sucursal-Sacaba',
             'responsable' => 'Rudy'
         ]);
+        Sucursal::create([
+            'nombre' => 'Sucursal-ZonaSud',
+            'responsable' => 'Alex'
+        ]);
         factory(Proveedor::class, 10)->create();
         factory(Categoria::class, 2)->create();
-        factory(Cliente::class, 10)->create();
+        factory(Cliente::class, 100)->create();
        // factory(Productos::class, 100)->create();
     }
     
