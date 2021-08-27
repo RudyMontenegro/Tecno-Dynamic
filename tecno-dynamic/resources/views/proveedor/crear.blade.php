@@ -24,7 +24,6 @@
         @endif
         <form action="{{ url('proveedor') }}" method="post">
             @csrf
-
             <div class="col-md-15 mx-auto">
                 <div class="row">
                     <div class="col-5">
