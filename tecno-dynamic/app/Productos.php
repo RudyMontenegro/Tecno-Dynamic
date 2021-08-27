@@ -26,6 +26,28 @@ class Productos extends Model
         return $result;
     }
 
+    function numRows2($nombre) {
+        $result  = DB::table('productos')
+                    ->where('codigo','=', $nombre)
+                    ->count();
+        return $result;
+    }
+    function cuenta2($nombre) {
+        $result  =  strlen($nombre);
+        return $result;
+    }
+
+    function numRows3($nombre) {
+        $result  = DB::table('productos')
+                    ->where('codigo_barra','=', $nombre)
+                    ->count();
+        return $result;
+    }
+    function cuenta3($nombre) {
+        $result  =  strlen($nombre);
+        return $result;
+    }
+
     public static function codigo($id){
         $persona2 = DB::table('productos') 
         ->select('*')

@@ -54,6 +54,8 @@ Route::get('/producto/editar/{id}', 'ProductosController@edit')->middleware('aut
 Route::patch('/producto/editar/{id}', 'ProductosController@update')->middleware('auth');
 Route::delete('/producto/{id}', 'ProductosController@destroy')->middleware('auth');
 Route::post('/producto/validar', 'ProductosController@validar')->middleware('auth');
+Route::post('/producto/validarCodigo', 'ProductosController@validarCodigo')->middleware('auth');
+Route::post('/producto/validarCodigoBarra', 'ProductosController@validarCodigoBarra')->middleware('auth');
 //CLIENTE
 Route::get('/cliente', 'ClienteController@index')->middleware('auth');
 Route::get('/cliente/registrarCliente','ClienteController@create')->middleware('auth');
