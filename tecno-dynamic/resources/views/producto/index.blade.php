@@ -112,7 +112,7 @@
             </div>
         </div>
     </div>
-
+</div>
 
 
     <div class="card shadow">
@@ -181,12 +181,12 @@
                                             </div>
                                         </div>
 
-                                        <a href="{{url('/producto/editar/'.$producto->id)}}"
+                                        <a href="{{url('/producto/editar/'.$productos->id)}}"
                                             class="btn btn-warning float-right btn-sm">
                                             Editar
                                         </a>
 
-                                        <a href="{{url('/producto/'.$producto->id)}}" class="btn btn-info float-right btn-sm">
+                                        <a href="{{url('/producto/'.$productos->id)}}" class="btn btn-info float-right btn-sm">
                                             Ver
                                         </a>
                                     </td>
@@ -204,7 +204,7 @@
                                 </tr>
                             </thead>
                         </table>
-                        <div id="medio">{{$producto->links()}}</div>
+                        <div id="medio" >{{$producto->links()}}</div>
                     </div>
                 </div>
             </div>
@@ -213,7 +213,6 @@
 
     </div>
 
-</div>
 
 
 
