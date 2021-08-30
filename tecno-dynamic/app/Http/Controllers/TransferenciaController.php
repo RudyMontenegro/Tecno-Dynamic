@@ -11,21 +11,10 @@ use Illuminate\Support\Facades\DB;
 
 class TransferenciaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         return view('transferencia.index');
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $sucursal = Sucursal::all();
@@ -96,13 +85,6 @@ class TransferenciaController extends Controller
 
         return redirect('transferencia');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Transferencia  $transferencia
-     * @return \Illuminate\Http\Response
-     */
     public function show(Transferencia $transferencia)
     {
         //

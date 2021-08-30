@@ -33,15 +33,30 @@ class VentaController extends Controller
         $venta->observaciones = $request->input('observaciones');
         $venta->id_venta = $request->input('id_venta');
         $venta->save();
-        $ventaDetalle = new VentaDetalle();
-        $ventaDetalle->codigo_producto = $request->input('codigo_producto');
-        $ventaDetalle->nombre = $request->input('nombre');
-        $ventaDetalle->cantidad = $request->input('cantidad');
-        $ventaDetalle->unidad = $request->input('unidad');
-        $ventaDetalle->precio = $request->input('precio');
-        $ventaDetalle->sub_total = $request->input('sub_total');
-        $ventaDetalle->id_venta = $request->input('id_venta');
-        $ventaDetalle->save();
+
+        $id_venta = DB::table('ventas')
+        ->select('id')
+        ->where('fecha','=',request('fecha'))
+        ->first();
+        if($request->input('nombre') && $request->input('cantidad') && $request->input('unidad') && $request->input('precio') && $request->input('subTotal')){
+            $nombre = request('nombre');
+            $cantidad = request('cantidad');
+            $unidad = request('unidad');
+            $precio = request('precio');
+            $subTotal = request('subTotal');
+            for ($i=0; $i < sizeOf($nombre); $i++) { 
+                $venta_detalle = new VentaDetalle();
+                $venta_detalle->codigo_producto = request('codigo');
+                $venta_detalle->nombre = $nombre[$i];
+                $venta_detalle->cantidad = $cantidad[$i];
+                $venta_detalles->unidad = $unidad[$i];
+                $venta_detalle->precio = $precio[$i];
+                $venta_detalle->sub_total = $subTotal[$i];
+                $venta_detalle->id_transferencia = $id_transferencia->id;
+                $venta_detalle->save();
+            }
+        }
+        return view('venta.index', compact('ventas'));
     }
 
     public function store2(Request $request)
