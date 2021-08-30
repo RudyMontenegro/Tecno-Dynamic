@@ -269,7 +269,7 @@
     </div>
    
 </div>
-<div class="row">
+<div class="row"> 
     <div class="col-5">
         <label for="nombre"class="control-label">{{'Nombre'}}</label>
         <input type="text" class="form-control  {{$errors->has('nombre')?'is-invalid':'' }}" name="nombre" id="nombre" 

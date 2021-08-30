@@ -65,6 +65,7 @@ Route::post('/registrarCliente','ClienteController@store')->middleware('auth');
 Route::get('/cliente/editar/{id}','ClienteController@edit')->middleware('auth');
 Route::patch('/cliente/editar/{id}','ClienteController@update')->middleware('auth');
 Route::delete('/cliente/{id}', 'ClienteController@destroy')->middleware('auth');
+Route::post('/cliente/validar', 'ClienteController@validar')->middleware('auth');
 //VENTA
 Route::get('/venta', 'VentaController@index')->middleware('auth');
 Route::get('/venta/{ventas}/show', 'VentaController@show')->middleware('auth');

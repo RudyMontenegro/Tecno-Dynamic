@@ -56,4 +56,4 @@ class Productos extends Model
         return $persona2;
     }
 
-}
+} 
