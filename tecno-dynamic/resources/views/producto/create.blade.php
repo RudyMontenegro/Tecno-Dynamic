@@ -16,6 +16,232 @@
          </h2> 
     </div>
      
+
+    <script>
+        function comprobarNombre() {
+            $("#loaderIcon").show();
+            
+            jQuery.ajax({
+            url: "/producto/validar",
+            data:{
+                "_token": "{{ csrf_token() }}",
+                "nombre": $("#nombre").val(),
+            },
+            asycn:false,
+            type: "POST",
+            success:function(data){
+                $("#estadoProducto").html(data);
+                $("#loaderIcon").hide();
+            },
+            error:function (){
+                console.log('no da');
+            }
+            });
+        }
+        function comprobarCodigo() {
+            $("#loaderIcon").show();
+            
+            jQuery.ajax({
+            url: "/producto/validarCodigo",
+            data:{
+                "_token": "{{ csrf_token() }}",
+                "codigo": $("#codigo").val(),
+            },
+            asycn:false,
+            type: "POST",
+            success:function(data){
+                $("#estadoCodigo").html(data);
+                $("#loaderIcon").hide();
+            },
+            error:function (){
+                console.log('no da');
+            }
+            });
+        }
+        function comprobarCodigoBarra() {
+            $("#loaderIcon").show();
+            
+            jQuery.ajax({
+            url: "/producto/validarCodigoBarra",
+            data:{
+                "_token": "{{ csrf_token() }}",
+                "codigoBarra": $("#codigoBarra").val(),
+            },
+            asycn:false,
+            type: "POST",
+            success:function(data){
+                $("#estadoCodigoBarra").html(data);
+                $("#loaderIcon").hide();
+            },
+            error:function (){
+                console.log('no da');
+            }
+            });
+        }
+        function validarMarca() {
+
+            if($("#marca").val() == ""){
+                $("#estadoMarca").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+            }else{  
+                if($("#marca").val().length < 3){
+                    $("#estadoMarca").html("<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>");
+                }else{
+                    if($("#marca").val().length > 50){
+                        $("#estadoMarca").html("<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>");
+                    }else{
+                        var re = new RegExp("^[0-9a-zA-Z ]+$");
+                        if(!re.test($("#marca").val())){
+                            $("#estadoMarca").html("<span  class='menor'><h5 class='menor'>Solo se acepta caracteres [A-Z]</h5></span>");
+                        }else{
+                            $("#estadoMarca").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+                        }
+                    
+                    }
+                    
+                }
+            
+            }
+        }
+        
+        function validarPrecioCosto() {
+               
+            if($("#precioCosto").val() == ""){
+                $("#estadoPrecioCosto").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+            }else{     
+                var re = new RegExp("^[+-]?([1-9]+\.?[0-9]*|\.[0-9]+)$");
+                    if(!re.test($("#precioCosto").val()) ){
+                        $("#estadoPrecioCosto").html("<span  class='menor'><h5 class='menor'>Monto ingresado incorrecto</h5></span>");
+                    }else{
+                         $("#estadoPrecioCosto").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+                    }
+            }
+
+                    
+        }
+
+        function validarPrecioVentaMayor() {
+            
+            if($("#precioVentaMayor").val() == ""){
+                $("#estadoPrecioVentaMayor").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+            }else{
+
+                var re = new RegExp("^[+-]?([1-9]+\.?[0-9]*|\.[0-9]+)$");
+                
+                if(!re.test($("#precioVentaMayor").val())){
+                    $("#estadoPrecioVentaMayor").html("<span  class='menor'><h5 class='menor'>Monto ingresado incorrecto</h5></span>");
+                }else{
+                    $("#estadoPrecioVentaMayor").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+                }
+            }
+        }
+        function validarPrecioVentaMenor() {
+            
+            if($("#precioVentaMenor").val() == ""){
+                $("#estadoPrecioVentaMenor").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+            }else{
+                var re = new RegExp("^[+-]?([1-9]+\.?[0-9]*|\.[0-9]+)$");
+                
+                if(!re.test($("#precioVentaMenor").val())){
+                    $("#estadoPrecioVentaMenor").html("<span  class='menor'><h5 class='menor'>Monto ingresado incorrecto</h5></span>");
+                }else{
+                    $("#estadoPrecioVentaMenor").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+                }
+            }
+        }
+        function validarCantidad() {
+            
+            if($("#cantidad").val() == ""){
+                $("#estadoCantidad").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+            }else{
+                if($("#cantidad").val() == 0){
+                    $("#estadoCantidad").html("<span  class='menor'><h5 class='menor'>Cantidad debe ser mayor a 0</h5></span>");
+                }else{
+                    $("#estadoCantidad").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+                }
+            }
+        }
+        function validarUnidad() {
+            
+            if($("#unidad").val() == ""){
+                $("#estadoUnidad").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+            }else{
+                    var re = new RegExp("^[a-zA-Z ]+$");
+                if(!re.test($("#unidad").val())){
+                    $("#estadoUnidad").html("<span  class='menor'><h5 class='menor'>Solo se acepta caracteres [A-Z]</h5></span>");
+                }else{
+                    $("#estadoUnidad").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+                }
+            }
+        }
+        function validarCantidadInicial() {
+            var re = new RegExp("^[1-9]{1,7}$");
+            
+            if($("#cantidadInicial").val() == ""){
+                $("#estadoCantidadInicial").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+            }else{
+                if($("#cantidadInicial").val() == "0"){
+                    $("#estadoCantidadInicial").html("<span  class='menor'><h5 class='menor'>Cantidad debe ser mayor a 0</h5></span>");
+                }else{
+                    if($("#cantidadInicial").val() > 9999999){
+                        $("#estadoCantidadInicial").html("<span  class='menor'><h5 class='menor'>Cantidad invalida</h5></span>");
+                    }else{
+                        if(!re.test($("#cantidadInicial").val())){
+                            $("#estadoCantidadInicial").html("<span  class='menor'><h5 class='menor'>Cantidad ingresada incorrecta</h5></span>");
+                        }else{
+                            $("#estadoCantidadInicial").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+                        }
+                    }
+                   
+                }
+            }
+        }
+
+        function validarCategoria() {
+            
+            var cod = document.getElementById("categoria").value;
+            //console.log(cod);
+            if(cod != "Elige una Categoria"){
+                $("#estadoCategoria").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+            }else{
+                $("#estadoCategoria").html("<span  class='menor'><h5 class='menor'>Seleccione una categoria</h5></span>");
+            }
+        }
+
+        function validarProveedor() {
+            
+            var cod = document.getElementById("proveedor").value;
+            //console.log(cod);
+            if(cod != "Elige un Proveedor"){
+                $("#estadoProveedor").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+            }else{
+                $("#estadoProveedor").html("<span  class='menor'><h5 class='menor'>Seleccione un proveedor</h5></span>");
+            }
+        }
+
+        function validarSucursal() {
+            
+            var cod = document.getElementById("sucursal").value;
+            //console.log(cod);
+            if(cod != "Elige una Sucursal"){
+                $("#estadoSucursal").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+            }else{
+                $("#estadoSucursal").html("<span  class='menor'><h5 class='menor'>Seleccione una sucursal</h5></span>");
+            }
+        }
+        
+    </script>
+    <style>
+        .estado-no-disponible-usuario {
+            color:#D60202;
+        }
+        .estado-disponible-usuario {
+            color:#2FC332;
+        }
+        .menor{
+            color:#D60202;
+        }
+    </style>
+
 <form action="{{url('/producto/registrarProducto')}}" class="form" method="post" enctype="multipart/form-data">
 
     {{ csrf_field()}}
@@ -28,8 +254,8 @@
 
         <label for="codigo" class="control-label">{{'Codigo'}}</label>
         <input type="text" class="form-control  {{$errors->has('codigo')?'is-invalid':'' }}" name="codigo" id="codigo" 
-        value="{{ isset($personal->nombre)?$personal->nombre:old('codigo') }}"
-        >
+        value="{{ isset($personal->nombre)?$personal->nombre:old('codigo') }}" onblur="comprobarCodigo()"
+        ><span id="estadoCodigo"></span>
         {!!  $errors->first('codigo','<div class="invalid-feedback">:message</div>') !!}
        
 
@@ -37,8 +263,8 @@
     <div class="col-5">
         <label for="codigoBarra"class="control-label">{{'Codigo Barra'}}</label>
         <input type="text" class="form-control  {{$errors->has('codigoBarra')?'is-invalid':'' }}" name="codigoBarra" id="codigoBarra" 
-        value="{{ isset($personal->email)?$personal->email:old('codigoBarra')  }}"
-        >
+        value="{{ isset($personal->email)?$personal->email:old('codigoBarra')  }}" onblur="comprobarCodigoBarra()"
+        ><span id="estadoCodigoBarra"></span>
     {!!  $errors->first('codigoBarra','<div class="invalid-feedback">:message</div>') !!}
     </div>
    
@@ -47,18 +273,18 @@
     <div class="col-5">
         <label for="nombre"class="control-label">{{'Nombre'}}</label>
         <input type="text" class="form-control  {{$errors->has('nombre')?'is-invalid':'' }}" name="nombre" id="nombre" 
-        value="{{ isset($personal->apellido)?$personal->apellido:old('nombre') }}"
-        >
+        value="{{ isset($personal->apellido)?$personal->apellido:old('nombre') }}" onblur="comprobarNombre()"
+        ><span id="estadoProducto"></span>
         {!!  $errors->first('nombre','<div class="invalid-feedback">:message</div>') !!}
     </div>
     <div class="col-5">
         <label for="categoria">Categoria</label>
-        <select name="categoria" id="categoria" class="form-control  {{$errors->has('categoria')?'is-invalid':'' }}">
+        <select name="categoria" id="categoria" class="form-control {{$errors->has('categoria')?'is-invalid':'' }}"  onblur="validarCategoria()">
         <option selected disabled>Elige una Categoria</option>
         @foreach ($categoria as $categoria)
             <option {{ old('categoria') == $categoria->id ? "selected" : "" }} value="{{$categoria->id}}">{{$categoria->nombre}}</option>
         @endforeach
-        </select>
+        </select><span id="estadoCategoria"></span>
         {!!  $errors->first('categoria','<div class="invalid-feedback">:message</div>') !!}
     </div>
                    
@@ -68,15 +294,15 @@
     <div class="col-5">
         <label for="marca"class="control-label">{{'Marca'}}</label>
         <input type="text" class="form-control  {{$errors->has('marca')?'is-invalid':'' }}" name="marca" id="marca" 
-        value="{{ isset($personal->codigoSis)?$personal->codigoSis:old('marca') }}"
-        >
+        value="{{ isset($personal->codigoSis)?$personal->codigoSis:old('marca') }}" onkeyup="validarMarca()"
+        ><span id="estadoMarca"></span>
         {!!  $errors->first('marca','<div class="invalid-feedback">:message</div>') !!}
     </div>
     <div class="col-5">
         <label for="precioCosto"class="control-label">{{'Precio Costo'}}</label>
         <input type="number" step="0.01" class="form-control  {{$errors->has('precioCosto')?'is-invalid':'' }}" name="precioCosto" id="precioCosto" 
-        value="{{ isset($personal->codigoSis)?$personal->codigoSis:old('precioCosto') }}"
-        >
+        value="{{ isset($personal->codigoSis)?$personal->codigoSis:old('precioCosto') }}" onkeyup="validarPrecioCosto()"
+        ><span id="estadoPrecioCosto"></span>
         {!!  $errors->first('precioCosto','<div class="invalid-feedback">:message</div>') !!}
     </div>
        
@@ -85,40 +311,40 @@
     <div class="col-5">
         <label for="precioVentaMayor"class="control-label">{{'Precio Venta Mayor'}}</label>
         <input type="number" step="0.01"class="form-control  {{$errors->has('precioVentaMayor')?'is-invalid':'' }}" name="precioVentaMayor" id="precioVentaMayor" 
-        value="{{ isset($personal->telefono)?$personal->telefono:old('precioVentaMayor')  }}"
-        >
+        value="{{ isset($personal->telefono)?$personal->telefono:old('precioVentaMayor')  }}" onkeyup="validarPrecioVentaMayor()"
+        ><span id="estadoPrecioVentaMayor"></span>
         {!!  $errors->first('precioVentaMayor','<div class="invalid-feedback">:message</div>') !!}
     </div>
     <div class="col-5">
         <label for="precioVentaMenor"class="control-label">{{'Precio Venta Menor'}}</label>
         <input type="number" step="0.01" class="form-control  {{$errors->has('precioVentaMenor')?'is-invalid':'' }}" name="precioVentaMenor" id="precioVentaMenor" 
-        value="{{ isset($personal->telefono)?$personal->telefono:old('precioVentaMenor')  }}"
-        >
+        value="{{ isset($personal->telefono)?$personal->telefono:old('precioVentaMenor')  }}" onkeyup="validarPrecioVentaMenor()"
+        ><span id="estadoPrecioVentaMenor"></span>
         {!!  $errors->first('precioVentaMenor','<div class="invalid-feedback">:message</div>') !!}
     </div>
 </div>  
 <div class="row">
     <div class="col-5">
             <label for="cantidad"class="control-label">{{'Cantidad'}}</label>
-            <input type="text" class="form-control  {{$errors->has('cantidad')?'is-invalid':'' }}" name="cantidad" id="cantidad" 
-            value="{{ isset($personal->password)?$personal->password:old('cantidad') }}"
-            >
+            <input type="number" class="form-control  {{$errors->has('cantidad')?'is-invalid':'' }}" name="cantidad" id="cantidad" 
+            value="{{ isset($personal->password)?$personal->password:old('cantidad') }}" onkeyup="validarCantidad()"
+            ><span id="estadoCantidad"></span>
             {!!  $errors->first('cantidad','<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="col-5">
             <label for="unidad"class="control-label">{{'Unidad'}}</label>
             <input type="text" class="form-control  {{$errors->has('unidad')?'is-invalid':'' }}" name="unidad" id="unidad" 
-            value="{{ isset($personal->password)?$personal->password:old('unidad') }}"
-            >
+            value="{{ isset($personal->password)?$personal->password:old('unidad') }}" onkeyup="validarUnidad()"
+            ><span id="estadoUnidad"></span>
             {!!  $errors->first('unidad','<div class="invalid-feedback">:message</div>') !!}
         </div>
 </div> 
 <div class="row">
     <div class="col-5">
             <label for="cantidadInicial"class="control-label">{{'Cantidad Inicial'}}</label>
-            <input type="text" class="form-control  {{$errors->has('cantidadInicial')?'is-invalid':'' }}" name="cantidadInicial" id="cantidadInicial" 
-            value="{{ isset($personal->password)?$personal->password:old('cantidadInicial') }}"
-            >
+            <input type="number" class="form-control  {{$errors->has('cantidadInicial')?'is-invalid':'' }}" name="cantidadInicial" id="cantidadInicial" 
+            value="{{ isset($personal->password)?$personal->password:old('cantidadInicial') }}" onkeyup="validarCantidadInicial()"
+            ><span id="estadoCantidadInicial"></span>
             {!!  $errors->first('cantidadInicial','<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="col-5">
@@ -132,22 +358,22 @@
 <div class="row">
     <div class="col-5">
         <label for="proveedor">Proveedor</label>
-        <select name="proveedor" id="proveedor" class="form-control  {{$errors->has('proveedor')?'is-invalid':'' }}">
+        <select name="proveedor" id="proveedor" class="form-control  {{$errors->has('proveedor')?'is-invalid':'' }}" onblur="validarProveedor()" >
         <option selected disabled>Elige un Proveedor</option>
         @foreach ($proveedor as $proveedor)
             <option {{ old('proveedor') == $proveedor->id ? "selected" : "" }} value="{{$proveedor->id}}">{{$proveedor->nombre_empresa}}</option>
         @endforeach
-        </select>
+        </select><span id="estadoProveedor"></span>
         {!!  $errors->first('proveedor','<div class="invalid-feedback">:message</div>') !!}
     </div>
     <div class="col-5">
         <label for="sucursal">Sucursal</label>
-        <select name="sucursal" id="sucursal" class="form-control  {{$errors->has('sucursal')?'is-invalid':'' }}">
+        <select name="sucursal" id="sucursal" class="form-control  {{$errors->has('sucursal')?'is-invalid':'' }}" onblur="validarSucursal()">
         <option selected disabled>Elige una Sucursal</option>
         @foreach ($sucursal as $sucursal)
             <option {{ old('sucursal') == $sucursal->id ? "selected" : "" }} value="{{$sucursal->id}}">{{$sucursal->nombre}}</option>
         @endforeach
-        </select>
+        </select><span id="estadoSucursal"></span>
         {!!  $errors->first('sucursal','<div class="invalid-feedback">:message</div>') !!}
     </div>
        
@@ -159,7 +385,7 @@
         <a href="{{url('producto')}}"class="btn btn-primary">Regresar</a>
     </div>
     <div class="col-5">       
-        <input type="submit" class="btn btn-success float-right" value="Guardar">
+        <input type="submit" class="btn btn-success float-right"  value="Guardar">
     </div>
 </div>
 </div>

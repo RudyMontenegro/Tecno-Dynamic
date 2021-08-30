@@ -1,13 +1,13 @@
-<style>
-#formulario1 {
-    margin: 0 auto;
-    text-align: center;
-    border-radius: 10px;
-    border: 1px solid #ffffff;
-    width: 800px;
+    <style>
+    #formulario1 {
+        margin: 0 auto;
+        text-align: center;
+        border-radius: 10px;
+        border: 1px solid #ffffff;
+        width: 800px;
 
-}
-</style>
+    }
+    </style>
 <table class="table borderless" id="tabla">
     <thead class="thead-light">
         <tr>
