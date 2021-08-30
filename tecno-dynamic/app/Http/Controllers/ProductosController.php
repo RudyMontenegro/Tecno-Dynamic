@@ -22,9 +22,8 @@ class ProductosController extends Controller
         $producto = DB::table('productos')
                     ->join('categorias', 'categorias.id', '=', 'productos.id_categoria')
                     ->select('categorias.nombre as categoria','productos.codigo_barra','productos.nombre','productos.id')
-                    ->get();
-        
-        $categoria = Categoria::paginate(2);
+                    ->paginate(10,['*'],'producto');
+        $categoria = Categoria::paginate(3,['*'],'categoria');
         return view('producto.index',['producto'=>$producto,'categoria'=>$categoria]);
     }
 
