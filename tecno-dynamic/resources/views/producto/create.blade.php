@@ -153,7 +153,7 @@
             if($("#cantidad").val() == ""){
                 $("#estadoCantidad").html("<span  class='menor'><h5 class='menor'> </h5></span>");
             }else{
-                if($("#cantidad").val() == 0){
+                if($("#cantidad").val() <= 0){
                     $("#estadoCantidad").html("<span  class='menor'><h5 class='menor'>Cantidad debe ser mayor a 0</h5></span>");
                 }else{
                     $("#estadoCantidad").html("<span  class='menor'><h5 class='menor'> </h5></span>");

@@ -61,16 +61,23 @@ class TransferenciaController extends Controller
                                 ->where('fecha','=',request('fecha'))
                                 ->first();
         
-        if($request->input('nombre') && $request->input('cantidad') && $request->input('unidad') && $request->input('precio') && $request->input('subTotal')){
+        if($request->input('codigoI') && $request->input('nombre') && $request->input('cantidad') && $request->input('unidad') && $request->input('precio') && $request->input('subTotal')){
+            $codigo = request('codigoI');
             $nombre = request('nombre');
             $cantidad = request('cantidad');
             $unidad = request('unidad');
             $precio = request('precio');
             $subTotal = request('subTotal');
             for ($i=0; $i < sizeOf($nombre); $i++) { 
+
+                $id_codigo_producto = DB::table('productos')
+                                    ->select('id')
+                                    ->where('codigo','=',$codigo[$i])
+                                    ->first();
+
                 $transferencia_detalle = new TransferenciaDetalle();
 
-                $transferencia_detalle->codigo_producto = request('codigo');
+                $transferencia_detalle->codigo_producto =  $id_codigo_producto->id;
                 $transferencia_detalle->nombre = $nombre[$i];
                 $transferencia_detalle->cantidad = $cantidad[$i];
                 $transferencia_detalle->unidad = $unidad[$i];

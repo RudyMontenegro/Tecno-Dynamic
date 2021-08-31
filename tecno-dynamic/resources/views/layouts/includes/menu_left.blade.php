@@ -19,7 +19,7 @@
             <i class="ni ni-shop text-blue"></i> Sucursales
         </a>
     </li>
-    <li class="nav-item {{ request()->is('transferencia') || request()->is('transferencia/create*') || request()->is('transferencia/editar*')?  'active' : ''}}">
+    <li class="nav-item {{ request()->is('transferencia') || request()->is('transferencia/registrarTransferencia*') || request()->is('transferencia/create*') || request()->is('transferencia/editar*')?  'active' : ''}}">
         <a class="nav-link" href="{{ url('/transferencia')}}">
             <i class="fas fa-sync-alt text-blue"></i> Transferencias
         </a>
