@@ -13,8 +13,8 @@
         <tr>
             <th scope="col">Codigo de producto</th>
             <th scope="col">Nombre</th>
-            <th scope="col">Cantidad</th>
             <th scope="col">Unidad</th>
+            <th scope="col">Cantidad</th>
             <th scope="col">Precio</th>
             <th scope="col">Subtotal</th>
             <th scope="col">Eliminar</th>
@@ -23,44 +23,27 @@
     <tbody>
         <tr>
             <th>
-                <select name="codigo" id="codigo" class="form-control  {{$errors->has('codigo')?'is-invalid':'' }}">
+                <select name="codigo" id="codigo" class="form-control">
                     <option selected disabled>Seleccione un sucursal de origen</option>
                 </select>
             </th>
             <td>
-                <input type="text" class="form-control  {{$errors->has('nombre')?'is-invalid':'' }}" name="nombre[]"
-                    id="nombre" value="{{ isset($transferencia->nombre)?$transferencia->nombre:old('nombre')  }}">
+                <input type="text" class="form-control" name="nombre[]" id="nombre">
             </td>
             <td>
-                <input type="text" class="form-control  {{$errors->has('cantidad')?'is-invalid':'' }}" name="cantidad[]"
-                    id="cantidad"
-                    value="{{ isset($transferencia->cantidad)?$transferencia->cantidad:old('cantidad')  }}">
+                <input type="text" class="form-control" name="unidad[]" id="unidad">
             </td>
             <td>
-                <input type="text" class="form-control  {{$errors->has('unidad')?'is-invalid':'' }}" name="unidad[]"
-                    id="unidad" value="{{ isset($transferencia->unidad)?$transferencia->unidad:old('unidad')  }}">
+                <input type="number" class="form-control" name="cantidad[]" onBlur="calcular()" id="cantidad">
             </td>
             <td>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Bs</span>
-                    </div>
-                    <input type="text" class="form-control  {{$errors->has('precio')?'is-invalid':'' }}" name="precio[]"
-                        id="precio" value="{{ isset($transferencia->precio)?$transferencia->precio:old('precio')  }}">
-                </div>
+                <input type="number" class="form-control" onBlur="calcular()" name="precio[]" id="precio">
             </td>
             <td>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Bs</span>
-                    </div>
-                    <input type="text" class="form-control  {{$errors->has('subTotal')?'is-invalid':'' }}"
-                        name="subTotal[]" id="subTotal"
-                        value="{{ isset($transferencia->subTotal)?$transferencia->subTotal:old('subTotal')  }}">
-                </div>
+                <input type="text" class="form-control" name="subTotal[]" id="subTotal">
             </td>
             <td class="eliminar" id="deletRow" name="deletRow">
-                <button class="btn btn-icon btn-danger"  type="button">
+                <button class="btn btn-icon btn-danger" type="button">
                     <span class="btn-inner--icon"><i class="ni ni-fat-remove"></i></span>
                 </button>
             </td>
@@ -81,20 +64,41 @@ $("#sucursal_origen").change(event => {
     });
 });
 </script>
-
 <script>
-    var bb= 0;
+var res = 0;
+function calcular() {   
+    try {
+        var a = $("input[id=cantidad]").val();
+        var b = $("input[id=precio]").val();
+        res = (a * b) + res;
+        document.getElementById("subTotal").value = a * b;
+        document.getElementById("Total").value = res;
+
+    } catch (e) {
+    }
+}
+</script>
+<script>
+    function limpiarCampos() {
+    $("#codigo_producto").val('');
+    $("#nombre").val('');
+    $("#cantidad").val('');
+    $("#precio").val('');
+    $("#subTotal").val('');
+}
+var bb = 0;
 $(function() {
     $("#adicional").on('click', function() {
-        $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla").find('input').val(' ');
-        bb = bb +1;
-        $('#deletRow').show();
+        $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla");
+        bb = bb + 1;
+       
+        limpiarCampos();
     });
     $(document).on("click", ".eliminar", function() {
-        if(bb>0){
-        var parent = $(this).parents().get(0);
-        $(parent).remove();
-        bb = bb-1;
+        if (bb > 0) {
+            var parent = $(this).parents().get(0);
+            $(parent).remove();
+            bb = bb - 1;
         }
     });
 });
