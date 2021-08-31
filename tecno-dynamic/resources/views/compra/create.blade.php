@@ -93,11 +93,16 @@
                 </div>
                 <div class="row">
                     <div class="col-6">
-                        <div class="form-group">
-                            <label for="sucursal">ID Sucursal</label>
-                            <input type="text" name="id_sucursal" class="form-control" type="url" placeholder="001-cbba"
-                                readonly>
-                        </div>
+                        <label form="sucursal">Sucursal</label>
+                        <select name="sucursal" id="sucursal" class="form-control {{$errors->has('sucursal')?'is-invalid':''}}">
+                            <option selected disabled>Elija una Sucursal</option>
+                            @foreach($sucursal as $sucursal)
+                            <option {{old('sucursal') == $sucursal->id ? "selected" : ""}} value="{{$sucursal->id}}">{{$sucursal->nombre}}</option>
+                            @endforeach
+                        </select>
+                            {!!  $errors->first('sucursal','<div class="invalid-feedback">:message</div>') !!}
+                            <div class="col-5">
+                            </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">

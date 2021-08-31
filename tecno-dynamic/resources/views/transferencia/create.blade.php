@@ -1,6 +1,6 @@
 ~@extends('layouts.panel')
 
-@section('subtitulo','transferencia')
+@section('subtitulo','transferencia') 
 @section('content')
 
 <div class="card shadow" style="background-color:#ffffff; color: rgb(0, 0, 0); font color: yellow !important">

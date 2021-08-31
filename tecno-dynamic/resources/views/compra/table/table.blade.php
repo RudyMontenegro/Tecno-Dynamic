@@ -8,41 +8,43 @@
             <div class="col text-right">
                 <div class="table-responsive">
                     <!-- Projects table -->
-                    <table class="table align-items-center" id="tabla">
+                    <table class="table borderless" id="tabla">
                         <thead class="thead-light">
                                 <tr>
                                       <th scope="col">Codigo de Producto</th>
                                       <th scope="col">Nombre del producto</th>
                                       <th scope="col">Cantidad</th>
-                                      <th scope="col">Precio/Unidad</th>
+                                      <th scope="col">Unidad<th>
+                                      <th scope="col">Precio</th>
                                       <th scope="col">Subtotal</th>
                                       <th scope="col">Eliminar</th>
                                 </tr>
                         </thead>
                          <tbody>
-                            <div class="fila-fija">
-                                 <tr>
                                     <th>
-                                        <input name="codigo_producto" id="codigo_producto" type="text"
-                                            class="form-control">
+                                        <input name="codigo_producto" id="codigo_producto" type="text" class="form-control {{$errors->has('codigo_producto')?'is-invalid':'' }}" 
+                                        value="{{ isset($transferencia->nombre)?$transferencia->nombre:old('nombre')  }}">
                                     </th>
                                     <td>
-                                        <input name="nombre" id="nombre" type="text" class="form-control">
+                                        <input name="nombre" id="nombre" type="text" class="form-control {{$errors->has('nombre')?'is-invalid':'' }}" 
+                                        value="{{ isset($compra->nombre)?$compra->nombre:old('nombre')  }}">
                                     </td>
                                     <td>
-                                        <input name="cantidad" class="form-control" type="number" value="23"
-                                            id="example-number-input">
+                                        <input name="cantidad[]" onBlur="calcular()" class="form-control  {{$errors->has('cantidad')?'is-invalid':'' }}" type="number" value="23"
+                                            id="calcular" value="{{ isset($transferencia->cantidad)?$transferencia->cantidad:old('cantidad')  }}">
                                      <td>
-                                   
+                                        <td>
+                                            <input type="text" class="form-control  {{$errors->has('unidad')?'is-invalid':'' }}" name="unidad[]"
+                                                id="unidad" value="{{ isset($transferencia->unidad)?$transferencia->unidad:old('unidad')  }}">
+                                        </td>
+                                    
                                         <div class="input-group">
                                               <div class="input-group-prepend">
                                                  <span class="input-group-text">$</span>
                                              </div>
-                                               <input type="text" class="form-control" name="precio"
-                                                    aria-label="Amount (to the nearest dollar)">
-                                              <div class="input-group-append">
-                                                 <span class="input-group-text">.00</span>
-                                             </div>
+                                               <input type="text" class="form-control {{$errors->has('precio')?'is-invalid':'' }}" name="precio[]" aria-label="Amount (to the nearest dollar)"
+                                               id="precio" onBlur="calcular()" value="{{ isset($transferencia->precio)?$transferencia->precio:old('precio')  }}" >
+                                              
                                          </div>
                                      </td>
                                    <td>
@@ -50,11 +52,9 @@
                                                <div class="input-group-prepend">
                                                   <span class="input-group-text">$</span>
                                               </div>
-                                                <input type="text" class="form-control"
-                                                      aria-label="Amount (to the nearest dollar)" name="suma">
-                                               <div class="input-group-append">
-                                                   <span class="input-group-text">.00</span>
-                                               </div>
+                                                <input type="text" class="form-control {{$errors->has('subTotal')?'is-invalid':'' }}"
+                                                      aria-label="Amount (to the nearest dollar)" name="subTotal[]" id="subTotal"
+                                                      value="{{ isset($compra->subTotal)?$compra->subTotal:old('subTotal')  }}">
                                           </div>
                                    </td>
                                    <td class="eliminar" id="deletRow" name="deletRow">

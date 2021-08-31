@@ -19,7 +19,7 @@
             <th scope="col">Subtotal</th>
             <th scope="col">Eliminar</th>
         </tr>
-    </thead>
+    </thead> 
     <tbody>
         <tr>
             <th>
