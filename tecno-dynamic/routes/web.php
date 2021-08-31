@@ -33,9 +33,9 @@ Route::post('/sucursal/validar', 'SucursalController@validar')->middleware('auth
 Route::post('/sucursal/validarEditar', 'SucursalController@validarEditar')->middleware('auth');
 //TRANFERENCIAS
 Route::get('/transferencia', 'TransferenciaController@index')->middleware('auth');
-Route::get('transferencia/envio/{id}', 'TransferenciaController@sucursal')->middleware('auth');
-Route::get('transferencia/envioP/{id}', 'TransferenciaController@producto')->middleware('auth');
-Route::get('transferencia/envioC/{id}', 'TransferenciaController@codigo')->middleware('auth');//no da mientras tanto
+Route::get('/transferencia/envio/{id}', 'TransferenciaController@sucursal')->middleware('auth');
+Route::get('/transferencia/envioP/{id}', 'TransferenciaController@producto')->middleware('auth');
+Route::post('/transferencia/validar', 'TransferenciaController@codigo')->middleware('auth');
 Route::get('/transferencia/registrarTransferencia', 'TransferenciaController@create')->middleware('auth');
 Route::post('/transferencia/registrarTransferencia', 'TransferenciaController@store')->middleware('auth');
 Route::get('/transferencia/editar/{id}', 'TransferenciaController@edit')->middleware('auth');
@@ -43,8 +43,10 @@ Route::patch('/transferencia/editar/{id}', 'TransferenciaController@update')->mi
 //CATEGORIA
 Route::get('/producto/registrarCategoria', 'CategoriaController@create')->middleware('auth');
 Route::post('/producto/registrarCategoria', 'CategoriaController@store')->middleware('auth');
-Route::patch('/producto/categoria/editar/{id}', 'CategoriaController@edit')->middleware('auth');
+Route::get('/producto/categoria/editar/{id}', 'CategoriaController@edit')->middleware('auth');
+Route::patch('/producto/categoria/editar/{id}', 'CategoriaController@update')->middleware('auth');
 Route::post('/categoria/validar', 'CategoriaController@validar')->middleware('auth');
+Route::post('/categoria/validarEditar', 'CategoriaController@validarEditar')->middleware('auth');
 //PRODUCTO
 Route::get('/producto', 'ProductosController@index')->middleware('auth');
 Route::get('/producto/prueba', 'ProductosController@prueba')->middleware('auth');

@@ -23,18 +23,21 @@
     <tbody>
         <tr>
             <th>
-                <select name="codigo" id="codigo" class="form-control  {{$errors->has('codigo')?'is-invalid':'' }}">
-                    <option selected disabled>Seleccione un sucursal de origen</option>
-                </select>
+                <input class="form-control" name="codigoI[]" id="codigoI"
+                list="codigo" >
+                <datalist id="codigo">
+                    <option >Seleccione una sucursal de origen</option>
+                </datalist>
             </th>
             <td>
                 <input type="text"  class="form-control  {{$errors->has('nombre')?'is-invalid':'' }}" name="nombre[]"
                     id="nombre" value="{{ isset($transferencia->nombre)?$transferencia->nombre:old('nombre')  }}">
             </td>
             <td>
-                <input type="text" onBlur="calcular()" class="form-control  {{$errors->has('cantidad')?'is-invalid':'' }}" name="cantidad[]"
-                    id="cantidad"
+                <input type="number"  class="form-control  {{$errors->has('cantidad')?'is-invalid':'' }}" name="cantidad[]"
+                    id="cantidad" onkeyup="validarCantidad()"
                     value="{{ isset($transferencia->cantidad)?$transferencia->cantidad:old('cantidad')  }}">
+                    <span id="estadoCantidad"></span>
             </td>
             <td>
                 <input type="text" class="form-control  {{$errors->has('unidad')?'is-invalid':'' }}" name="unidad[]"
@@ -42,22 +45,19 @@
             </td>
             <td>
                 <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Bs</span>
-                    </div>
-                    <input type="text" class="form-control  {{$errors->has('precio')?'is-invalid':'' }}" name="precio[]"
-                        id="precio" onBlur="calcular()" value="{{ isset($transferencia->precio)?$transferencia->precio:old('precio')  }}">
+                    <input type="number" class="form-control  {{$errors->has('precio')?'is-invalid':'' }}" name="precio[]"
+                    onkeyup="validarSubTotal()"   id="precio" onkeyup="calcular()" value="{{ isset($transferencia->precio)?$transferencia->precio:old('precio')  }}"><span id="estadoSubTotal"></span>
                 </div>
             </td>
             <td>
                 <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Bs</span>
-                    </div>
-                    <input type="text" class="form-control  {{$errors->has('subTotal')?'is-invalid':'' }}"
-                        name="subTotal[]" id="subTotal"
+                   
+                    <input type="number" class="form-control  {{$errors->has('subTotal')?'is-invalid':'' }}"
+                        name="subTotal[]" id="subTotal" 
                         value="{{ isset($transferencia->subTotal)?$transferencia->subTotal:old('subTotal')  }}">
+                        
                 </div>
+                
             </td>
             <td class="eliminar" id="deletRow" name="deletRow">
                 <button class="btn btn-icon btn-danger"  type="button">
@@ -68,26 +68,37 @@
     </tbody>
 </table>
 <button type="button" class="btn btn-success btn-lg btn-block" id="adicional" name="adicional">Añadir</button>
-<script>
-$("#sucursal_origen").change(event => {
-    $.get(`envioP/${event.target.value}`, function(res, sta) {
-        $("#codigo").empty();
-        $("#codigo").append(`<option > Elige el codigo de producto </option>`);
-        res.forEach(element => {
-            $("#codigo").append(
-                `<option value=${element.id}> ${element.codigo} </option>`
-            );
+    <script>
+    $("#sucursal_origen").change(event => {
+        $.get(`envioP/${event.target.value}`, function(res, sta) {
+            $("#codigo").empty();
+            $("#codigo").append(`<option > Elige el codigo de producto </option>`);
+            res.forEach(element => {
+                $("#codigo").append(
+                    `<option value=${element.codigo}> ${element.codigo} </option>`
+                );
+            });
         });
     });
-});
-</script>
+    </script>
 
 <script>
+
+function limpiar(){
+    $("#codigoI").val('');
+    $("#nombre").val('');
+    $("#cantidad").val('');
+    $("#unidad").val('');
+    $("#precio").val('');
+    $("#subTotal").val('');
+}
+
     var bb= 0;
 $(function() {
     $("#adicional").on('click', function() {
 
-        $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla").find('input').val(' ');
+        $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla");
+        limpiar();
         bb = bb +1;
         $('#deletRow').show();
     });
@@ -109,5 +120,40 @@ function calcular() {
         document.getElementById("Total").value = res;
     } catch (e) {
     }
+
 }
+
+function validarCantidad() {
+    var re = new RegExp("^[0-9]+$");
+    if($("#cantidad").val() == ""){
+        $("#estadoCantidad").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+    }else{
+        if($("#cantidad").val() <= 0){
+            $("#estadoCantidad").html("<span  class='menor'><h5 class='menor'>Cantidad debe ser mayor a 0</h5></span>");
+        }else{
+            if(!re.test($("#cantidad").val())){
+                $("#estadoCantidad").html("<span  class='menor'><h5 class='menor'>Cantidad ingresada incorrecta</h5></span>");
+            }else{
+                $("#estadoCantidad").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+            }
+        }
+    }
+}
+function validarSubTotal() {
+    var re = new RegExp("^[0-9]+$");
+    if($("#precio").val() == ""){
+        $("#estadoSubTotal").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+    }else{
+        if($("#precio").val() <= 0){
+            $("#estadoSubTotal").html("<span  class='menor'><h5 class='menor'>Cantidad debe ser mayor a 0</h5></span>");
+        }else{
+            if(!re.test($("#precio").val())){
+                $("#estadoSubTotal").html("<span  class='menor'><h5 class='menor'>Cantidad ingresada incorrecta</h5></span>");
+            }else{
+                $("#estadoSubTotal").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+            }
+        }
+    }
+}
+
 </script>

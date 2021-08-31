@@ -29,40 +29,48 @@
         
         function validaComprobante() {
 
-            if($("#comprobante").val().length < 3){
-                $("#estadoComprobante").html("<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>");
+            if($("#comprobante").val() == ""){
+                $("#estadoComprobante").html("<span  class='menor'><h5 class='menor'> </h5></span>");
             }else{
-                if($("#comprobante").val().length > 50){
+                if($("#comprobante").val().length < 3){
                     $("#estadoComprobante").html("<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>");
                 }else{
-                    var re = new RegExp("^[0-9a-zA-Z ]+$");
-                    if(!re.test($("#comprobante").val())){
-                        $("#estadoComprobante").html("<span  class='menor'><h5 class='menor'>Solo se acepta caracteres [A-Z] y [0-9]</h5></span>");
+                    if($("#comprobante").val().length > 50){
+                        $("#estadoComprobante").html("<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>");
                     }else{
-                        $("#estadoComprobante").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+                        var re = new RegExp("^[0-9a-zA-Z ]+$");
+                        if(!re.test($("#comprobante").val())){
+                            $("#estadoComprobante").html("<span  class='menor'><h5 class='menor'>Solo se acepta caracteres [A-Z] y [0-9]</h5></span>");
+                        }else{
+                            $("#estadoComprobante").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+                        }
                     }
+                    
                 }
-                
             }
         }
         
         function validarResponsable() {
 
-            if($("#responsable").val().length < 3){
-                $("#estadoTransferencia").html("<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>");
+            if($("#responsable").val() == ""){
+                $("#estadoTransferencia").html("<span  class='menor'><h5 class='menor'> </h5></span>");
             }else{
-                if($("#responsable").val().length > 50){
+                if($("#responsable").val().length < 3){
                     $("#estadoTransferencia").html("<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>");
                 }else{
-                     var re = new RegExp("^[a-zA-Z ]+$");
-                    if(!re.test($("#responsable").val())){
-                        $("#estadoTransferencia").html("<span  class='menor'><h5 class='menor'>Solo se acepta caracteres [A-Z]</h5></span>");
+                    if($("#responsable").val().length > 50){
+                        $("#estadoTransferencia").html("<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>");
                     }else{
-                         $("#estadoTransferencia").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+                         var re = new RegExp("^[a-zA-Z ]+$");
+                        if(!re.test($("#responsable").val())){
+                            $("#estadoTransferencia").html("<span  class='menor'><h5 class='menor'>Solo se acepta caracteres [A-Z]</h5></span>");
+                        }else{
+                             $("#estadoTransferencia").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+                        }
+                       
                     }
-                   
+                    
                 }
-                
             }
         }
 
