@@ -41,11 +41,11 @@
             </td>
             <td>
                 <input type="text" class="form-control  {{$errors->has('unidad')?'is-invalid':'' }}" name="unidad[]"
-                    id="unidad" value="{{ isset($transferencia->unidad)?$transferencia->unidad:old('unidad')  }}">
+                onkeyup="validarUnidad()"  id="unidad" value="{{ isset($transferencia->unidad)?$transferencia->unidad:old('unidad')  }}"> <span id="estadoUnidad"></span>
             </td>
             <td>
                 <div class="input-group">
-                    <input type="number" class="form-control  {{$errors->has('precio')?'is-invalid':'' }}" name="precio[]"
+                    <input type="interger" class="form-control  {{$errors->has('precio')?'is-invalid':'' }}" name="precio[]"
                     onkeyup="validarSubTotal()"   id="precio" onkeyup="calcular()" value="{{ isset($transferencia->precio)?$transferencia->precio:old('precio')  }}"><span id="estadoSubTotal"></span>
                 </div>
             </td>
@@ -123,6 +123,28 @@ function calcular() {
 
 }
 
+function validarUnidad() {
+    var re = new RegExp("^[a-zA-Z ]+$");
+    if($("#unidad").val() == ""){
+        $("#estadoUnidad").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+    }else{
+        if($("#unidad").val().length < 3){
+            $("#estadoUnidad").html("<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>");
+        }else{
+            if($("#unidad").val().length > 50){
+                $("#estadoUnidad").html("<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>");
+            }else{
+                if(!re.test($("#unidad").val()) ||  $("#unidad").val() == '-'){
+                    $("#estadoUnidad").html("<span  class='menor'><h5 class='menor'>Solo se acepta caracteres [A-Z]</h5></span>");
+                }else{
+                    $("#estadoUnidad").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+                }
+            }
+        }
+        
+    }
+}
+
 function validarCantidad() {
     var re = new RegExp("^[0-9]+$");
     if($("#cantidad").val() == ""){
@@ -131,7 +153,7 @@ function validarCantidad() {
         if($("#cantidad").val() <= 0){
             $("#estadoCantidad").html("<span  class='menor'><h5 class='menor'>Cantidad debe ser mayor a 0</h5></span>");
         }else{
-            if(!re.test($("#cantidad").val())){
+            if(!re.test($("#cantidad").val()) || $("#cantidad").val() == 'e' ||  $("#cantidad").val() == '-'){
                 $("#estadoCantidad").html("<span  class='menor'><h5 class='menor'>Cantidad ingresada incorrecta</h5></span>");
             }else{
                 $("#estadoCantidad").html("<span  class='menor'><h5 class='menor'> </h5></span>");
@@ -141,13 +163,14 @@ function validarCantidad() {
 }
 function validarSubTotal() {
     var re = new RegExp("^[0-9]+$");
+    
     if($("#precio").val() == ""){
         $("#estadoSubTotal").html("<span  class='menor'><h5 class='menor'> </h5></span>");
     }else{
         if($("#precio").val() <= 0){
             $("#estadoSubTotal").html("<span  class='menor'><h5 class='menor'>Cantidad debe ser mayor a 0</h5></span>");
         }else{
-            if(!re.test($("#precio").val())){
+            if(!re.test($("#precio").val()) || $("#precio").val() == 'e' ||  $("#precio").val() == '-'){
                 $("#estadoSubTotal").html("<span  class='menor'><h5 class='menor'>Cantidad ingresada incorrecta</h5></span>");
             }else{
                 $("#estadoSubTotal").html("<span  class='menor'><h5 class='menor'> </h5></span>");
