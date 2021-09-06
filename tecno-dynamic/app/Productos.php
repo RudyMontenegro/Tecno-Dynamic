@@ -51,7 +51,7 @@ class Productos extends Model
     public static function codigo($id){
         $persona2 = DB::table('productos') 
         ->select('*')
-        ->where('id','=',$id)
+        ->where('codigo','=',$id)
         ->get();
         return $persona2;
     }

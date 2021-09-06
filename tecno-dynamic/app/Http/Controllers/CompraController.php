@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Compra;
 use App\CompraDetalle;
 use App\Proveedor;
+use App\Sucursal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use Sabberworm\CSS\Value\Size;
 
 class CompraController extends Controller
 { 
@@ -17,7 +20,7 @@ class CompraController extends Controller
      */
     public function index()
     {
-        $compras = Compra::all();
+        $compras = Compra::paginate(10);
         return view('compra.index', compact('compras'));
     }
 
@@ -29,7 +32,9 @@ class CompraController extends Controller
     public function create()
     {
         $proveedor = Proveedor::all();
-        return view('compra.create',['proveedor'=>$proveedor]);
+        $sucursal = Sucursal::all();
+        return view('compra.create',['proveedor'=>$proveedor,'sucursal'=>$sucursal]);
+        
     }
 
     /**
@@ -40,32 +45,47 @@ class CompraController extends Controller
      */
     public function store(Request $request) 
     {
-        
-    /*
         $compra = new Compra();
+        
+        $compra->comprobante = request('comprobante');
+        $compra->responsable_compra = request('responsable_compra');
+        $compra->fecha = request('fecha');
+        $compra->tipo_compra = $request->get('tipo_compra');
+        $compra->observaciones = request('observaciones');
+        $compra->id_sucursal = request('sucursal');
+        $compra->id_proveedor = $request->get('proveedor');
 
-        $compra-> comprobante = request('comprobante');
-        $compra-> id_proveedor = $request -> get('proveedor');
-        $compra-> responsable_compra = request('responsable_compra');
-        $compra-> fecha = request('fecha');
-        $compra-> tipo_compra = request('tipo_compra');
-        $compra-> observaciones = request('observaciones');
-        $compra-> save();
+        $compra->save();
 
+        $id_compra = DB::table('compras')
+                   ->select('id')
+                   ->where('fecha','=', request('fecha'))
+                   ->first();
+
+        if($request->input('nombre') && $request->input('cantidad') && $request->input('unidad') && $request->input('precio') && $request->input('sub_total')){
+            $nombre = request('nombre');
+            $cantidad = request('cantidad');
+            $unidad = request('unidad');
+            $precio = request('precio');
+            $sub_total = request('sub_total');
+            for($i=0; $i < sizeof($nombre); $i++){
+
+                $compra_detalle = new CompraDetalle();
+
+                $compra_detalle-> codigo_producto = request('codigo');
+                $compra_detalle-> nombre = $nombre[$i];
+                $compra_detalle-> cantidad = $cantidad[$i];
+                $compra_detalle-> unidad = $unidad[$i];
+                $compra_detalle-> precio = $precio[$i];
+                $compra_detalle-> sub_total = $sub_total[$i];
+
+                $compra_detalle->id_compra = $id_compra->id;
+                $compra_detalle->save();
+
+                dd($compra_detalle);
+            }
+        }
         return redirect('compra');
-        */
-
-
-        $compraDetalle = new CompraDetalle();
-        $compraDetalle->codigo_producto = $request->input('codigo_producto');
-        $compraDetalle->nombre = $request->input('nombre');
-        $compraDetalle->cantidad = $request->input('cantidad');
-        $compraDetalle->unidad = $request->input('unidad');
-        $compraDetalle->precio = $request->input('precio');
-        $compraDetalle->sub_total = $request->input('sub_total');
-        $compraDetalle->id_compra = $request->input('id_compra');
-        //dd($compraDetalle);
-        $compraDetalle->save();
     }
 
     /**
@@ -76,7 +96,7 @@ class CompraController extends Controller
      */
     public function show(Compra $compra)
     {
-        return view('compra.edit', compact('compra'));
+        return view('compra.edit', compact('compra')); 
     }
 
     /**
@@ -85,9 +105,18 @@ class CompraController extends Controller
      * @param  \App\Compra  $compra
      * @return \Illuminate\Http\Response
      */
-    public function edit(Compra $compra)
+    public function edit(Compra $compra, $id)
     {
-        return view('compra.edit', compact('compra'));
+        $compra = DB::table('compras')
+        ->select('*')
+        ->where('id','=',$id)
+        ->first();
+
+        $proveedor = DB::table('compras')
+        ->join('proveedors','compras.id_proveedor','=','proveedors.id')
+        ->select('*')
+        ->where('compras.id','=',$id)->first();
+        return view('compra.edit',['compra' => $compra,'proveedor' => $proveedors]);
     } 
 
     /**
@@ -97,35 +126,17 @@ class CompraController extends Controller
      * @param  \App\Compra  $compra
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Compra $compra)
+    public function update(Request $request, Compra $compra,$id)
     {
-        /*
-        $compra->nit = $request->input('nit');
-        $compra->nombre_empresa = $request->input('nombre_empresa');
-        $compra->nombre_contacto = $request->input('nombre_contacto');
-        $compra->direccion = $request->input('direccion');
-        $compra->telefono = $request->input('telefono');
-        $compra->email = $request->input('email');
-        $compra->web_site = $request->input('web_site');
-        $compra->categoria = $request->input('categoria');
-        $compra->save();
-        return redirect('/compra');
-        */
+        $compra = Compra::FindOrAll($id);
 
-        $this->validate($request);
-
-        $compra = new Compra();
-
-        $compra->comprobante = request('comprobante');
-        $compra->proveedor = request('proveedor');
-        $compra->responsable_compra = request('responsable_compra');
-        $compra->fecha = request('fecha');
-        $compra->tipo_compra = request('tipo_compra');
-        $compra->observaciones = request('observaciones');
-        $compra->id_sucursal = request('os_sucursal');
-        
-        $compra->save();
-        return redirect('compra');
+        $compra->comprobante = $request->input('comprobante');
+        $compra->responsable_compra = $request->input('responsable_compra');
+        $compra->fecha = $request->input('fecha');
+        $compra->tipo_compra = $request->input('tipo_compra');
+        $compra->observaciones = $request->input('observaciones');
+        $compra->id_sucursal = $request->input('sucursal');
+        $compra->id_proveedor = $request->input('proveedor');
 
     }
 /*
@@ -148,9 +159,9 @@ class CompraController extends Controller
      * @param  \App\Compra  $compra
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Compra $compra)
+    public function destroy(Compra $compra, $id)
     {
-        $compra->delete();
+        Compra::destroy($id);
         return redirect('compra');
     }
 

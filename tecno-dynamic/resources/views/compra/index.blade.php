@@ -17,31 +17,32 @@
       <table class="table align-items-center table-flush">
             <thead class="thead-light">
                 <tr>
-                    <th scope="col">Empresa</th>
-                    <th scope="col">Contacto</th>
-                    <th scope="col">Telefono</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Opciones</th>
+                    <th scope="col">Comprobante</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Tipo de Compra</th>
+                    <th scope="col">Observaciones</th>
+                    <th scope="col">Opciones<th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($compras as $compra)
                 <tr>
                     <th scope="row">
-                        {{ $compra->nombre_empresa }}
+                        {{ $compra->comprobante }}
                     </th>
                     <td>
-                        {{ $compra->nombre_contacto }}
+                        {{ $compra->fecha }}
                     </td>
                     <td>
-                        {{ $compra->telefono }}
+                        {{ $compra->tipo_compra }}
                     </td>
                     <td>
-                        {{ $compra->email }}
+                        {{ $compra->observaciones }}
                     </td>
+                    
                     <td>
-                        <a href="{{ url('/compra/'.$venta->id.'/show') }}" class="btn btn-sm btn-info">Ver</a>
-                        <a href="{{ url('/compra/'.$venta->id.'/edit') }}"
+                        <a href="{{ url('/compra/'.$compra->id.'/show') }}" class="btn btn-sm btn-info">Ver</a>
+                        <a href="{{ url('/compra/edit/'.$compra->id) }}"
                             class="btn btn-sm btn-primary">Editar</a>
                         <button class="btn btn-sm btn-danger" type="submit" data-toggle="modal"
                             data-target="#exampleModal">Eliminar</button>
@@ -58,27 +59,32 @@
                                     </div>
                                     <div class="modal-body">
                                         <h2 class="text-center">
-                                            ¿Esta seguro de eliminar este producto?
+                                            ¿Esta seguro de eliminar esta compra?
                                         </h2>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <form method="POST" action="{{url('/venta/'.$venta->id) }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger float-right">Borrar</button>
-                                        </form>
-                                        <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Cancelar</button>
-                                    </div>
+                                      </div>
+                                          <div class="modal-footer">
+                                             <form method="POST" action="{{url('/compra/'.$compra->id) }}" 
+                                                style="display:inline">
+                                                {{csrf_field()}}
+                                                {{method_field('DELETE')}}
+                                               <button type="submit" class="btn btn-danger float-right">Borrar</button>
+                                             </form>
+                                                 <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Cancelar</button>
+                                            </div>
+                                      </div> 
+                                  </div>
                                 </div>
                             </div>
                         </div>
-
                     </td>
                 </tr>
                 @endforeach
             </tbody>
+        </table>
+        <div class="paginacion">
+            {{$compras->links()}}
+        </div>
    </div>
 </div>
- 
 @endsection

@@ -33,9 +33,9 @@ Route::post('/sucursal/validar', 'SucursalController@validar')->middleware('auth
 Route::post('/sucursal/validarEditar', 'SucursalController@validarEditar')->middleware('auth');
 //TRANFERENCIAS
 Route::get('/transferencia', 'TransferenciaController@index')->middleware('auth');
-Route::get('transferencia/envio/{id}', 'TransferenciaController@sucursal')->middleware('auth');
-Route::get('transferencia/envioP/{id}', 'TransferenciaController@producto')->middleware('auth');
-Route::get('transferencia/envioC/{id}', 'TransferenciaController@codigo')->middleware('auth');//no da mientras tanto
+Route::get('/transferencia/envio/{id}', 'TransferenciaController@sucursal')->middleware('auth');
+Route::get('/transferencia/envioP/{id}', 'TransferenciaController@producto')->middleware('auth');
+Route::post('/transferencia/validar', 'TransferenciaController@codigo')->middleware('auth');
 Route::get('/transferencia/registrarTransferencia', 'TransferenciaController@create')->middleware('auth');
 Route::post('/transferencia/registrarTransferencia', 'TransferenciaController@store')->middleware('auth');
 Route::get('/transferencia/editar/{id}', 'TransferenciaController@edit')->middleware('auth');
@@ -43,8 +43,10 @@ Route::patch('/transferencia/editar/{id}', 'TransferenciaController@update')->mi
 //CATEGORIA
 Route::get('/producto/registrarCategoria', 'CategoriaController@create')->middleware('auth');
 Route::post('/producto/registrarCategoria', 'CategoriaController@store')->middleware('auth');
-Route::patch('/producto/categoria/editar/{id}', 'CategoriaController@edit')->middleware('auth');
+Route::get('/producto/categoria/editar/{id}', 'CategoriaController@edit')->middleware('auth');
+Route::patch('/producto/categoria/editar/{id}', 'CategoriaController@update')->middleware('auth');
 Route::post('/categoria/validar', 'CategoriaController@validar')->middleware('auth');
+Route::post('/categoria/validarEditar', 'CategoriaController@validarEditar')->middleware('auth');
 //PRODUCTO
 Route::get('/producto', 'ProductosController@index')->middleware('auth');
 Route::get('/producto/prueba', 'ProductosController@prueba')->middleware('auth');
@@ -78,12 +80,12 @@ Route::put('/venta/{ventas}', 'VentaController@update')->middleware('auth');
 Route::delete('/venta/{ventas}', 'VentaController@destroy')->middleware('auth');     
 //COMPRA
 Route::get('/compra', 'CompraController@index')->middleware('auth');
-Route::get('/compra/{compras}/show', 'CompraController@show')->middleware('auth');
 Route::get('/compra/registrarCompra','CompraController@create')->middleware('auth');
-Route::post('/registrarCompra','CompraController@store')->middleware('auth');
-Route::get('/compra/{compras}/edit', 'CompraController@edit')->middleware('auth');
-Route::put('/compra/{compras}', 'CompraController@update')->middleware('auth');
+Route::get('/compra/edit/{id}', 'CompraController@edit')->middleware('auth');
+Route::post('/compra/registrarCompra','CompraController@store')->middleware('auth');
+Route::patch('/compra/edit/{id}', 'CompraController@update')->middleware('auth');
 Route::delete('/compra/{compras}', 'CompraController@destroy')->middleware('auth');
+Route::get('/compra/{id}', 'CompraController@show')->middleware('auth');    
 //jquery
 Route::post('/autocomplete', 'VentaController@fetch');
 Route::get('/autocompleteNit/{id}', 'VentaController@fetchNit');

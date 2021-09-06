@@ -15,14 +15,13 @@ class CreateComprasTable extends Migration
     {
         Schema::create('compras', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('comprobante');
-            $table->string('proveedor');
-            $table->string('responsable_compra');
-            $table->date('fecha');
-            $table->string('tipo_compra');
-            $table->string('observaciones');
-            $table->unsignedBigInteger('id_sucursal');
-            $table->unsignedBigInteger('id_proveedor');
+            $table->string('comprobante')->nullable();
+            $table->string('responsable_compra')->nullable();
+            $table->date('fecha')->nullable();
+            $table->string('tipo_compra')->nullable();
+            $table->string('observaciones')->nullable();
+            $table->unsignedBigInteger('id_sucursal')->nullable();
+            $table->unsignedBigInteger('id_proveedor')->nullable();
 
             $table->foreign('id_sucursal')
             ->references('id')

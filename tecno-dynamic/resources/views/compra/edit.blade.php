@@ -2,17 +2,12 @@
 @section('subtitulo','compras')
 @section('content')
 
-<head>
-    <title>Ajax Autocomplete Textbox in Laravel using JQuery</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
-</head>
- 
 <div class="card shadow" style="background-color:#4F9BF6; color: white; font color: yellow !important">
    <div class="card-header border-0">
        <div class="row align-items-center">
               <div class="col">
-                  <h3 class="mb-0">Nueva Orden de Compra</h3>
+                  <h3 class="mb-0">Editar Compra</h3>
                </div>
 
          </div>
@@ -20,8 +15,9 @@
 
     <div class="card-body">
  
-       <form action="{{ url('registrarCompra')}}" method="post" enctype="multipart/form-data">
+       <form action="{{ url('/compra/edit/'.$compra->id)}}" method="post" enctype="multipart/form-data">
          {{csrf_field()}}
+         {{ method_field('PATCH') }}
           <div class="col-md-12 mx-auto">
 
   
@@ -29,18 +25,16 @@
                  <div class="col-6">
                       <label form="comprobante">Comprobante</label>
                       <input class="form-control {{$errors->has('nit')?'is-invalid':'' }}" type="text" name="comprobante" id="comprobante" 
-                             placeholder="Ingrese el comprobante" value="{{ old('nit') }}">
+                             placeholder="Ingrese el comprobante" value="{{ isset($compra->comprobante)?$compra->comprobante:old('comprobante') }}">
 
                        {!!  $errors->first('nit','<div class="invalid-feedback">:message</div>') !!}
                  </div>  
 
                  <div class="col-6">
                         <label form="proveedor">Proveedor</label>
-                       <select name="proveedor" id="proveedor" class="form-control  {{$errors->has('proveedor')?'is-invalid':'' }}">
-                             <option selected disabled>Elige un Proveedor</option>
-                            @foreach ($proveedor as $proveedor)
-                            <option {{ old('proveedor') == $proveedor->id ? "selected" : "" }} value="{{$proveedor->id}}">{{$proveedor->nombre_empresa}}</option>
-                            @endforeach
+                       <select name="proveedor" id="proveedor" class="form-control  {{$errors->has('proveedor')?'is-invalid':'' }}">   
+                        <option selected disabled>Elige un Proveedor</option>
+                            
                        </select>
                      {!!  $errors->first('proveedor','<div class="invalid-feedback">:message</div>') !!}
                        <div class="col-5">
@@ -89,7 +83,7 @@
                 </div>
                 <div class="form-group">
                     <label for="telefono">Observaciones</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" value="{{ isset($compra->observaciones)?$compra->observaciones:old('observaciones') }}"></textarea>
                 </div>
                 <div class="row">
                     <div class="col-6">
