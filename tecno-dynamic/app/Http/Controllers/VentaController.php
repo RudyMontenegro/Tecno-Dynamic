@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Productos;
 use App\Cliente;
 use App\Sucursal;
 use App\Venta;
@@ -22,22 +23,32 @@ class VentaController extends Controller
         return view('venta.create',compact('sucursal'));
     }
  
+    public function producto(Request $request, $id)
+    {
+        if($request->ajax()){
+            $producto=Productos::producto($id);
+            return response()->json( $producto);
+        }
+    }
+    
     public function store(Request $request)
     {
         $venta = new Venta();
-        $venta->cliente = $request->input('cliente');
-        $venta->comprobante = $request->input('comprobante');
-        $venta->responsable_venta = $request->input('responsable_venta');
+        $venta->cliente = $request->input('nombre_contacto');
+        $venta->nit = $request->input('nit');
         $venta->fecha = $request->input('fecha');
         $venta->tipo_venta = $request->input('tipo_venta');
+        $venta->id_sucursal = $request->get('sucursal_origen');
+        $venta->comprobante = $request->input('comprobante');
+        $venta->total = $request->input('total');
         $venta->observaciones = $request->input('observaciones');
-        $venta->id_venta = $request->input('id_venta');
+        $venta->responsable_venta = $request->input('responsable_venta');
         $venta->save();
-
         $id_venta = DB::table('ventas')
         ->select('id')
         ->where('fecha','=',request('fecha'))
         ->first();
+       // dd($id_venta);
         if($request->input('nombre') && $request->input('cantidad') && $request->input('unidad') && $request->input('precio') && $request->input('subTotal')){
             $nombre = request('nombre');
             $cantidad = request('cantidad');
@@ -49,28 +60,18 @@ class VentaController extends Controller
                 $venta_detalle->codigo_producto = request('codigo');
                 $venta_detalle->nombre = $nombre[$i];
                 $venta_detalle->cantidad = $cantidad[$i];
-                $venta_detalles->unidad = $unidad[$i];
+                $venta_detalle->unidad = $unidad[$i];
                 $venta_detalle->precio = $precio[$i];
                 $venta_detalle->sub_total = $subTotal[$i];
-                $venta_detalle->id_transferencia = $id_transferencia->id;
+                $venta_detalle->id_venta = $id_venta->id;
+
                 $venta_detalle->save();
             }
         }
-        return view('venta.index', compact('ventas'));
+        return redirect('venta');
     }
 
-    public function store2(Request $request)
-    {
-        $venta = new Venta();
-        $venta->cliente = $request->input('cliente');
-     //   $venta->nombre = $request->input('nombre');
-       // $venta->cantidad = $request->input('cantidad');
-        //$venta->unidad = $request->input('unidad');
-      //  $venta->precio = $request->input('precio');
-      //  $venta->sub_total = $request->input('sub_total');
-     //   $venta->id_venta = $request->input('id_venta');
-        $venta->save();
-    }
+   
    
     public function show(Venta $venta)
     {
@@ -98,6 +99,15 @@ class VentaController extends Controller
         $venta->delete();
         return redirect('/venta');
     }
+    
+    function fetchNit(Request $request)
+    {
+        if($request->ajax()){
+            $cliente=Cliente::cliente($id);
+            return response()->json( $cliente);
+        }
+    }
+
     function fetch(Request $request)
     {
      if($request->get('query'))

@@ -70,8 +70,9 @@ Route::post('/cliente/validar', 'ClienteController@validar')->middleware('auth')
 Route::get('/venta', 'VentaController@index')->middleware('auth');
 Route::get('/venta/{ventas}/show', 'VentaController@show')->middleware('auth');
 Route::get('/venta/create', 'VentaController@create')->middleware('auth');
-Route::post('/venta', 'VentaController@store2')->middleware('auth');
-Route::post('/ventaDetalle', 'VentaController@store')->middleware('auth');
+Route::get('/venta/envioP/{id}', 'VentaController@producto')->middleware('auth');
+Route::get('/venta/envioName/{id}', 'VentaController@getCliente')->middleware('auth');
+Route::post('/venta', 'VentaController@store')->middleware('auth');
 Route::get('/venta/{ventas}/edit', 'VentaController@edit')->middleware('auth');
 Route::put('/venta/{ventas}', 'VentaController@update')->middleware('auth');
 Route::delete('/venta/{ventas}', 'VentaController@destroy')->middleware('auth');     
@@ -85,4 +86,4 @@ Route::put('/compra/{compras}', 'CompraController@update')->middleware('auth');
 Route::delete('/compra/{compras}', 'CompraController@destroy')->middleware('auth');
 //jquery
 Route::post('/autocomplete', 'VentaController@fetch');
-Route::get('/autocompleteNit/{cliente}', 'VentaController@fetchNit');
+Route::get('/autocompleteNit/{id}', 'VentaController@fetchNit');

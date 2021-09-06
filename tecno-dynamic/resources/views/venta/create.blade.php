@@ -1,14 +1,11 @@
 @extends('layouts.panel')
 @section('subtitulo','proveedores')
 @section('content')
-
 <head>
     <title>Ajax Autocomplete Textbox in Laravel using JQuery</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-
-
 </head>
-<form>
+<form action="{{ url('venta') }}" method="post">
     @csrf
     <div class="card shadow">
         <div class="card-header border-0">
@@ -31,18 +28,13 @@
                 </ul>
             </div>
             @endif
-
-
             <div class="col-md-12 mx-auto ">
                 <div class="row">
-
-
                     <div class="col-6">
                         <div class="form-group">
-
                             <label for="nombre_empresa">Cliente</label>
-                            <input class="form-control" name="nombre_contacto" id="nombre_contacto"
-                                list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+                            <input class="form-control" name="nombre_contacto" keyup id="nombre_contacto"
+                                list="datalistOptions" id="exampleDataList" placeholder="Escriba para buscar...">
                             <datalist id="countryList">
                             </datalist>
                         </div>
@@ -50,43 +42,43 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="nit">Nit</label>
-                            <input type="text" name="nombre_empresa" class="form-control" value="{{ old('name')}}"
-                                required>
+                            <input type="text" name="nit" id="nit" class="form-control" value="{{ old('name')}}">
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label for="nanombre_contactome">Fecha</label>
-                            <input class="form-control" type="datetime-local" name="fecha" value=""
-                                id="fecha" >
+                            <input class="form-control" type="datetime-local" name="fecha" value="" id="fecha">
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label for="direccion">Tipo de Venta</label>
                             <input type="text" name="tipo_venta" class="form-control" placeholder="Efectivo"
-                                value="{{ old('tipo_venta')}}" required>
+                                value="{{ old('tipo_venta')}}" >
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label for="nanombre_contactome">Sucursal
                             </label>
-                            <select class="form-control">
-                            @foreach ($sucursal as $origen)
-                            <option value="{{$origen->id}}">
-                                {{$origen->nombre}}</option>
-                            @endforeach
-                                
+                            <select name="sucursal_origen" id="sucursal_origen"
+                                class="form-control  {{$errors->has('sucursal_origen')?'is-invalid':'' }}">
+                                <option selected disabled>Elige una Sucursal de Origen</option>
+                                @foreach ($sucursal as $origen)
+                                <option {{ old('origen') == $origen->id ? "selected" : "" }} value="{{$origen->id}}">
+                                    {{$origen->nombre}}</option>
+                                @endforeach
                             </select>
+                            {!! $errors->first('sucursal_origen','<div class="invalid-feedback">:message</div>') !!}
 
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label for="direccion">Comprobante</label>
-                            <input type="text" name="tipo_venta" class="form-control" 
-                                value="{{ old('tipo_venta')}}" required>
+                            <input type="text" name="comprobante" class="form-control" value="{{ old('tipo_venta')}}"
+                                required>
                         </div>
                     </div>
 
@@ -101,28 +93,20 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">Bs.</span>
                                     </div>
-                                    <input type="number" class="form-control" id="Total" aria-label="Username"
-                                        aria-describedby="basic-addon1">
+                                    <input type="number" class="form-control" id="total" name="total">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="telefono">Observaciones</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <textarea class="form-control" id="observaciones" name="observaciones" rows="3"></textarea>
                     </div>
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="web_site">ID Sucursal</label>
-                                <input type="text" name="web_site" class="form-control" type="url"
-                                    placeholder="001-cbba" readonly>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
                                 <label for="nit">Responsable de venta</label>
-                                <input type="text" name="web_site" class="form-control" type="url"
+                                <input type="text" name="responsable_venta" class="form-control" type="url"
                                     placeholder="001-cbba" readonly value="{{ auth()->user()->name }}">
                             </div>
                         </div>
@@ -131,14 +115,11 @@
                         Guardar
                     </button>
                 </div>
-
             </div>
         </div>
 </form>
 <script>
-
 $(document).ready(function() {
-
     $('#nombre_contacto').keyup(function() {
         var query = $(this).val();
         if (query != '') {
@@ -160,6 +141,17 @@ $(document).ready(function() {
     $(document).on('click', 'li', function() {
         $('#nombre_contacto').val($(this).text());
         $('#countryList').fadeOut();
+    });
+});
+$("#nombre_contacto").change(event => {
+    $.get(`autocompleteNit/${event.target.value}`, function(res, sta) {
+        $("#nit").empty();
+        $("#nit").append(`<option > NIT </option>`);
+        res.forEach(element => {
+            $("#nit").append(
+                `<option value=${element.id}> ${element.codigo} </option>`
+            );
+        });
     });
 });
 </script>
