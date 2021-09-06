@@ -20,7 +20,7 @@
 
     <div class="card-body">
  
-       <form action="{{ url('registrarCompra')}}" method="post">
+       <form action="{{ url('/compra/registrarCompra')}}" method="post">
          {{csrf_field()}}
           <div class="col-md-12 mx-auto">
 
@@ -28,10 +28,10 @@
             <div class = 'row'>
                  <div class="col-6">
                       <label form="comprobante">Comprobante</label>
-                      <input class="form-control {{$errors->has('nit')?'is-invalid':'' }}" type="text" name="comprobante" id="comprobante" 
+                      <input class="form-control  type="text" name="comprobante" id="comprobante" 
                              placeholder="Ingrese el comprobante" value="{{ old('comprobante') }}">
 
-                       {!!  $errors->first('nit','<div class="invalid-feedback">:message</div>') !!}
+                       {!!  $errors->first('comprobante','<div class="invalid-feedback">:message</div>') !!}
                  </div>  
 
                  <div class="col-6">
@@ -52,7 +52,7 @@
                  <div class="col-6">
                     <div class="form-group">
                         <label form="fecha">Fecha</label>
-                        <input class="form-control text-dark" type="datetime-local" value="" name="|fecha"
+                        <input class="form-control text-dark" type="datetime-local" value="" name="fecha"
                             id="fecha" onblur="validarFecha()">
                     </div>
                 </div>
@@ -66,8 +66,20 @@
                      {!!  $errors->first('tipo_compra','<div class="invalid-feedback">:message</div>') !!}
                         </select>             
                  </div>
-
             </div>  
+        <div class="row">
+            <div class="col-6">
+                <label form="sucursal">Sucursal</label>
+                <select name="sucursal" id="sucursal" class="form-control {{$errors->has('sucursal')?'is-invalid':''}}">
+                    <option selected disabled>Elija una Sucursal</option>
+                    @foreach($sucursal as $sucursal)
+                    <option {{old('sucursal') == $sucursal->id ? "selected" : ""}} value="{{$sucursal->id}}">{{$sucursal->nombre}}</option>
+                    @endforeach
+                </select>
+                    {!!  $errors->first('sucursal','<div class="invalid-feedback">:message</div>') !!}
+                    <div class="col-5">
+                    </div>
+            </div>
         </div>
               </br>  
                @include('compra.table.table')
@@ -87,30 +99,19 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label form="responsable_compra">Responsable de compra</label>
+                            <input type="text" name="responsable_compra" class="form-control" type="url" id="responsable_compra" placeholder="001-cbba"
+                                readonly value="{{ auth()->user()->name }}">
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label form="observaciones">Observaciones</label>
                     <textarea class="form-control" name="observaciones" id="observaciones" rows="3"></textarea>
                 </div>
-                <div class="row">
-                    <div class="col-6">
-                        <label form="sucursal">Sucursal</label>
-                        <select name="sucursal" id="sucursal" class="form-control {{$errors->has('sucursal')?'is-invalid':''}}">
-                            <option selected disabled>Elija una Sucursal</option>
-                            @foreach($sucursal as $sucursal)
-                            <option {{old('sucursal') == $sucursal->id ? "selected" : ""}} value="{{$sucursal->id}}">{{$sucursal->nombre}}</option>
-                            @endforeach
-                        </select>
-                            {!!  $errors->first('sucursal','<div class="invalid-feedback">:message</div>') !!}
-                            <div class="col-5">
-                            </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label form="responsable">Responsable de compra</label>
-                            <input type="text" name="web_site" class="form-control" type="url" placeholder="001-cbba"
-                                readonly value="{{ auth()->user()->name }}">
-                        </div>
-                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary">
                     Guardar
@@ -162,7 +163,7 @@
 
             document.getElementById("fecha").value=`${YYYY}-${MTH}-${DAY}T${HH}:${MM}`;
         }
-        setTimeout(validarFecha,30000);
+        setInterval(validarFecha,30000);
     </script>
 
 

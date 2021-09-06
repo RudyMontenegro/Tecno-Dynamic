@@ -39,6 +39,19 @@
                 }
                 });
             }
+            function comprobarNombre(){
+                
+                if($("#nombre_empresa").val() == ""){
+                $("#estadoNombreEmpresa").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+            }else{
+                    var re = new RegExp("^[a-zA-Z ]+$");
+                if(!re.test($("#nombre_empresa").val())){
+                    $("#estadoNombreEmpresa").html("<span  class='menor'><h5 class='menor'>Solo se acepta caracteres [A-Z]</h5></span>");
+                }else{
+                    $("#estadoNombreEmpresa").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+                }
+            }
+            }
         </script>
         <style>
             .estado-no-disponible-nit {
@@ -70,7 +83,7 @@
                   <div class="col-6">
                         <label form="empresa">Nombre de Empresa</label>
                         <input class="form-control {{$errors->has('nombre_empresa')?'is-invalid':'' }}" type="text" name="nombre_empresa" id="nombre_empresa"  
-                                Placeholder="Ingrese el nombre de la empresa" value="{{ old('empresa') }}">
+                                Placeholder="Ingrese el nombre de la empresa" value="{{ old('empresa') }}" onblur="comprobarNombre()">
 
                           {!!  $errors->first('nombre_empresa','<div class="invalid-feedback">:message</div>') !!}
                    </div>  

@@ -1,6 +1,6 @@
 @extends('layouts.panel')
 @section('subtitulo','clientes')
-@section('content')
+@section('content') 
 <div class="card shadow">
     <div class="card-header border-0">
         <div class="col align-items-center">
@@ -80,7 +80,7 @@
                             </div>
                         </div>
                         @csrf
-                        @method('DELETE')
+                        @method('DELETE') 
                         <a href="{{ url('/cliente/editar/'.$cliente->id) }}" class="btn btn-sm btn-primary">Editar</a>
                         <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal"
                             type="submit">Eliminar</button>
@@ -108,13 +108,3 @@
 
     });
 </script>
-<style>
-    /*
-    .paginacion{
-        padding: 10px;
-        margin: 10px;
-        background-color: #ADD8E6;
-        text-align: center;
-    }
-    */
-</style>

@@ -111,7 +111,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="responsable">Responsable Transferencia</label>
-                            <input type="text" name="responsable" id="responsable" class="form-control" value="{{ old('responsable')}}"
+                            <input type="text" name="responsable" id="responsable" class="form-control" ~
                             onkeyup="validarResponsable()"   ><span id="estadoTransferencia"></span>
                         </div>
                     </div>

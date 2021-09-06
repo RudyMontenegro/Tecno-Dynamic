@@ -15,7 +15,7 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $clientes = Cliente::paginate(10);
+        $clientes = Cliente::paginate(10); 
         return view('cliente.index', compact('clientes'));
     }
 
@@ -51,7 +51,7 @@ class ClienteController extends Controller
             'direccion' => 'required',
             'telefono' => 'required|unique:clientes,telefono',
             'email' => 'required ',
-            'web_site' => 'required',
+            
         
         ]; 
 
