@@ -7,7 +7,9 @@
     width: 800px;
 
 }
-.card .table td, .card .table th {
+
+.card .table td,
+.card .table th {
     padding-right: 0.1rem;
     padding-left: 0.1rem;
 }
@@ -96,9 +98,10 @@ function limpiarCampos() {
 var bb = 0;
 $(function() {
     $("#adicional").on('click', function() {
-        $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla");
-
+        ("#tabla tbody tr:eq(0)").clone().appendTo("#tabla");
         bb = bb + 1;
+        var campo = document.getElementById('codigo_producto');
+        campo.readOnly = true;
         limpiarCampos();
     });
     $(document).on("click", ".eliminar", function() {
