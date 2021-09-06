@@ -98,10 +98,8 @@ function limpiarCampos() {
 var bb = 0;
 $(function() {
     $("#adicional").on('click', function() {
-        ("#tabla tbody tr:eq(0)").clone().appendTo("#tabla");
+        $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla").find('input').attr('readonly', true);
         bb = bb + 1;
-        var campo = document.getElementById('codigo_producto');
-        campo.readOnly = true;
         limpiarCampos();
     });
     $(document).on("click", ".eliminar", function() {
