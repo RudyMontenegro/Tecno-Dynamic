@@ -87,7 +87,7 @@
 
             document.getElementById("fecha").value=`${YYYY}-${MTH}-${DAY}T${HH}:${MM}`;
         }
-        setTimeout(validarFecha,30000);
+        setInterval(validarFecha,30000);
         </script>
         <style>
             .menor {
@@ -158,6 +158,8 @@
                 $.get(`envio/${event.target.value}`, function(res, sta) {
                     $("#sucursal_destino").empty();
                     $("#sucursal_destino").append(`<option > Elige una Sucursal de Destino </option>`);
+                    $("#codigoI").val('');
+                    $("#estadoCodigo").html("<span  class='menor'><h5 class='menor'> </h5></span>");
                     res.forEach(element => {
                         $("#sucursal_destino").append(
                             `<option value=${element.id}> ${element.nombre} </option>`);
