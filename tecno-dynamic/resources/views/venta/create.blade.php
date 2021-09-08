@@ -30,6 +30,7 @@
             @endif
             <div class="col-md-12 mx-auto ">
                 <div class="row">
+                    
                     <div class="col-6">
                         <div class="form-group">
                             <label for="nombre_empresa">Cliente</label>

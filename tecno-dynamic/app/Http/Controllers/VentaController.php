@@ -20,7 +20,8 @@ class VentaController extends Controller
     public function create()
     {
         $sucursal = Sucursal::all();
-        return view('venta.create',compact('sucursal'));
+        $cliente = Cliente::all();
+        return view('venta.create',compact('sucursal','cliente'));
     }
  
     public function producto(Request $request, $id)
