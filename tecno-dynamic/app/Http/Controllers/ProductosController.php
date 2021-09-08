@@ -203,7 +203,7 @@ class ProductosController extends Controller
                 }
             }
             
-        }
+        } 
     }
 
     public function validarCodigo(Sucursal $sucursal)

@@ -1,4 +1,4 @@
-@extends('layouts.panel')
+~@extends('layouts.panel')
 
 @section('subtitulo','transferencia')
 @section('content')
@@ -73,7 +73,7 @@
                 }
             }
         }
-
+ 
         function validarFecha(){
             const date = new Date(),
           ten = (i)=> ((i < 10 ? '0' : '') + i ),

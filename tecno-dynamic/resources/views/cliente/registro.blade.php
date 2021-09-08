@@ -2,7 +2,13 @@
 @section('subtitulo','clientes')
 @section('content')
 
-<div class="card shadow" style="background-color:#11cdef; color: white; font color: yellow !important">
+<head>
+      <title>Ajax Autocomplete Textbox in Laravel using JQuery</title>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  
+  </head>
+
+<div class="card shadow" style="background-color:#4F9BF6; color: white; font color: yellow !important">
       <div class="card-header border-0">
             <div class="row align-items-center">
                   <div align ="center">
@@ -12,8 +18,42 @@
           </div> 
       </br>
 
+      <script>
+            function comprobarNit() {
+                $("#loaderIcon").show();
+                
+                jQuery.ajax({
+                url: "/cliente/validar",
+                data:{
+                    "_token": "{{ csrf_token() }}",
+                    "nit": $("#nit").val(),
+                },
+                asycn:false,
+                type: "POST",
+                success:function(data){
+                    $("#estadoNit").html(data);
+                    $("#loaderIcon").hide();
+                },
+                error:function (){
+                    console.log('no da');
+                }
+                });
+            }
+        </script>
+        <style>
+            .estado-no-disponible-nit {
+                color:#D60202;
+            }
+            .estado-disponible-nit {
+                color:#2FC332;
+            }
+            .menor{
+                color:#D60202;
+            }
+        </style>
+
 <form action="{{ url('registrarCliente')}}" method="post">
-    {{csrf_field()}}
+    {{csrf_field()}} 
       <div class="col-md-11 mx-auto">
 
   
@@ -22,8 +62,8 @@
                   <div class="col-6">
                        <label form="nit">NIT</label>
                        <input class="form-control {{$errors->has('nit')?'is-invalid':'' }}" type="text" name="nit" id="nit" 
-                              placeholder="Ingrese el NIT" value="{{ old('nit') }}">
-
+                              placeholder="Ingrese el NIT" value="{{ old('nit') }}" onblur="comprobarNit()">
+                              <span id="estadoNit"></span>
                          {!!  $errors->first('nit','<div class="invalid-feedback">:message</div>') !!}
                    </div>  
 
@@ -59,7 +99,7 @@
                             {!!  $errors->first('telefono','<div class="invalid-feedback">:message</div>') !!}          
                    </div>
 
-                  <div class="col-6">
+                  <div class="col-6"> 
                          <label form="correo">Correo</label>
                          <input class="form-control {{$errors->has('email')?'is-invalid':'' }}" type="email" name="email" id="email" 
                                Placeholder="Ingrese su correo"  value="{{ old('correo') }}">

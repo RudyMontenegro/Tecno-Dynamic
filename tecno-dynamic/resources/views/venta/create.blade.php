@@ -136,19 +136,7 @@
         </div>
 </form>
 <script>
-var res = 0;
 
-function calcular() {
-    try {
-        var a = $("input[name=cantidad]").val();
-        var b = $("input[name=precio]").val();
-        res = (a * b) + res;
-        document.getElementById("sub_total").value = a * b;
-        document.getElementById("Total").value = res;
-    } catch (e) {
-
-    }
-}
 $(document).ready(function() {
 
     $('#nombre_contacto').keyup(function() {
