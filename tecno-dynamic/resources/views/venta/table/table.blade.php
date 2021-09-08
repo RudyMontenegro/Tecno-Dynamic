@@ -30,9 +30,10 @@
         <tbody>
             <tr>
                 <th>
-                    <select name="codigo" id="codigo" class="form-control">
-                        <option selected disabled>Elige el codigo de producto</option>
-                    </select>
+                    <input class="form-control" name="codigoI[]" id="codigoI" onkeyup="existe()" list="codigo">
+                    <datalist id="codigo">
+                    </datalist>
+                    <span id="estadoCodigo"></span>
                 </th>
                 <td>
                     <input type="text" class="form-control" name="nombre[]" id="nombre">
@@ -66,15 +67,20 @@ $("#sucursal_origen").change(event => {
         $("#codigo").append(`<option > Elige el codigo de producto </option>`);
         res.forEach(element => {
             $("#codigo").append(
-                `<option value=${element.id}> ${element.codigo} </option>`
+                `<option> ${element.codigo} </option>`
             );
         });
+    });
+});
+$("#codigoI").change(event => {
+    $.get(`envioN/${$("#codigoI").val()}`, function(res, sta) {
+        $("#nombre").empty();
+        $("#nombre").val(res[0].nombre);
     });
 });
 </script>
 <script>
 var res = 0;
-
 function calcular() {
     try {
         var a = $("input[id=cantidad]").val();
@@ -88,7 +94,8 @@ function calcular() {
 </script>
 <script>
 function limpiarCampos() {
-    $("#codigo_producto").val('');
+   
+    $("#codigoI").val('');
     $("#unidad").val('');
     $("#nombre").val('');
     $("#cantidad").val('');

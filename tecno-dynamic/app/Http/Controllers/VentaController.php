@@ -20,7 +20,8 @@ class VentaController extends Controller
     public function create()
     {
         $sucursal = Sucursal::all();
-        return view('venta.create',compact('sucursal'));
+        $cliente = Cliente::all();
+        return view('venta.create',compact('sucursal','cliente'));
     }
  
     public function producto(Request $request, $id)
@@ -98,6 +99,13 @@ class VentaController extends Controller
     {
         $venta->delete();
         return redirect('/venta');
+    }
+    public function imprimir(){
+        $ventas = Venta::all();
+        $pdf = \PDF::loadView('venta.pdf',compact('ventas'));// direccion del view, enviando variable.
+    
+        return $pdf->setPaper('a4', 'landscape')->stream('ventas.pdf');//stream-> solo muestra en el navegador
+        //a4, landscape-> enviar en formato horizontal
     }
     
     function fetchNit(Request $request, $id)

@@ -4,10 +4,11 @@
 <div class="card shadow">
     <div class="card-header border-0">
         <div class="row align-items-center">
-        <div class="col">
+            <div class="col">
                 <h3 class="mb-0">Lista de ultimas ventas</h3>
             </div>
             <div class="col text-right">
+                <a href="{{url('venta/pdf')}}" class="btn btn-sm btn-warning">Exportar a PDF</a>
                 <a href="{{ url('venta/create') }}" class="btn btn-sm btn-primary">Nueva Venta</a>
             </div>
         </div>
@@ -17,32 +18,33 @@
         <table class="table align-items-center table-flush">
             <thead class="thead-light">
                 <tr>
-                    <th scope="col">Empresa</th>
-                    <th scope="col">Contacto</th>
-                    <th scope="col">Telefono</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Opciones</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Nit</th>
+                    <th scope="col">Tipo de venta</th>
+                    <th scope="col">Sucursal</th>
+                    <th scope="col">total</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($ventas as $venta)
                 <tr>
                     <th scope="row">
-                        {{ $venta->nombre_empresa }}
+                        {{ $venta->cliente }}
                     </th>
                     <td>
-                        {{ $venta->nombre_contacto }}
+                        {{ $venta->nit }}
                     </td>
                     <td>
-                        {{ $venta->telefono }}
+                        {{ $venta->tipo_venta }}
                     </td>
                     <td>
-                        {{ $venta->email }}
+                        {{ $venta->id_sucursal }}
                     </td>
                     <td>
-                        <a href="{{ url('/venta/'.$venta->id.'/show') }}" class="btn btn-sm btn-info">Ver</a>
-                        <a href="{{ url('/venta/'.$venta->id.'/edit') }}"
-                            class="btn btn-sm btn-primary">Editar</a>
+                        {{ $venta->total }}
+                    </td>
+                    <td>
+                        <a href="{{ url('/venta/'.$venta->id.'/show') }}" class="btn btn-sm btn-info">Detalles</a>
                         <button class="btn btn-sm btn-danger" type="submit" data-toggle="modal"
                             data-target="#exampleModal">Eliminar</button>
                         <!-- modaal -->
@@ -81,4 +83,4 @@
         </table>
     </div>
 </div>
-@endsection 
+@endsection

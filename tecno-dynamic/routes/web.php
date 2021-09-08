@@ -77,6 +77,7 @@ Route::get('/venta/create', 'VentaController@create')->middleware('auth');
 Route::get('/venta/envioP/{id}', 'VentaController@producto')->middleware('auth');
 Route::get('/venta/envioName/{id}', 'VentaController@getCliente')->middleware('auth');
 Route::post('/venta', 'VentaController@store')->middleware('auth');
+Route::get('/venta/pdf', 'VentaController@imprimir')->middleware('auth');
 Route::get('/venta/{ventas}/edit', 'VentaController@edit')->middleware('auth');
 Route::put('/venta/{ventas}', 'VentaController@update')->middleware('auth');
 Route::delete('/venta/{ventas}', 'VentaController@destroy')->middleware('auth');     
@@ -93,3 +94,4 @@ Route::get('/compra/{id}', 'CompraController@show')->middleware('auth');
 //jquery
 Route::post('/autocomplete', 'VentaController@fetch');
 Route::get('/autocompleteNit/{id}', 'VentaController@fetchNit');
+Route::get('/venta/envioN/{id}', 'TransferenciaController@nombre')->middleware('auth');
