@@ -162,15 +162,24 @@
         }
         function validarUnidad() {
             
+            var re = new RegExp("^[a-zA-Z ]+$");
             if($("#unidad").val() == ""){
                 $("#estadoUnidad").html("<span  class='menor'><h5 class='menor'> </h5></span>");
             }else{
-                    var re = new RegExp("^[a-zA-Z ]+$");
-                if(!re.test($("#unidad").val())){
-                    $("#estadoUnidad").html("<span  class='menor'><h5 class='menor'>Solo se acepta caracteres [A-Z]</h5></span>");
+                if($("#unidad").val().length < 3){
+                    $("#estadoUnidad").html("<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>");
                 }else{
-                    $("#estadoUnidad").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+                    if($("#unidad").val().length > 50){
+                        $("#estadoUnidad").html("<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>");
+                    }else{
+                        if(!re.test($("#unidad").val()) ||  $("#unidad").val() == '-'){
+                            $("#estadoUnidad").html("<span  class='menor'><h5 class='menor'>Solo se acepta caracteres [A-Z]</h5></span>");
+                        }else{
+                            $("#estadoUnidad").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+                        }
+                    }
                 }
+                
             }
         }
         function validarCantidadInicial() {

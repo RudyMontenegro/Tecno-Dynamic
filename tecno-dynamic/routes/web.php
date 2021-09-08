@@ -35,7 +35,9 @@ Route::post('/sucursal/validarEditar', 'SucursalController@validarEditar')->midd
 Route::get('/transferencia', 'TransferenciaController@index')->middleware('auth');
 Route::get('/transferencia/envio/{id}', 'TransferenciaController@sucursal')->middleware('auth');
 Route::get('/transferencia/envioP/{id}', 'TransferenciaController@producto')->middleware('auth');
+Route::get('/transferencia/envioN/{id}', 'TransferenciaController@nombre')->middleware('auth');
 Route::post('/transferencia/validar', 'TransferenciaController@codigo')->middleware('auth');
+Route::post('/transferencia/llenar', 'TransferenciaController@llenar')->middleware('auth');
 Route::get('/transferencia/registrarTransferencia', 'TransferenciaController@create')->middleware('auth');
 Route::post('/transferencia/registrarTransferencia', 'TransferenciaController@store')->middleware('auth');
 Route::get('/transferencia/editar/{id}', 'TransferenciaController@edit')->middleware('auth');
