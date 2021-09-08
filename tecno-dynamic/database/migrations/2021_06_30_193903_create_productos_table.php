@@ -25,9 +25,9 @@ class CreateProductosTable extends Migration
             $table->bigInteger('cantidad');
             $table->string('unidad');
             $table->bigInteger('cantidad_inicial');
-            $table->unsignedBigInteger('id_proveedor');
-            $table->unsignedBigInteger('id_categoria');
-            $table->unsignedBigInteger('id_sucursal');
+            $table->unsignedBigInteger('id_proveedor')->nullable();
+            $table->unsignedBigInteger('id_categoria')->nullable();
+            $table->unsignedBigInteger('id_sucursal')->nullable();
             $table->string('ruta_foto')->nullable();
             $table->string('foto')->nullable();
 
