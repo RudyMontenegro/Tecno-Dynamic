@@ -6,6 +6,7 @@ use App\Compra;
 use App\CompraDetalle;
 use App\Proveedor;
 use App\Sucursal;
+use App\Productos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
@@ -43,6 +44,40 @@ class CompraController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function sucursal(Request $request, $id)
+    {
+        if($request->ajax()){   
+            $sucursal=Sucursal::sucursal($id);
+            return response()->json( $sucursal);
+        }
+    }
+
+    public function producto(Request $request, $id)
+    {
+        if($request->ajax()){
+            $producto=Productos::producto($id);
+            return response()->json( $producto);
+        }
+    }
+
+    public function codigo(Request $request, $id)
+    {
+        if($request->ajax()){
+            $codigo=Productos::codigo($id);
+            return response()->json( $codigo);
+        }
+    }
+
+    public function nombre(Request $request, $id)
+    {
+        if($request->ajax()){
+            $codigo=Productos::nombres($id);
+            return response()->json( $codigo);
+        }
+    }
+
+
+
     public function store(Request $request) 
     {
         $compra = new Compra();
@@ -62,27 +97,34 @@ class CompraController extends Controller
                    ->where('fecha','=', request('fecha'))
                    ->first();
 
-        if($request->input('nombre') && $request->input('cantidad') && $request->input('unidad') && $request->input('precio') && $request->input('sub_total')){
+        if($request->input('codigoP') && $request->input('nombre') && $request->input('cantidad') && $request->input('unidad') && $request->input('precio') && $request->input('sub_total')){
+            $codigo = request('codigoP');
             $nombre = request('nombre');
             $cantidad = request('cantidad');
             $unidad = request('unidad');
             $precio = request('precio');
             $sub_total = request('sub_total');
+
             for($i=0; $i < sizeof($nombre); $i++){
+                
+                $id_codigo_producto = DB::table('productos')
+                                    ->select('id')
+                                    ->where('codigo','=',$codigo[$i])
+                                    ->first();
 
                 $compra_detalle = new CompraDetalle();
 
-                $compra_detalle-> codigo_producto = request('codigo');
+                $compra_detalle-> codigo_producto =  $id_codigo_producto->id;
                 $compra_detalle-> nombre = $nombre[$i];
                 $compra_detalle-> cantidad = $cantidad[$i];
                 $compra_detalle-> unidad = $unidad[$i];
                 $compra_detalle-> precio = $precio[$i];
                 $compra_detalle-> sub_total = $sub_total[$i];
+                $compra_detalle-> id_compra = $id_compra->id;
 
-                $compra_detalle->id_compra = $id_compra->id;
                 $compra_detalle->save();
 
-                dd($compra_detalle);
+        
             }
         }
         return redirect('compra');
@@ -112,7 +154,7 @@ class CompraController extends Controller
         ->where('id','=',$id)
         ->first();
 
-        $proveedor = DB::table('compras')
+        $proveedors = DB::table('compras')
         ->join('proveedors','compras.id_proveedor','=','proveedors.id')
         ->select('*')
         ->where('compras.id','=',$id)->first();
@@ -139,19 +181,6 @@ class CompraController extends Controller
         $compra->id_proveedor = $request->input('proveedor');
 
     }
-/*
-    public function calculoCostos(Request $request){
-        $request->validate([
-            'suma' => 'required',
-            'cantidad' => 'required',
-            'precio' => 'required',
-        ]);
-        $sumado = DB::table('compraDetalle')
-        -->select('compraDetalle, cantidad && precio')
-        -->where()
-
-    }
-    */
 
     /**
      * Remove the specified resource from storage.
@@ -163,6 +192,24 @@ class CompraController extends Controller
     {
         Compra::destroy($id);
         return redirect('compra');
+    }
+    public function llenado()
+    {
+        $db_handle = new CompraDetalle();
+        $existe = $db_handle->existe($_POST["codigoP"],$_POST["sucursal"]);
+
+        if(!empty($_POST["codigoP"]) && !empty($_POST["sucursal"])){
+
+            if($existe == 0){
+                echo "<span  class='estado-nulo'><h5 class='estado-nulo'>No existe codigo de producto</h5></span>";
+            }else{
+                echo "<span  class='estado-nulo'><h5 class='estado-nulo'> </h5></span>";
+            }
+        }else{
+            echo "<span  class='estado-nulo'><h5 class='estado-nulo'> </h5></span>";
+        }
+        
+        
     }
 
 }

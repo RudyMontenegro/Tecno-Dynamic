@@ -24,7 +24,7 @@
         <span id="estadoBoton"></span>
         <tr>
             <th>
-                <input class="form-control" name="codigoI[]" id="codigoI"  onkeyup="existe()"  
+                <input class="form-control" name="codigoI[]" id="codigoI"  onkeyup="existe()"   
                 list="codigo" >
                 <datalist id="codigo">
                 </datalist>

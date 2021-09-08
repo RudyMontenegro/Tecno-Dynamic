@@ -93,7 +93,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1">Bs.</span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="100" aria-label="Username"
+                                <input type="number" class="form-control" placeholder="100" aria-label="Username"
                                     aria-describedby="basic-addon1">
                             </div>
                         </div>

@@ -137,7 +137,7 @@ class TransferenciaController extends Controller
      */
     public function destroy(Transferencia $transferencia)
     {
-        //
+        // 
     }
 
     public function llenar()

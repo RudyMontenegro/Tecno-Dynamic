@@ -86,6 +86,8 @@ Route::get('/compra/edit/{id}', 'CompraController@edit')->middleware('auth');
 Route::post('/compra/registrarCompra','CompraController@store')->middleware('auth');
 Route::patch('/compra/edit/{id}', 'CompraController@update')->middleware('auth');
 Route::delete('/compra/{compras}', 'CompraController@destroy')->middleware('auth');
+Route::post('/compra/llenar', 'ClienteController@llenado')->middleware('auth');
+
 Route::get('/compra/{id}', 'CompraController@show')->middleware('auth');    
 //jquery
 Route::post('/autocomplete', 'VentaController@fetch');
