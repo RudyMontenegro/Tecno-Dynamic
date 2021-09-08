@@ -100,10 +100,10 @@ class VentaController extends Controller
         return redirect('/venta');
     }
     
-    function fetchNit(Request $request)
+    function fetchNit(Request $request, $id)
     {
         if($request->ajax()){
-            $cliente=Cliente::cliente($id);
+            $cliente=Cliente::getNit($id);
             return response()->json( $cliente);
         }
     }

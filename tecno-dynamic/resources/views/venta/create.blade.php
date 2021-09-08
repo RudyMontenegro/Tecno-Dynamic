@@ -134,6 +134,7 @@ $(document).ready(function() {
                 success: function(data) {
                     $('#countryList').fadeIn();
                     $('#countryList').html(data);
+                 //  console.log(data);
                 }
             });
         }
@@ -144,14 +145,25 @@ $(document).ready(function() {
     });
 });
 $("#nombre_contacto").change(event => {
-    $.get(`autocompleteNit/${event.target.value}`, function(res, sta) {
-        $("#nit").empty();
-        $("#nit").append(`<option > NIT </option>`);
-        res.forEach(element => {
-            $("#nit").append(
-                `<option value=${element.id}> ${element.codigo} </option>`
-            );
-        });
+                            $.get(`autocompleteNit/${$("#nombre_contacto").val()}`, function(res, sta) {
+                                $("#nit").empty();
+                                $("#nit").val(res[0].nit);
+                            });
+});
+
+
+
+
+
+
+$("#nombre_contacto").change(event => {
+    $nit = $('#nit');
+    const $nombre = $('#nombre_contacto');
+    $('#specialty').change(() => {
+        const nombreID = $nombre.val();
+        console.log(nombreID);
+        const url = `/specialties/${specialtyId}/doctors`;
+        $.getJSON(url, onDoctorsLoaded);
     });
 });
 </script>
