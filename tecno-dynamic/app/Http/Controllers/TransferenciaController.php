@@ -44,6 +44,15 @@ class TransferenciaController extends Controller
             return response()->json( $codigo);
         }
     }
+
+    public function nombre(Request $request, $id)
+    {
+        if($request->ajax()){
+            $codigo=Productos::nombres($id);
+            return response()->json( $codigo);
+        }
+    }
+
     public function store(Request $request)
     {
         $transferencia = new Transferencia();
@@ -129,5 +138,24 @@ class TransferenciaController extends Controller
     public function destroy(Transferencia $transferencia)
     {
         //
+    }
+
+    public function llenar()
+    {
+        $db_handle = new TransferenciaDetalle();
+        $existe = $db_handle->existe($_POST["codigoI"],$_POST["sucursal"]);
+
+        if(!empty($_POST["codigoI"]) && !empty($_POST["sucursal"])){
+
+            if($existe == 0){
+                echo "<span  class='estado-nulo'><h5 class='estado-nulo'>No existe codigo de producto</h5></span>";
+            }else{
+                echo "<span  class='estado-nulo'><h5 class='estado-nulo'> </h5></span>";
+            }
+        }else{
+            echo "<span  class='estado-nulo'><h5 class='estado-nulo'> </h5></span>";
+        }
+        
+        
     }
 }

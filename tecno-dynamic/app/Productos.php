@@ -55,5 +55,12 @@ class Productos extends Model
         ->get();
         return $persona2;
     }
+    public static function nombres($id){
+        $nombre = DB::table('productos') 
+        ->select('nombre')
+        ->where('codigo','=',$id)
+        ->get();
+        return $nombre;
+    }
 
 } 
