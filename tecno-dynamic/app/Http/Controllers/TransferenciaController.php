@@ -13,7 +13,8 @@ class TransferenciaController extends Controller
 {
     public function index()
     {
-        return view('transferencia.index');
+        $transferencia = Transferencia::all();
+        return view('transferencia.index',compact('transferencia'));
     }
     public function create()
     {
@@ -101,9 +102,10 @@ class TransferenciaController extends Controller
 
         return redirect('transferencia');
     }
-    public function show(Transferencia $transferencia)
+    public function show(Transferencia $transferencia,$id)
     {
-        //
+        $transferencia = Transferencia::findOrFail($id);
+        return view('transferencia.show',compact('transferencia'));
     }
 
     /**
