@@ -34,6 +34,23 @@ $factory->define(App\Cliente::class, function (Faker $faker) {
         'web_site' => $faker->url,
     ];
 });
+$factory->define(App\Productos::class, function (Faker $faker) {
+    return [
+        'codigo' => $faker->randomNumber(6, true),
+        'codigo_barra' => $faker->randomNumber(8, true),
+        'nombre' => $faker->lastName,
+        'marca' => $faker->company,
+        'precio_costo' => $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 48.8932),
+        'precio_venta_mayor' => $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 48.8932),
+        'precio_venta_menor' => $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 48.8932),
+        'cantidad' => $faker->randomNumber(2, true),
+        'unidad' => $faker->randomElement(['docena','centena']),
+        'cantidad_inicial' => $faker -> randomDigit,     
+       // 'id_proveedor' =>  $faker->randomNumber(3, true),
+        //'id_categoria' => $faker->randomNumber(3, true),
+        //'id_sucursal' =>  $faker->randomNumber(3, true),
+    ];
+});
 $factory->define(App\Categoria::class, function (Faker $faker) {
     return [
         'nombre'=>$faker->randomElement(['intangible','tangible']),

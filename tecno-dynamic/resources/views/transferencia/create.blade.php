@@ -1,6 +1,6 @@
 ~@extends('layouts.panel')
 
-@section('subtitulo','transferencia')
+@section('subtitulo','transferencia') 
 @section('content')
 
 <div class="card shadow" style="background-color:#ffffff; color: rgb(0, 0, 0); font color: yellow !important">
@@ -111,7 +111,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="responsable">Responsable Transferencia</label>
-                            <input type="text" name="responsable" id="responsable" class="form-control" value="{{ old('responsable')}}"
+                            <input type="text" name="responsable" id="responsable" class="form-control" ~
                             onkeyup="validarResponsable()"   ><span id="estadoTransferencia"></span>
                         </div>
                     </div>

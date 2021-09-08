@@ -23,7 +23,7 @@ class TransferenciaController extends Controller
 
     public function sucursal(Request $request, $id)
     {
-        if($request->ajax()){
+        if($request->ajax()){   
             $sucursal=Sucursal::sucursal($id);
             return response()->json( $sucursal);
         }

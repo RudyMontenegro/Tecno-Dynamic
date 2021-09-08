@@ -1,117 +1,105 @@
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
-<script src="http://code.jquery.com/jquery-1.12.1.min.js"></script>
- 
-<meta name="csrf-token" content="{{ csrf_token() }}" />
-<div class="card shadow">
-    <div class="card-header border-0">
-        <div class="row align-items-center">
-            <div class="col text-right">
-                <div class="table-responsive">
-                    <!-- Projects table -->
-                    <table class="table align-items-center" id="tabla">
-                        <thead class="thead-light">
-                                <tr>
-                                      <th scope="col">Codigo de Producto</th>
-                                      <th scope="col">Nombre del producto</th>
-                                      <th scope="col">Cantidad</th>
-                                      <th scope="col">Precio/Unidad</th>
-                                      <th scope="col">Subtotal</th>
-                                      <th scope="col">Eliminar</th>
-                                </tr>
-                        </thead>
-                         <tbody>
-                            <div class="fila-fija">
-                                 <tr>
-                                    <th>
-                                        <input name="codigo_producto" id="codigo_producto" type="text"
-                                            class="form-control">
-                                    </th>
-                                    <td>
-                                        <input name="nombre" id="nombre" type="text" class="form-control">
-                                    </td>
-                                    <td>
-                                        <input name="cantidad" class="form-control" type="number" value="23"
-                                            id="example-number-input">
-                                     <td>
-                                   
-                                        <div class="input-group">
-                                              <div class="input-group-prepend">
-                                                 <span class="input-group-text">$</span>
-                                             </div>
-                                               <input type="text" class="form-control" name="precio"
-                                                    aria-label="Amount (to the nearest dollar)">
-                                              <div class="input-group-append">
-                                                 <span class="input-group-text">.00</span>
-                                             </div>
-                                         </div>
-                                     </td>
-                                   <td>
-                                         <div class="input-group">
-                                               <div class="input-group-prepend">
-                                                  <span class="input-group-text">$</span>
-                                              </div>
-                                                <input type="text" class="form-control"
-                                                      aria-label="Amount (to the nearest dollar)" name="suma">
-                                               <div class="input-group-append">
-                                                   <span class="input-group-text">.00</span>
-                                               </div>
-                                          </div>
-                                   </td>
-                                   <td class="eliminar" id="deletRow" name="deletRow">
-                                    <button class="btn btn-icon btn-danger " type="button">
-                                        <span class="btn-inner--icon"><i class="ni ni-fat-remove"></i></span>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <button type="submit" class="btn btn-success btn-lg btn-block btnenviar" id="adicional"
-                    name="adicional">Gurdar y añadir</button>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script type="text/javascript">
-
-    function limpiarCampos() {
-        $("#codigo_producto").val('');
-     //   $("#apellidos").val('');
-       // $("#dni").val('');
+<style>
+    #formulario1 {
+        margin: 0 auto;
+        text-align: center;
+        border-radius: 10px;
+        border: 1px solid #ffffff;
+        width: 800px;
     
     }
-    $(".btnenviar").click(function(e) {
-    
-        $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla").removeClass('fila-fija');
-       // $(this).val(''); // Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
-    
-        $(document).on("click", ".eliminar", function() {
-            var parent = $(this).parents().get(0);
-            $(parent).remove();
-        }); // Evento que selecciona la fila y la elimina 
-    
-        e.preventDefault(); //evitar recargar la pagina..
-        var codigo_producto = $("input[name=codigo_producto]").val();
-    var nombre = $("input[name=nombre]").val();
-    var cantidad = $("input[name=cantidad]").val();
-    var precio = $("input[name=precio]").val();
-    var sub_total = $("input[name=sub_total]").val();
-
-    $.ajax({
-        type: 'POST',
-        url: '/compraDetalle',
-        data: {
-            "_token": "{{ csrf_token() }}",
-            codigo_producto: codigo_producto,
-            nombre: nombre,
-            cantidad: cantidad,
-            precio: precio,
-            sub_total: sub_total,
-            },
+    </style>
+    <table class="table borderless" id="tabla">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Codigo de producto</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Unidad</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Subtotal</th>
+                <th scope="col">Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>
+                    <select name="codigo" id="codigo" class="form-control">
+                        <option selected disabled>Seleccione un sucursal de origen</option>
+                    </select>
+                </th>
+                <td>
+                    <input type="text" class="form-control" name="nombre[]" id="nombre">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="unidad[]" id="unidad">
+                </td>
+                <td>
+                    <input type="number" class="form-control" name="cantidad[]" onBlur="calcular()" id="cantidad">
+                </td>
+                <td>
+                    <input type="number" class="form-control" onBlur="calcular()" name="precio[]" id="precio">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="subTotal[]" id="subTotal">
+                </td>
+                <td class="eliminar" id="deletRow" name="deletRow">
+                    <button class="btn btn-icon btn-danger" type="button">
+                        <span class="btn-inner--icon"><i class="ni ni-fat-remove"></i></span>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-success btn-lg btn-block" id="adicional" name="adicional">Añadir</button>
+    <script>
+    $("#sucursal_origen").change(event => {
+        $.get(`envioP/${event.target.value}`, function(res, sta) {
+            $("#codigo").empty();
+            $("#codigo").append(`<option > Elige el codigo de producto </option>`);
+            res.forEach(element => {
+                $("#codigo").append(
+                    `<option value=${element.id}> ${element.codigo} </option>`
+                );
+            });
         });
-        limpiarCampos();
     });
     </script>
+    <script>
+    var res = 0;
+    function calcular() {   
+        try {
+            var a = $("input[id=cantidad]").val();
+            var b = $("input[id=precio]").val();
+            res = (a * b) + res;
+            document.getElementById("subTotal").value = a * b;
+            document.getElementById("Total").value = res;
     
+        } catch (e) {
+        }
+    }
+    </script>
+    <script>
+        function limpiarCampos() {
+        $("#codigo_producto").val('');
+        $("#nombre").val('');
+        $("#cantidad").val('');
+        $("#precio").val('');
+        $("#subTotal").val('');
+    }
+    var bb = 0;
+    $(function() {
+        $("#adicional").on('click', function() {
+            $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla");
+            bb = bb + 1;
+           
+            limpiarCampos();
+        });
+        $(document).on("click", ".eliminar", function() {
+            if (bb > 0) {
+                var parent = $(this).parents().get(0);
+                $(parent).remove();
+                bb = bb - 1;
+            }
+        });
+    });
+    </script>

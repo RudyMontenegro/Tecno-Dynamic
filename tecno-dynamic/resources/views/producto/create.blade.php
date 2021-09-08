@@ -54,7 +54,7 @@
                 $("#loaderIcon").hide();
             },
             error:function (){
-                console.log('no da');
+                console.log('no da'); 
             }
             });
         }
