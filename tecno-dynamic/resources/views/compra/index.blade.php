@@ -43,8 +43,8 @@
                     
                     <td>
                         <a href="{{ url('/compra/'.$compra->id.'/show') }}" class="btn btn-sm btn-info">Ver</a>
-                        <a href="{{ url('/compra/edit/'.$compra->id) }}"
-                            class="btn btn-sm btn-primary">Editar</a>
+                        
+
                         <button class="btn btn-sm btn-danger" type="submit" data-toggle="modal"
                             data-target="#exampleModal">Eliminar</button>
                         <!-- modaal -->
