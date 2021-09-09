@@ -8,38 +8,6 @@
 
 }
     </style>
-<<<<<<< HEAD
-<table class="table borderless" id="tabla">
-    <thead class="thead-light">
-        <tr>
-            <th scope="col">Codigo de producto</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Cantidad</th>
-            <th scope="col">Unidad</th>
-            <th scope="col">Precio</th>
-            <th scope="col">Subtotal</th>
-            <th scope="col">Eliminar</th>
-        </tr>
-    </thead> 
-    <tbody>
-        <span id="estadoBoton"></span>
-        <tr>
-            <th>
-                <input class="form-control" name="codigoI[]" id="codigoI"  onkeyup="existe()"   
-                list="codigo" >
-                <datalist id="codigo">
-                </datalist>
-                <span id="estadoCodigo"></span>
-            </th>
-            <td>
-                <input type="text"  class="form-control  {{$errors->has('nombre')?'is-invalid':'' }}" name="nombre[]"
-                    id="nombre" value="{{ isset($transferencia->nombre)?$transferencia->nombre:old('nombre')  }}">
-            </td>
-            <td>
-                <input type="integer"  class="form-control  {{$errors->has('cantidad')?'is-invalid':'' }}" name="cantidad[]"
-                    id="cantidad" onkeyup="validarCantidad()"
-                    value="{{ isset($transferencia->cantidad)?$transferencia->cantidad:old('cantidad')  }}">
-=======
     <table class="table borderless" id="tabla">
         <thead class="thead-light">
             <tr>
@@ -69,7 +37,6 @@
                     <input type="integer" class="form-control  {{$errors->has('cantidad')?'is-invalid':'' }}"
                         name="cantidad[]" id="cantidad" onkeyup="validarCantidad()"
                         value="{{ isset($transferencia->cantidad)?$transferencia->cantidad:old('cantidad')  }}">
->>>>>>> 23a462de4e2194ec1cd070251e3ea31e107b6bc8
                     <span id="estadoCantidad"></span>
                 </td>
                 <td>

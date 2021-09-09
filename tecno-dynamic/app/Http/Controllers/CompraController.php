@@ -97,8 +97,8 @@ class CompraController extends Controller
                    ->where('fecha','=', request('fecha'))
                    ->first();
 
-        if($request->input('codigoP') && $request->input('nombre') && $request->input('cantidad') && $request->input('unidad') && $request->input('precio') && $request->input('sub_total')){
-            $codigo = request('codigoP');
+        if($request->input('codigoI') && $request->input('nombre') && $request->input('cantidad') && $request->input('unidad') && $request->input('precio') && $request->input('sub_total')){
+            $codigo = request('codigoI');
             $nombre = request('nombre');
             $cantidad = request('cantidad');
             $unidad = request('unidad');
@@ -196,9 +196,9 @@ class CompraController extends Controller
     public function llenado()
     {
         $db_handle = new CompraDetalle();
-        $existe = $db_handle->existe($_POST["codigoP"],$_POST["sucursal"]);
+        $existe = $db_handle->existe($_POST["codigoI"],$_POST["sucursal"]);
 
-        if(!empty($_POST["codigoP"]) && !empty($_POST["sucursal"])){
+        if(!empty($_POST["codigoI"]) && !empty($_POST["sucursal"])){
 
             if($existe == 0){
                 echo "<span  class='estado-nulo'><h5 class='estado-nulo'>No existe codigo de producto</h5></span>";
