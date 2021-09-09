@@ -11,6 +11,14 @@
             border: 1px solid #ffffff;
             width: 130px;
         }
+        #formulario1 {
+            margin: 0 auto;
+            text-align: center;
+            border-radius: 10px;
+            border: 1px solid #ffffff;
+            width: 800px;
+    
+        }
     </style>
 <div class="card shadow">
     <div class="card-header border-0">
@@ -19,12 +27,78 @@
                 <a type="button" class="btn btn-primary btn-sm float-left"
                 href="{{url('/producto/registrarCategoria')}}">Nueva Categoria</a>
 
-                <a type="button" class="btn btn-primary btn-sm float-left"
-                    href="{{url('/producto/registrarProducto')}}">Nuevo Producto</a>
+              
+                    <button type="button"  class="btn btn-primary btn-sm float-left" data-toggle="modal" data-target="#exampleModalLong">
+                        Nuevo Producto
+                      </button>
+                      
+                      <!-- Modal -->
+                      <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h3 class="modal-title" id="formulario1">Seleccione una Sucursal</h3>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body"  >
+                                   
+                                    <label class="float-left" for="sucursal"><b>Sucursal</b></label>
+                                    <select name="sucursal" id="sucursal" class="form-control {{$errors->has('sucursal')?'is-invalid':'' }}"  >
+                                    <option selected disabled>Seleccione una Sucursal</option>
+                                    @foreach ($sucursal as $sucursal)
+                                        <option {{ old('sucursal') == $sucursal->id ? "selected" : "" }} value="{{$sucursal->id}}">{{$sucursal->nombre}}</option>
+                                    @endforeach
+                                    </select><span id="estadoSucursal"></span>
+                                    
+                            </div>
+                            <div class="modal-footer">
+                                    <button type="button" class="btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <a type="button" class="btn btn-primary btn-sm float-left" id="href"
+                                    href="/#" onclick="enviarForm()">Continuar</a>
+                                   
+                              
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
 
             </div>
         </div>
     </div>
+    <style>
+        .menor {
+            color:#D60202;
+        }
+    </style>
+        <script>
+            function enviarForm(){
+                var cod = document.getElementById("sucursal").value;
+                if((cod =="Seleccione una Sucursal")){
+                    $("#estadoSucursal").html("<span  class='menor float-left'><h5 class='menor'>Seleccione una sucursal</h5></span>");
+                }else{
+                    var urlOriginal = document.getElementById("href").href;
+                    //Se obtiene el inicio del segundo URL, buscando "http"
+                    var posSegundoUrl = urlOriginal.indexOf("http", 4)
+
+                    //Se obtiene el primer URL
+                    var primerUrl = urlOriginal.substring(0, posSegundoUrl);
+
+                    //Se obtiene el segundo URL
+                    var segundoUrl = urlOriginal.substring(posSegundoUrl);
+
+                    //Se define un URL nuevo
+                    var s = document.getElementById("sucursal").value;
+                    var url = "/producto/registrarProducto/"+s;
+                    console.log(url);
+                    var urlNuevo =  "/producto/registrarProducto/"+s;
+
+                    document.getElementById("href").setAttribute("href", primerUrl + urlNuevo);
+                }
+            }
+        </script>
 
     <div class="card shadow">
         <div class="card-header border-0">

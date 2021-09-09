@@ -59,15 +59,15 @@
                 </div>
                 <div class="row">
                     <div class="col-6">
-                        <label for="transferencia_origen">transferencia Origen</label>
-                        <input class="form-control text-dark" disabled name="origen" value="{{ isset($transferencia->nombre_origen)?$transferencia->nombre_origen:old('nombre_origen') }}"
+                        <label for="transferencia_origen">Transferencia Origen</label>
+                        <input class="form-control text-dark" disabled name="origen" value="{{ isset($origen->nombre)?$origen->nombre:old('nombre_origen') }}"
                                 id="origen" >
                         {!! $errors->first('transferencia_origen','<div class="invalid-feedback">:message</div>') !!}
 
                     </div>
                     <div class="col-6">
-                        <label for="transferencia_destino">transferencia Destino</label>
-                        <input class="form-control text-dark" disabled name="destino" value="{{ isset($transferencia->nombre_destino)?$transferencia->nombre_destino:old('nombre_destino') }}"
+                        <label for="transferencia_destino">Transferencia Destino</label>
+                        <input class="form-control text-dark" disabled name="destino" value="{{ isset($destino->nombre)?$destino->nombre:old('nombre_destino') }}"
                                 id="destino" >
                         {!! $errors->first('transferencia_origen','<div class="invalid-feedback">:message</div>') !!}
 
@@ -77,7 +77,7 @@
             </div>
 
             <div class="col-md-12 mx-auto ">
-                @include('transferencia.tabla')
+                @include('transferencia.tablaShow')
 
                 <br>
                 <br>
