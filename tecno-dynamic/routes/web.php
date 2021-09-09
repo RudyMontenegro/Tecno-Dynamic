@@ -40,8 +40,8 @@ Route::post('/transferencia/validar', 'TransferenciaController@codigo')->middlew
 Route::post('/transferencia/llenar', 'TransferenciaController@llenar')->middleware('auth');
 Route::get('/transferencia/registrarTransferencia', 'TransferenciaController@create')->middleware('auth');
 Route::post('/transferencia/registrarTransferencia', 'TransferenciaController@store')->middleware('auth');
-Route::get('/transferencia/editar/{id}', 'TransferenciaController@edit')->middleware('auth');
-Route::patch('/transferencia/editar/{id}', 'TransferenciaController@update')->middleware('auth');
+Route::get('/transferencia/informacion/{id}', 'TransferenciaController@show')->middleware('auth');
+Route::patch('/transferencia/editar/{id}', 'TransferenciaController@update')->middleware('auth');//no funciona aun
 //CATEGORIA
 Route::get('/producto/registrarCategoria', 'CategoriaController@create')->middleware('auth');
 Route::post('/producto/registrarCategoria', 'CategoriaController@store')->middleware('auth');
