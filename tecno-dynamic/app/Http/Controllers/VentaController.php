@@ -20,8 +20,8 @@ class VentaController extends Controller
     public function create()
     {
         $sucursal = Sucursal::all();
-        $cliente = Cliente::all();
-        return view('venta.create',compact('sucursal','cliente'));
+        $clientes = Cliente::all();
+        return view('venta.create',compact('sucursal','clientes'));
     }
  
     public function producto(Request $request, $id)
@@ -102,7 +102,8 @@ class VentaController extends Controller
     }
     public function imprimir(){
         $ventas = Venta::all();
-        $pdf = \PDF::loadView('venta.pdf',compact('ventas'));// direccion del view, enviando variable.
+        $ventasDetalles = VentaDetalle::all();
+        $pdf = \PDF::loadView('venta.pdf',compact('ventas', 'ventasDetalles'));// direccion del view, enviando variable.
     
         return $pdf->setPaper('a4', 'landscape')->stream('ventas.pdf');//stream-> solo muestra en el navegador
         //a4, landscape-> enviar en formato horizontal
