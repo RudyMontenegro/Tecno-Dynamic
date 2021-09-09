@@ -90,23 +90,24 @@ class CompraController extends Controller
         $compra->id_sucursal = request('sucursal');
         $compra->id_proveedor = $request->get('proveedor');
 
-        $compra->save();
+        $compra->save(); 
 
         $id_compra = DB::table('compras')
                    ->select('id')
                    ->where('fecha','=', request('fecha'))
                    ->first();
-
-        if($request->input('codigoI') && $request->input('nombre') && $request->input('cantidad') && $request->input('unidad') && $request->input('precio') && $request->input('sub_total')){
+        //*dd($id_compra);
+        if($request->input('codigoI') && $request->input('nombre') && $request->input('cantidad') && $request->input('unidad') && $request->input('precio') && $request->input('subTotal')){
             $codigo = request('codigoI');
             $nombre = request('nombre');
             $cantidad = request('cantidad');
             $unidad = request('unidad');
             $precio = request('precio');
-            $sub_total = request('sub_total');
+            $sub_total = request('subTotal');
 
             for($i=0; $i < sizeof($nombre); $i++){
                 
+
                 $id_codigo_producto = DB::table('productos')
                                     ->select('id')
                                     ->where('codigo','=',$codigo[$i])
@@ -210,6 +211,13 @@ class CompraController extends Controller
         }
         
         
+    }
+    public function imprimir(){
+        $ventas = Compra::all();
+        $pdf = \PDF::loadView('compra.pdf',compact('compras'));// direccion del view, enviando variable.
+    
+        return $pdf->setPaper('a4', 'landscape')->stream('compras.pdf');//stream-> solo muestra en el navegador
+        //a4, landscape-> enviar en formato horizontal
     }
 
 }

@@ -1,13 +1,11 @@
-    <style>
-#formulario1 {
-    margin: 0 auto;
-    text-align: center;
-    border-radius: 10px;
-    border: 1px solid #ffffff;
-    width: 800px;
-
+<style>
+    #formulario1 {
+        margin: 0 auto;
+        text-align: center;
+        border-radius: 10px;
+        border: 1px solid #ffffff;
+        width: 800px;
     }
-
         .card .table td,
         .card .table th {
         padding-right: 0.1rem;
@@ -76,25 +74,17 @@
 
 <button type="button" class="btn btn-success btn-lg btn-block" id="adicional" name="adicional">Añadir</button>
     <script>
-$("#sucursal_origen").change(event => {
-    $.get(`envioP/${event.target.value}`, function(res, sta) {
-        $("#codigo").empty();
-        $("#codigo").append(`<option > Elige el codigo de producto </option>`);
-        res.forEach(element => {
-            $("#codigo").append(
-                `<option> ${element.codigo}</option>`
-            );
+    $("#sucursal_origen").change(event => {
+        $.get(`envioP/${event.target.value}`, function(res, sta) {
+            $("#codigo").empty();
+            $("#codigo").append(`<option > Elige el codigo de producto </option>`);
+            res.forEach(element => {
+                $("#codigo").append(
+                    `<option> ${element.codigo}</option>`
+                );
+            });
         });
     });
-<<<<<<< HEAD
-});
-$("#codigoI").change(event => {
-    $.get(`envioN/${$("#codigoI").val()}`, function(res, sta) {
-        $("#nombre").empty();
-        $("#nombre").val(res[0].nombre);
-    });
-});
-=======
         $("#codigoI").change(event => {
                             $.get(`envioN/${$("#codigoI").val()}`, function(res, sta) {
                                 $("#nombre").empty();
@@ -107,47 +97,19 @@ $("#codigoI").change(event => {
                                 $("#nombre").val(res[0].nombre);
                             });
                         });
-
       
         
->>>>>>> 699f5baeb0341d9a137a0f2e42eb6d9834a9d0b4
     </script>
 
     <script>
-function limpiar() {
-    $("#codigoI").val('');
-    $("#nombre").val('');
-    $("#cantidad").val('');
-    $("#unidad").val('');
-    $("#precio").val('');
-    $("#subTotal").val('');
-}
-
-var bb = 0;
-$(function() {
-
-<<<<<<< HEAD
-    $("#adicional").on('click', function() {
-        if (!($("#codigoI").val() == "") || !($("#nombre").val() == "") || !($("#cantidad").val() ==
-            "") || !($("#unidad").val() == "") || !($("#precio").val() == "") || !($("#subTotal")
-            .val() == "")) {
-            $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla");
-            limpiar();
-            bb = bb + 1;
-            $('#deletRow').show();
-        } else {
-            $("#estadoBoton").html(
-                "<span  class='menor'><h5 class='menor'>Llene todos los campos</h5></span>");
-        }
-    });
-
-
-    $(document).on("click", ".eliminar", function() {
-        if (bb > 0) {
-            var parent = $(this).parents().get(0);
-            $(parent).remove();
-            bb = bb - 1;
-=======
+    function limpiar(){
+        $("#codigoI").val('');
+        $("#nombre").val('');
+        $("#cantidad").val('');
+        $("#unidad").val('');
+        $("#precio").val('');
+        $("#subTotal").val('');
+    }
         var bb= 0;
     $(function() {
         
@@ -177,7 +139,6 @@ $(function() {
             }
         });
     });
-
     function existeValor($dato){
         var boolean = false;
         var aux = document.getElementById($dato).value;
@@ -186,7 +147,6 @@ $(function() {
         }
         return boolean;
     }
-
     function vacio($valor){
         var dato = document.getElementById($valor).value;
         var prueba = document.getElementById($valor);
@@ -208,42 +168,8 @@ $(function() {
             document.getElementById("subTotal").value = a * b;
             document.getElementById("Total").value = res;
         } catch (e) {
->>>>>>> 699f5baeb0341d9a137a0f2e42eb6d9834a9d0b4
         }
-    });
-});
-var res = 0;
-
-function calcular() {
-    try {
-        var a = $("input[id=cantidad]").val();
-        var b = $("input[id=precio]").val();
-        res = (a * b) + res;
-        document.getElementById("subTotal").value = a * b;
-        document.getElementById("Total").value = res;
-    } catch (e) {}
-
-}
-
-<<<<<<< HEAD
-function validarUnidad() {
-    var re = new RegExp("^[a-zA-Z ]+$");
-    if ($("#unidad").val() == "") {
-        $("#estadoUnidad").html("<span  class='menor'><h5 class='menor'> </h5></span>");
-    } else {
-        if ($("#unidad").val().length < 3) {
-            $("#estadoUnidad").html("<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>");
-        } else {
-            if ($("#unidad").val().length > 50) {
-                $("#estadoUnidad").html(
-                    "<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>");
-            } else {
-                if (!re.test($("#unidad").val()) || $("#unidad").val() == '-') {
-                    $("#estadoUnidad").html(
-                        "<span  class='menor'><h5 class='menor'>Solo se acepta caracteres [A-Z]</h5></span>");
-                } else {
-                    $("#estadoUnidad").html("<span  class='menor'><h5 class='menor'> </h5></span>");
-=======
+    }
     function validarUnidad() {
         var prueba = document.getElementById("unidad");
         var re = new RegExp("^[a-zA-Z ]+$");
@@ -262,49 +188,11 @@ function validarUnidad() {
                         prueba.style.borderColor = '#cad1d7';
                         $("#estadoUnidad").html("<span  class='menor'><h5 class='menor'> </h5></span>");
                     }
->>>>>>> 699f5baeb0341d9a137a0f2e42eb6d9834a9d0b4
                 }
             }
-        }
-
-    }
-}
-
-<<<<<<< HEAD
-function validarCantidad() {
-    var re = new RegExp("^[0-9]+$");
-    if ($("#cantidad").val() == "") {
-        $("#estadoCantidad").html("<span  class='menor'><h5 class='menor'> </h5></span>");
-    } else {
-        if ($("#cantidad").val() <= 0) {
-            $("#estadoCantidad").html("<span  class='menor'><h5 class='menor'>Cantidad debe ser mayor a 0</h5></span>");
-        } else {
-            if (!re.test($("#cantidad").val()) || $("#cantidad").val() == 'e' || $("#cantidad").val() == '-') {
-                $("#estadoCantidad").html(
-                    "<span  class='menor'><h5 class='menor'>Cantidad ingresada incorrecta</h5></span>");
-            } else {
-                $("#estadoCantidad").html("<span  class='menor'><h5 class='menor'> </h5></span>");
-            }
+            
         }
     }
-}
-
-function validarSubTotal() {
-    var re = new RegExp("^[0-9]+$");
-
-    if ($("#precio").val() == "") {
-        $("#estadoSubTotal").html("<span  class='menor'><h5 class='menor'> </h5></span>");
-    } else {
-        if ($("#precio").val() <= 0) {
-            $("#estadoSubTotal").html("<span  class='menor'><h5 class='menor'>Cantidad debe ser mayor a 0</h5></span>");
-        } else {
-            if (!re.test($("#precio").val()) || $("#precio").val() == 'e' || $("#precio").val() == '-') {
-                $("#estadoSubTotal").html(
-                    "<span  class='menor'><h5 class='menor'>Cantidad ingresada incorrecta</h5></span>");
-            } else {
-                $("#estadoSubTotal").html("<span  class='menor'><h5 class='menor'> </h5></span>");
-                calcular();
-=======
     function validarCantidad() {
         var prueba = document.getElementById("cantidad");
         var re = new RegExp("^[0-9]+$");
@@ -342,23 +230,9 @@ function validarSubTotal() {
                     $("#estadoSubTotal").html("<span  class='menor'><h5 class='menor'> </h5></span>");
                     calcular();
                 }
->>>>>>> 699f5baeb0341d9a137a0f2e42eb6d9834a9d0b4
             }
         }
     }
-}
-
-<<<<<<< HEAD
-function existe() {
-    var e = document.getElementById("sucursal_origen");
-    var str = e.options[e.selectedIndex].text;
-    if (str == "Elige una Sucursal de Origen") {
-        $("#estadoCodigo").html(
-        "<span  class='menor'><h5 class='menor'>Seleccione una sucursal de origen </h5></span>");
-    } else {
-        $("#nombre").val('');
-        validarNombre();
-=======
     function existe(){
         var e = document.getElementById("sucursal_origen");
         var str = e.options[e.selectedIndex].text;
@@ -371,41 +245,25 @@ function existe() {
             
         }
     }
->>>>>>> 699f5baeb0341d9a137a0f2e42eb6d9834a9d0b4
-
+    function validarNombre() {
+        var cod = document.getElementById("sucursal_origen").value;
+        jQuery.ajax({
+            url: "/transferencia/llenar",
+            data:{
+                "_token": "{{ csrf_token() }}",
+                "codigoI": $("#codigoI").val(),
+                "sucursal":cod,
+            },
+            asycn:false,
+            type: "POST",
+            success:function(data){
+                $("#estadoCodigo").html(data);
+                $("#loaderIcon").hide();
+                
+            },
+            error:function (){
+                console.log('no da');
+            }
+            });
     }
-}
-
-function validarNombre() {
-    var cod = document.getElementById("sucursal_origen").value;
-    jQuery.ajax({
-        url: "/transferencia/llenar",
-        data: {
-            "_token": "{{ csrf_token() }}",
-            "codigoI": $("#codigoI").val(),
-            "sucursal": cod,
-        },
-        asycn: false,
-        type: "POST",
-        success: function(data) {
-            $("#estadoCodigo").html(data);
-            $("#loaderIcon").hide();
-
-<<<<<<< HEAD
-        },
-        error: function() {
-            console.log('no da');
-        }
-    });
-}
-
-
-function addItem() {
-    if ($("#codigoI").val() == "" || $("#nombre").val() == "" || $("#cantidad").val() == "" || $("#unidad").val() ==
-        "" || $("#precio").val() == "" || $("#subTotal").val() == "") {
-
-    }
-}
-=======
->>>>>>> 699f5baeb0341d9a137a0f2e42eb6d9834a9d0b4
     </script>

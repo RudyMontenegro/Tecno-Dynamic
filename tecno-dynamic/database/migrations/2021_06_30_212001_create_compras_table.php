@@ -17,7 +17,7 @@ class CreateComprasTable extends Migration
             $table->bigIncrements('id');
             $table->string('comprobante')->nullable();
             $table->string('responsable_compra')->nullable();
-            $table->date('fecha')->nullable();
+            $table->dateTime('fecha')->nullable();
             $table->string('tipo_compra')->nullable();
             $table->string('observaciones')->nullable();
             $table->unsignedBigInteger('id_sucursal')->nullable();
