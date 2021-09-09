@@ -1,4 +1,4 @@
-<style>
+git <style>
     #formulario1 {
         margin: 0 auto;
         text-align: center;
@@ -70,7 +70,6 @@
             });
         });
     });
-<<<<<<< HEAD
 });
 $("#codigoI").change(event => {
     $.get(`envioN/${$("#codigoI").val()}`, function(res, sta) {
@@ -109,13 +108,6 @@ $(function() {
         $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla").find('input').attr('readonly', true);
         bb = bb + 1;
         limpiarCampos();
-=======
-    $("#codigoI").change(event => {
-        $.get(`envioN/${$("#codigoI").val()}`, function(res, sta) {
-            $("#nombre").empty();
-            $("#nombre").val(res[0].nombre);
-        });
->>>>>>> fercho
     });
     </script>
     <script>
