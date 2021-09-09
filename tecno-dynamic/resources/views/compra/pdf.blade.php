@@ -56,7 +56,6 @@ footer {
             <thead>
                 <tr>
                 <th scope="col">#</th>
-                <th scope="col">Cliente</th>
                     <th scope="col">NIT</th>
                     <th scope="col">Fecha</th>
                     <th scope="col">Tipo de venta</th>
@@ -68,18 +67,17 @@ footer {
                 </tr>
             </thead>
             <tbody>
-                @foreach($ventas  as $index => $venta)
+                @foreach($compras  as $index => $compra)
                 <tr>
                     <th scope="row">{{ $index +1 }}</th>
-                    <td>{{ $venta->cliente }}</td>
-                    <td>{{ $venta->nit }}</td>
-                    <td>{{ $venta->fecha}}</td>
-                    <td>{{ $venta->tipo_venta}}</td>
-                    <td>{{ $venta->id_sucursal }}</td>
-                    <td>{{ $venta->total }}</td>
-                    <td>{{ $venta->responsable_venta }}</td>
-                    <td>{{ $venta->comprobante }}</td>
-                    <td>{{ $venta->observaciones }}</td>
+                    <td>{{ $compra->nit }}</td>
+                    <td>{{ $compra->fecha}}</td>
+                    <td>{{ $compra->tipo_compra}}</td>
+                    <td>{{ $compra->id_sucursal }}</td>
+                    <td>{{ $compra->total }}</td>
+                    <td>{{ $compra->responsable_compra }}</td>
+                    <td>{{ $compra->comprobante }}</td>
+                    <td>{{ $compra->observaciones }}</td>
                 </tr>
                 @endforeach
             </tbody>

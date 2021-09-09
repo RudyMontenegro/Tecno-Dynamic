@@ -213,7 +213,7 @@ class CompraController extends Controller
         
     }
     public function imprimir(){
-        $ventas = Compra::all();
+        $compras = Compra::all();
         $pdf = \PDF::loadView('compra.pdf',compact('compras'));// direccion del view, enviando variable.
     
         return $pdf->setPaper('a4', 'landscape')->stream('compras.pdf');//stream-> solo muestra en el navegador
