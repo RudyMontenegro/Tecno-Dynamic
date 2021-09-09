@@ -81,6 +81,7 @@ $("#codigoI").change(event => {
 </script>
 <script>
 var res = 0;
+
 function calcular() {
     try {
         var a = $("input[id=cantidad]").val();
@@ -94,7 +95,7 @@ function calcular() {
 </script>
 <script>
 function limpiarCampos() {
-   
+
     $("#codigoI").val('');
     $("#unidad").val('');
     $("#nombre").val('');

@@ -1,6 +1,7 @@
 @extends('layouts.panel')
 @section('subtitulo','proveedores')
 @section('content')
+
 <head>
     <title>Ajax Autocomplete Textbox in Laravel using JQuery</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -30,20 +31,41 @@
             @endif
             <div class="col-md-12 mx-auto ">
                 <div class="row">
-                    
+
                     <div class="col-6">
                         <div class="form-group">
-                            <label for="nombre_empresa">Cliente</label>
-                            <input class="form-control" name="nombre_contacto" keyup id="nombre_contacto"
-                                list="datalistOptions" id="exampleDataList" placeholder="Escriba para buscar...">
-                            <datalist id="countryList">
-                            </datalist>
+
+
+                            <label for="nombre_contacto">Cliente</label>
+                            @foreach ($clientes as $cliente)
+                            <input list="encodings" name="nombre_contacto" value="{{$cliente -> nit }}" id="nombre_contacto"
+                                class="form-control">
+                            <datalist id="encodings">
+                                
+                                <option value="{{$cliente -> nit }}">
+                                    {{ $cliente-> nombre_contacto}}
+                                </option>
+                                @endforeach
                         </div>
+                        <script>
+                        let $doctor;
+                        $(function() {
+                            // $doctor = $('#nombre_contacto');
+                            //  const $specialty = $('#specialty');
+                            $('#nombre_contacto').change(() => {
+                                let $doctor;
+                                $doctor = $('#nombre_contacto');
+                                $("#nit").empty();
+                                console.log($doctor);
+                                // $("#nit").val(doctor.nit);
+                            });
+                        });
+                        </script>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label for="nit">Nit</label>
-                            <input type="text" name="nit" id="nit" class="form-control" value="{{ old('name')}}">
+                            <input type="text" name="nit" id="encodings" class="form-control" value="{{ old('name')}}">
                         </div>
                     </div>
                     <div class="col-6">
@@ -56,7 +78,7 @@
                         <div class="form-group">
                             <label for="direccion">Tipo de Venta</label>
                             <input type="text" name="tipo_venta" class="form-control" placeholder="Efectivo"
-                                value="{{ old('tipo_venta')}}" >
+                                value="{{ old('tipo_venta')}}">
                         </div>
                     </div>
                     <div class="col-6">
@@ -135,7 +157,7 @@ $(document).ready(function() {
                 success: function(data) {
                     $('#countryList').fadeIn();
                     $('#countryList').html(data);
-                 //  console.log(data);
+                    //  console.log(data);
                 }
             });
         }
@@ -146,10 +168,10 @@ $(document).ready(function() {
     });
 });
 $("#nombre_contacto").change(event => {
-                            $.get(`autocompleteNit/${$("#nombre_contacto").val()}`, function(res, sta) {
-                                $("#nit").empty();
-                                $("#nit").val(res[0].nit);
-                            });
+    $.get(`autocompleteNit/${$("#nombre_contacto").val()}`, function(res, sta) {
+        $("#nit").empty();
+        $("#nit").val(res[0].nit);
+    });
 });
 
 
