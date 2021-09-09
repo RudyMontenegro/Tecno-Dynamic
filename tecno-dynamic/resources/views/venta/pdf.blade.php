@@ -39,24 +39,26 @@ footer {
     color: white;
     text-align: center;
     line-height: 30px;
-    
+
 }
+
 .pagenum:before {
-        content: counter(page);
-    }
+    content: counter(page);
+}
 </style>
 <header>
     <br>
-        <p><strong>LISTA DE VENTAS REGISTRADOS</strong></p>
-    </header>
+    <p><strong>LISTA DE VENTAS REGISTRADOS</strong></p>
+</header>
+
 <body>
 
     <main>
         <table class="table table-striped text-left">
             <thead>
                 <tr>
-                <th scope="col">#</th>
-                <th scope="col">Cliente</th>
+                    <th scope="col">#</th>
+                    <th scope="col">Cliente</th>
                     <th scope="col">NIT</th>
                     <th scope="col">Fecha</th>
                     <th scope="col">Tipo de venta</th>
@@ -68,9 +70,10 @@ footer {
                 </tr>
             </thead>
             <tbody>
-                @foreach($ventas  as $index => $venta)
+            
+                @foreach($ventas as $index => $venta)
                 <tr>
-                    <th scope="row">{{ $index +1 }}</th>
+                    <th scope="row">{{ $index+1}}</th>
                     <td>{{ $venta->cliente }}</td>
                     <td>{{ $venta->nit }}</td>
                     <td>{{ $venta->fecha}}</td>
@@ -81,6 +84,48 @@ footer {
                     <td>{{ $venta->comprobante }}</td>
                     <td>{{ $venta->observaciones }}</td>
                 </tr>
+
+                <tr>
+                    <td colspan="3"></td>
+                    <th scope="col">Detaless:</th>
+
+                    <th scope="col">Codigo de producto</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Unidad</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Subtotal</th>
+                </tr>
+
+
+                @foreach ($ventasDetalles as $ventasDetalle)
+                <tr>
+                    @if($ventasDetalle->id_venta == $index)
+                    <td colspan="4"></td>
+                    <td>
+                        {{ $ventasDetalle->codigo_producto }}
+                    </td>
+                    <td>
+                        {{ $ventasDetalle->nombre }}
+                    </td>
+                    <td>
+                        {{ $ventasDetalle->cantidad }}
+                    </td>
+                    <td>
+                        {{ $ventasDetalle->unidad }}
+                    </td>
+                    <td>
+                        {{ $ventasDetalle->precio }}
+                    </td>
+                    <td>
+                        {{ $ventasDetalle->sub_total }}
+                    </td>
+                    @else
+                    <td></td>
+                    @endif
+
+                </tr>
+                @endforeach
                 @endforeach
             </tbody>
         </table>
