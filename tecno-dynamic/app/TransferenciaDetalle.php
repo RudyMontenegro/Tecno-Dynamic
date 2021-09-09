@@ -18,4 +18,35 @@ class TransferenciaDetalle extends Model
                 ->exists();
         return $nombre;
     }
+
+    function reducirInventario($codigo,$cantidades,$origen){
+
+        $cantidad_origen = DB::table('productos')
+                            ->select('cantidad')
+                            ->where('id','=',$codigo)
+                            ->first();
+        
+        $res = intval($cantidad_origen->cantidad)-$cantidades;
+
+        DB::table('productos')
+        ->where('id', $codigo)
+        ->where('id_sucursal', $origen)
+        ->update(['cantidad' => $res]);
+    }
+
+    function aumentarInventario($codigo,$cantidades,$destino){
+
+        $cantidad_destino = DB::table('productos')
+                            ->select('cantidad')
+                            ->where('id','=',$codigo)
+                            ->first();
+
+        $res2 = intval($cantidad_destino->cantidad)+$cantidades;
+
+        DB::table('productos')
+        ->where('id', $codigo)
+        ->where('id_sucursal', $destino)
+        ->update(['cantidad' => $res2]);
+    }
+
 }

@@ -96,16 +96,50 @@ class TransferenciaController extends Controller
                 $transferencia_detalle->id_transferencia = $id_transferencia->id;
 
                 $transferencia_detalle->save();
+
+                $id_codigo_origen = DB::table('productos')
+                                    ->select('id')
+                                    ->where('codigo','=',$codigo[$i])
+                                    ->where('id_sucursal','=',intval($request->get('sucursal_origen')))
+                                    ->first();
+                $id_codigo_destino = DB::table('productos')
+                                    ->select('id')
+                                    ->where('codigo','=',$codigo[$i])
+                                    ->where('id_sucursal','=',intval($request->get('sucursal_destino')))
+                                    ->first();
+
+                $transferencia_detalle->reducirInventario($id_codigo_origen->id,intval($cantidad[$i]),intval($request->get('sucursal_origen')));
+                $transferencia_detalle->aumentarInventario($id_codigo_destino->id,intval($cantidad[$i]),intval($request->get('sucursal_destino')));
+                
             }
         }
         
 
         return redirect('transferencia');
     }
+
+    
+
     public function show(Transferencia $transferencia,$id)
     {
         $transferencia = Transferencia::findOrFail($id);
-        return view('transferencia.show',compact('transferencia'));
+        $origen = DB::table('transferencias')
+                    ->join('sucursals', 'sucursals.id', '=', 'transferencias.sucursal_origen')
+                    ->select("sucursals.nombre")
+                    ->where('transferencias.id','=',$id)
+                    ->first();
+        $destino = DB::table('transferencias')
+                    ->join('sucursals', 'sucursals.id', '=', 'transferencias.sucursal_destino')
+                    ->select("sucursals.nombre")
+                    ->where('transferencias.id','=',$id)
+                    ->first();
+                
+        $tabla = DB::table('transferencia_detalles')
+                    ->join('productos', 'productos.id', '=', 'transferencia_detalles.codigo_producto')
+                    ->where('id_transferencia','=',$id)
+                    ->get();
+
+        return view('transferencia.show',compact('transferencia','origen','destino','tabla'));
     }
 
     /**

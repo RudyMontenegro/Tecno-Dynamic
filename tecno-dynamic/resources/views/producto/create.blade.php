@@ -26,6 +26,7 @@
             data:{
                 "_token": "{{ csrf_token() }}",
                 "nombre": $("#nombre").val(),
+                "sucursal": $("#sucursal").val(),
             },
             asycn:false,
             type: "POST",
@@ -46,6 +47,7 @@
             data:{
                 "_token": "{{ csrf_token() }}",
                 "codigo": $("#codigo").val(),
+                "sucursal": $("#sucursal").val(),
             },
             asycn:false,
             type: "POST",
@@ -66,6 +68,7 @@
             data:{
                 "_token": "{{ csrf_token() }}",
                 "codigoBarra": $("#codigoBarra").val(),
+                "sucursal": $("#sucursal").val(),
             },
             asycn:false,
             type: "POST",
@@ -377,11 +380,16 @@
     </div>
     <div class="col-5">
         <label for="sucursal">Sucursal</label>
-        <select name="sucursal" id="sucursal" class="form-control  {{$errors->has('sucursal')?'is-invalid':'' }}" onblur="validarSucursal()">
-        <option selected disabled>Elige una Sucursal</option>
-        @foreach ($sucursal as $sucursal)
+        <input name="sucursal" value="{{$sucursal_elegida->id}}" type="hidden">
+        <select name="sucursal" id="sucursal" disabled class="form-control text-dark {{$errors->has('sucursal')?'is-invalid':'' }}" onblur="validarSucursal()">
+            <option selected disabled>Elige una Sucursal</option>
+            @foreach ($sucursales as $sucursal)
+            @if ($sucursal->nombre == $sucursal_elegida->nombre)
+            <option {{ old('sucursal') == $sucursal->id ? "selected" : "" }} value="{{$sucursal->id}}" selected>{{$sucursal->nombre}}</option>
+            @else
             <option {{ old('sucursal') == $sucursal->id ? "selected" : "" }} value="{{$sucursal->id}}">{{$sucursal->nombre}}</option>
-        @endforeach
+            @endif
+            @endforeach 
         </select><span id="estadoSucursal"></span>
         {!!  $errors->first('sucursal','<div class="invalid-feedback">:message</div>') !!}
     </div>
