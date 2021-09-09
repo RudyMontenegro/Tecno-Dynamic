@@ -40,8 +40,8 @@ Route::post('/transferencia/validar', 'TransferenciaController@codigo')->middlew
 Route::post('/transferencia/llenar', 'TransferenciaController@llenar')->middleware('auth');
 Route::get('/transferencia/registrarTransferencia', 'TransferenciaController@create')->middleware('auth');
 Route::post('/transferencia/registrarTransferencia', 'TransferenciaController@store')->middleware('auth');
-Route::get('/transferencia/editar/{id}', 'TransferenciaController@edit')->middleware('auth');
-Route::patch('/transferencia/editar/{id}', 'TransferenciaController@update')->middleware('auth');
+Route::get('/transferencia/informacion/{id}', 'TransferenciaController@show')->middleware('auth');
+Route::patch('/transferencia/editar/{id}', 'TransferenciaController@update')->middleware('auth');//no funciona aun
 //CATEGORIA
 Route::get('/producto/registrarCategoria', 'CategoriaController@create')->middleware('auth');
 Route::post('/producto/registrarCategoria', 'CategoriaController@store')->middleware('auth');
@@ -84,10 +84,15 @@ Route::delete('/venta/{ventas}', 'VentaController@destroy')->middleware('auth');
 //COMPRA
 Route::get('/compra', 'CompraController@index')->middleware('auth');
 Route::get('/compra/registrarCompra','CompraController@create')->middleware('auth');
+Route::get('/compra/envioP/{id}', 'CompraController@producto')->middleware('auth');
+Route::get('/compra/envioN/{id}', 'CompraController@nombre')->middleware('auth');
 Route::get('/compra/edit/{id}', 'CompraController@edit')->middleware('auth');
 Route::post('/compra/registrarCompra','CompraController@store')->middleware('auth');
+Route::get('/compra/pdf', 'CompraController@imprimir')->middleware('auth');
 Route::patch('/compra/edit/{id}', 'CompraController@update')->middleware('auth');
 Route::delete('/compra/{compras}', 'CompraController@destroy')->middleware('auth');
+Route::post('/compra/llenar', 'ClienteController@llenado')->middleware('auth');
+
 Route::get('/compra/{id}', 'CompraController@show')->middleware('auth');    
 //jquery
 Route::post('/autocomplete', 'VentaController@fetch');

@@ -63,14 +63,14 @@
                         <select class="form-control {{$errors->has('tip0_compra')?'is-invalid':'' }}" name="tipo_compra" id="tipo_compra">
                             <option value="Contado">Contado</option>
                             <option valur="Credito">Credito</option>
-                     {!!  $errors->first('tipo_compra','<div class="invalid-feedback">:message</div>') !!}
-                        </select>             
+                        </select>  
+                        {!!  $errors->first('tipo_compra','<div class="invalid-feedback">:message</div>') !!}           
                  </div>
             </div>  
         <div class="row">
             <div class="col-6">
                 <label form="sucursal">Sucursal</label>
-                <select name="sucursal" id="sucursal" class="form-control {{$errors->has('sucursal')?'is-invalid':''}}">
+                <select name="sucursal" id="sucursal_origen" class="form-control {{$errors->has('sucursal')?'is-invalid':''}}">
                     <option selected disabled>Elija una Sucursal</option>
                     @foreach($sucursal as $sucursal)
                     <option {{old('sucursal') == $sucursal->id ? "selected" : ""}} value="{{$sucursal->id}}">{{$sucursal->nombre}}</option>
@@ -93,7 +93,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1">Bs.</span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="100" aria-label="Username"
+                                <input type="number" class="form-control" placeholder="100" aria-label="Username"
                                     aria-describedby="basic-addon1">
                             </div>
                         </div>

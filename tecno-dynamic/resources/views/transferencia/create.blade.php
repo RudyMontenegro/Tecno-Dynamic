@@ -1,4 +1,4 @@
-~@extends('layouts.panel')
+@extends('layouts.panel')
 
 @section('subtitulo','transferencia') 
 @section('content')
@@ -91,6 +91,9 @@
         </script>
         <style>
             .menor {
+                color:#D60202;
+            }
+            .estado-nulo{
                 color:#D60202;
             }
         </style>

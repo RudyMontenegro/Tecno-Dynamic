@@ -39,18 +39,33 @@
                 }
                 });
             }
+
             function comprobarNombre(){
                 
                 if($("#nombre_empresa").val() == ""){
                 $("#estadoNombreEmpresa").html("<span  class='menor'><h5 class='menor'> </h5></span>");
-            }else{
+                }else{
                     var re = new RegExp("^[a-zA-Z ]+$");
                 if(!re.test($("#nombre_empresa").val())){
                     $("#estadoNombreEmpresa").html("<span  class='menor'><h5 class='menor'>Solo se acepta caracteres [A-Z]</h5></span>");
                 }else{
                     $("#estadoNombreEmpresa").html("<span  class='menor'><h5 class='menor'> </h5></span>");
                 }
+              }
             }
+
+            function comprobarContacto(){
+
+                if($("#nombre_contacto").val() == ""){
+                    $("#estadoNombreContacto").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+                }else{
+                    var re = new RegExp("^[a-zA-Z ]+$");
+                if(!re.test($("#nombre_contacto").val())){
+                    $("#estadoNombreContacto").html("<span  class='menor'><h5 class='menor'>Solo se acepta caracteres [A-Z]</h5></span>");
+                }else{
+                    $("#estadoNombreContacto").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+                }
+               }                
             }
         </script>
         <style>
@@ -81,9 +96,10 @@
                    </div>  
 
                   <div class="col-6">
-                        <label form="empresa">Nombre de Empresa</label>
+                        <label form="empresa" class="control-label">Nombre de Empresa</label>
                         <input class="form-control {{$errors->has('nombre_empresa')?'is-invalid':'' }}" type="text" name="nombre_empresa" id="nombre_empresa"  
-                                Placeholder="Ingrese el nombre de la empresa" value="{{ old('empresa') }}" onblur="comprobarNombre()">
+                                Placeholder="Ingrese el nombre de la empresa" value="{{ old('empresa') }}" onkeyup="comprobarNombre()">
+                                <span id="estadoNombreEmpresa"></span>
 
                           {!!  $errors->first('nombre_empresa','<div class="invalid-feedback">:message</div>') !!}
                    </div>  
@@ -91,7 +107,8 @@
                   <div class="col-6"> 
                          <label form="contacto">Nombre de Contacto</label>
                          <input class="form-control {{$errors->has('nombre_contacto')?'is-invalid':'' }}" type="text" name="nombre_contacto" id="nombre_contacto"  
-                               Placeholder="Ingrese el nombre del contacto" value="{{ old('contacto') }}">
+                               Placeholder="Ingrese el nombre del contacto" value="{{ old('contacto') }}" onkeyup="comprobarContacto()">
+                               <span id="estadoNombreContacto"></span>
 
                            {!!  $errors->first('nombre_contacto','<div class="invalid-feedback">:message</div>') !!}
                    </div>
