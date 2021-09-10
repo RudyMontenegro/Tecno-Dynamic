@@ -14,7 +14,12 @@ class VentaController extends Controller
 {
     public function index() 
     {
-        $ventas = Venta::all();
+      //  $ventas = Venta::all();
+     //   $ventasDetalles = VentaDetalle::all();
+        $VentaSucursal = DB::table('venta_detalles','ventas')
+        ->Join('ventas.id', '=', 'venta_detalles.id_venta')
+        ->get();
+        dd($VentaSucursal);
         return view('venta.index', compact('ventas'));
     }
     public function create()
@@ -55,7 +60,8 @@ class VentaController extends Controller
         ->where('fecha','=',request('fecha'))
         ->first();
        // dd($id_venta);
-        if($request->input('nombre') && $request->input('cantidad') && $request->input('unidad') && $request->input('precio') && $request->input('subTotal')){
+        if($request->input('codigoI') && $request->input('nombre') && $request->input('cantidad') && $request->input('unidad') && $request->input('precio') && $request->input('subTotal')){
+            $codigo_producto = request('codigoI');
             $nombre = request('nombre');
             $cantidad = request('cantidad');
             $unidad = request('unidad');

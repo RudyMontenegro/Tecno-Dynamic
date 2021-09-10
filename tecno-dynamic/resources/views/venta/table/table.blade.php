@@ -69,7 +69,6 @@
     </table>
     <button type="button" class="btn btn-success btn-lg btn-block" id="adicional" name="adicional">Añadir</button>
 </div>
-<input type="text" class="form-control" name="subTotal[]" id="subTotal">
 <script>
 $("#sucursal_origen").change(event => {
     $.get(`envioP/${event.target.value}`, function(res, sta) {
@@ -114,20 +113,22 @@ function limpiarCampos() {
 }
 var bb = 0;
 $(function() {
-        $("#adicional").on('click', function() {
-            $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla").find('input').attr('readonly', true);
-            bb = bb + 1;
-            limpiarCampos();
-        });
-        $(document).on("click", ".eliminar", function() {
-            if (bb > 0) {
-                var parent = $(this).parents().get(0);
-                $(parent).remove();
-                bb = bb - 1;
-            }else{
-                $(this).parents().find('input').attr('readonly', false);
-                limpiarCampos();
-            }
-        });
+    $("#adicional").on('click', function() {
+        $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla").find('input').attr('readonly', true);
+        bb = bb + 1;
+        limpiarCampos();
     });
+    $(document).on("click", ".eliminar", function() {
+        if (bb > 0) {
+            //var precio = $(this).parents().find('td').eq(4).find('div').children().find('input[type=number]').html();
+               var parent = $(this).parents().get(0);
+              $(parent).remove();
+            console.log(precio)
+            bb = bb - 1;
+        } else {
+            $(this).parents().find('input').attr('readonly', false);
+            limpiarCampos();
+        }
+    });
+});
 </script>
