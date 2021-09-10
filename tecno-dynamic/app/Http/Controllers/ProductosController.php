@@ -20,18 +20,26 @@ class ProductosController extends Controller
     public function index()
     {
         $sucursal = Sucursal::all();
-        $producto = DB::table('productos')
-                    ->join('categorias', 'categorias.id', '=', 'productos.id_categoria')
-                    ->select('categorias.nombre as categoria','productos.codigo_barra','productos.nombre','productos.id')
-                    ->paginate(10,['*'],'producto');
+        
         $categoria = Categoria::paginate(3,['*'],'categoria');
 
+        $sucursales = Sucursal::all();
+
         
-        return view('producto.index',['producto'=>$producto,'categoria'=>$categoria])->with(compact('sucursal'));
+        return view('producto.index',['categoria'=>$categoria])->with(compact('sucursal','sucursales'));
     }
+
+
 
     public function prueba(){
         return view('producto.prueba');
+    }
+
+    public function filtro(Request $request,$id){
+        if($request->ajax()){
+            $codigo=Productos::busqueda($id);
+            return response()->json( $codigo);
+        }
     }
 
     
