@@ -19,6 +19,7 @@ class CreateComprasTable extends Migration
             $table->string('responsable_compra')->nullable();
             $table->dateTime('fecha')->nullable();
             $table->string('tipo_compra')->nullable();
+            $table->decimal('total', 8, 2);
             $table->string('observaciones')->nullable();
             $table->unsignedBigInteger('id_sucursal')->nullable();
             $table->unsignedBigInteger('id_proveedor')->nullable();

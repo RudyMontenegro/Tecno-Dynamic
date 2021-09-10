@@ -86,6 +86,7 @@ class CompraController extends Controller
         $compra->responsable_compra = request('responsable_compra');
         $compra->fecha = request('fecha');
         $compra->tipo_compra = $request->get('tipo_compra');
+        $compra->total = request('total');
         $compra->observaciones = request('observaciones');
         $compra->id_sucursal = request('sucursal');
         $compra->id_proveedor = $request->get('proveedor');
@@ -213,7 +214,13 @@ class CompraController extends Controller
         
     }
     public function imprimir(){
-        $compras = Compra::all();
+
+
+        $compras = DB::table('compras')
+               ->join('proveedors','proveedors.id','=','compras.id_proveedor')
+               ->join('sucursals','sucursals.id','=','compras.id_sucursal')
+               ->select('compras.comprobante','proveedors.nombre_empresa','compras.fecha','compras.tipo_compra','sucursals.nombre','compras.total','compras.responsable_compra','compras.observaciones')
+               ->get();
         $pdf = \PDF::loadView('compra.pdf',compact('compras'));// direccion del view, enviando variable.
     
         return $pdf->setPaper('a4', 'landscape')->stream('compras.pdf');//stream-> solo muestra en el navegador

@@ -47,7 +47,7 @@ footer {
 </style>
 <header>
     <br>
-        <p><strong>LISTA DE VENTAS REGISTRADOS</strong></p>
+        <p><strong>LISTA DE COMPRAS REGISTRADOS</strong></p>
     </header>
 <body>
 
@@ -56,30 +56,33 @@ footer {
             <thead>
                 <tr>
                 <th scope="col">#</th>
-                    <th scope="col">NIT</th>
+                    <th scope="col">Comprobante</th>
+                    <th scope="col">Proveedor</th>
                     <th scope="col">Fecha</th>
-                    <th scope="col">Tipo de venta</th>
+                    <th scope="col">Tipo de compra</th>
                     <th scope="col">Sucursal</th>
                     <th scope="col">Total</th>
-                    <th scope="col">Responsable</th>
-                    <th scope="col">Comprobante</th>
+                    <th scope="col">Responsable de Compra</th>
                     <th scope="col">Observaciones</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($compras  as $index => $compra)
+                
+                @foreach($compras as $index => $compra)
+                
                 <tr>
-                    <th scope="row">{{ $index +1 }}</th>
-                    <td>{{ $compra->nit }}</td>
+                    <th scope="row">{{ $index+1}}</th>
+                    <td>{{ $compra->comprobante }}</td>
+                    <td>{{ $compra->nombre_empresa }}</td>
                     <td>{{ $compra->fecha}}</td>
                     <td>{{ $compra->tipo_compra}}</td>
-                    <td>{{ $compra->id_sucursal }}</td>
+                    <td>{{ $compra->nombre }}</td>
                     <td>{{ $compra->total }}</td>
                     <td>{{ $compra->responsable_compra }}</td>
-                    <td>{{ $compra->comprobante }}</td>
                     <td>{{ $compra->observaciones }}</td>
                 </tr>
                 @endforeach
+                
             </tbody>
         </table>
     </main>
