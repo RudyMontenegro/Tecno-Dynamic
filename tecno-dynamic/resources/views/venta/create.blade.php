@@ -31,42 +31,27 @@
             @endif
             <div class="col-md-12 mx-auto ">
                 <div class="row">
-
                     <div class="col-6">
                         <div class="form-group">
-
-
-                            <label for="nombre_contacto">Cliente</label>
-                            @foreach ($clientes as $cliente)
-                            <input list="encodings" name="nombre_contacto" value="{{$cliente -> nit }}" id="nombre_contacto"
+                            <label for="nit">NIT</label>
+                            <input list="encodings" name="nit" value="" id="nit" value="{{ old('nit')}}"
                                 class="form-control">
                             <datalist id="encodings">
-                                
-                                <option value="{{$cliente -> nit }}">
-                                    {{ $cliente-> nombre_contacto}}
+                                @foreach ($clientes as $cliente)
+                                <option>
+                                    {{ $cliente-> nit}}
                                 </option>
                                 @endforeach
                         </div>
                         <script>
-                        let $doctor;
-                        $(function() {
-                            // $doctor = $('#nombre_contacto');
-                            //  const $specialty = $('#specialty');
-                            $('#nombre_contacto').change(() => {
-                                let $doctor;
-                                $doctor = $('#nombre_contacto');
-                                $("#nit").empty();
-                                console.log($doctor);
-                                // $("#nit").val(doctor.nit);
-                            });
-                        });
                         </script>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
-                            <label for="nit">Nit</label>
-                            <input type="text" name="nit" id="encodings" class="form-control" value="{{ old('name')}}">
+                            <label for="nombre_contacto">Cliente</label>
+                            <input type="text" class="form-control" name="nombre_contacto" id="nombre_contacto">
                         </div>
+
                     </div>
                     <div class="col-6">
                         <div class="form-group">
@@ -142,51 +127,11 @@
         </div>
 </form>
 <script>
-$(document).ready(function() {
-    $('#nombre_contacto').keyup(function() {
-        var query = $(this).val();
-        if (query != '') {
-            var _token = $('input[name="_token"]').val();
-            $.ajax({
-                url: '/autocomplete',
-                method: 'POST',
-                data: {
-                    query: query,
-                    _token: _token
-                },
-                success: function(data) {
-                    $('#countryList').fadeIn();
-                    $('#countryList').html(data);
-                    //  console.log(data);
-                }
-            });
-        }
-    });
-    $(document).on('click', 'li', function() {
-        $('#nombre_contacto').val($(this).text());
-        $('#countryList').fadeOut();
-    });
-});
-$("#nombre_contacto").change(event => {
-    $.get(`autocompleteNit/${$("#nombre_contacto").val()}`, function(res, sta) {
-        $("#nit").empty();
-        $("#nit").val(res[0].nit);
-    });
-});
-
-
-
-
-
-
-$("#nombre_contacto").change(event => {
-    $nit = $('#nit');
-    const $nombre = $('#nombre_contacto');
-    $('#specialty').change(() => {
-        const nombreID = $nombre.val();
-        console.log(nombreID);
-        const url = `/specialties/${specialtyId}/doctors`;
-        $.getJSON(url, onDoctorsLoaded);
+$("#nit").change(event => {
+    console.log
+    $.get(`envioNit/${$("#nit").val()}`, function(res, sta) {
+        $("#nombre_contacto").empty();
+        $("#nombre_contacto").val(res[0].nombre_contacto);
     });
 });
 </script>

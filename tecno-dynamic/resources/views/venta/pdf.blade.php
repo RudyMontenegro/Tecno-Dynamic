@@ -84,7 +84,7 @@ footer {
                     <td>{{ $venta->comprobante }}</td>
                     <td>{{ $venta->observaciones }}</td>
                 </tr>
-
+                
                 <tr>
                     <td colspan="3"></td>
                     <th scope="col">Detaless:</th>
@@ -96,11 +96,10 @@ footer {
                     <th scope="col">Precio</th>
                     <th scope="col">Subtotal</th>
                 </tr>
-
-
+               
                 @foreach ($ventasDetalles as $ventasDetalle)
+                @if($ventasDetalle->id_venta == $index+1)
                 <tr>
-                    @if($ventasDetalle->id_venta == $index)
                     <td colspan="4"></td>
                     <td>
                         {{ $ventasDetalle->codigo_producto }}
@@ -120,13 +119,13 @@ footer {
                     <td>
                         {{ $ventasDetalle->sub_total }}
                     </td>
-                    @else
-                    <td></td>
-                    @endif
-
                 </tr>
+                @endif
                 @endforeach
                 @endforeach
+                <thead class="thead-dark">
+                <td colspan="8">-</td>
+                </thead>
             </tbody>
         </table>
     </main>

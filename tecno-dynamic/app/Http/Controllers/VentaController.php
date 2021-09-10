@@ -23,15 +23,20 @@ class VentaController extends Controller
         $clientes = Cliente::all();
         return view('venta.create',compact('sucursal','clientes'));
     }
- 
-    public function producto(Request $request, $id)
+    public function getProducto(Request $request, $id)
     {
         if($request->ajax()){
             $producto=Productos::producto($id);
             return response()->json( $producto);
         }
-    }
-    
+    } 
+    public function getCliente(Request $request, $id)
+    {
+        if($request->ajax()){
+            $cliente=Cliente::getCliente($id);
+            return response()->json($cliente);
+        }
+    } 
     public function store(Request $request)
     {
         $venta = new Venta();

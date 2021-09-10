@@ -17,10 +17,10 @@ class Cliente extends Model
         $result  =  strlen($nit);
         return $result;
     }
-    public static function cliente($id){
+    public static function getCliente($id){
         $cliente = DB::table('clientes') 
-        ->select('nit')
-        ->where('id','=',$id)
+        ->select('nombre_contacto')
+        ->where('nit','=',$id)
         ->get();
         return $cliente;
     }
