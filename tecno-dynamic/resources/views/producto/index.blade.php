@@ -19,6 +19,9 @@
             width: 800px;
     
         }
+            .menor {
+                color:#D60202;
+            }
     </style>
 <div class="card shadow">
     <div class="card-header border-0">
@@ -55,8 +58,8 @@
                             </div>
                             <div class="modal-footer">
                                     <button type="button" class="btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
-                                    <a type="button" class="btn btn-primary btn-sm float-left" id="href"
-                                    href="/#" onclick="enviarForm()">Continuar</a>
+                                    <a type="button" class="btn btn-primary btn-sm float-left text-white" id="href"
+                                     onclick="enviarForm()">Continuar</a>
                                    
                               
                             </div>
@@ -68,11 +71,8 @@
             </div>
         </div>
     </div>
-    <style>
-        .menor {
-            color:#D60202;
-        }
-    </style>
+</div>
+   
         <script>
             function enviarForm(){
                 var cod = document.getElementById("sucursal").value;
@@ -98,6 +98,9 @@
                     document.getElementById("href").setAttribute("href", primerUrl + urlNuevo);
                 }
             }
+
+            
+           
         </script>
 
     <div class="card shadow">
@@ -124,12 +127,12 @@
 
                                         <!-- Button trigger modal -->
                                         <button type="button" class="btn btn-sm btn-danger float-right" data-toggle="modal"
-                                            data-target="#exampleModal2">
+                                            data-target="#exampleModal2{{$categorias->id}}">
                                             Borrar
                                         </button>
 
                                         <!-- Modal -->
-                                        <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog"
+                                        <div class="modal fade" id="exampleModal2{{$categorias->id}}" tabindex="-1" role="dialog"
                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
@@ -147,7 +150,7 @@
                                                         </h2>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <form method="post" action="{{url('/producto/')}}"
+                                                        <form method="post" action="{{url('/producto/'.$categorias->id)}}"
                                                             style="display:inline">
                                                             {{csrf_field()}}
                                                             {{method_field('DELETE')}}
@@ -186,15 +189,24 @@
             </div>
         </div>
     </div>
-</div>
 
-
+        
     <div class="card shadow">
         <div class="card-header border-0">
             <div class="row align-items-center">
                 <div class="col text-right">
+                    <div class="col-4" style="display: inline-block;">
+                        <select name="sucursal_show" id="sucursal_show"
+                            class="form-control text-dark  {{$errors->has('sucursal_show')?'is-invalid':'' }}">
+                            <option selected disabled>Seleccione una Sucursal</option>
+                            @foreach ($sucursales as $sucursal)
+                            <option {{ old('sucursal_show') == $sucursal->id ? "selected" : "" }} value="{{$sucursal->id}}" >{{$sucursal->nombre}}</option>
+                            @endforeach 
+                        </select>
+                        
+                    </div>
                     <h1 class="text-primary text-center">PRODUCTOS</h1>
-
+                        
                     <div class="table-responsive">
                         <!-- Projects table -->
                         <table class="table align-items-center table-flush">
@@ -206,68 +218,8 @@
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    @foreach ($producto as $productos)
-                                    <td scope="row">{{$productos->codigo_barra}}</td>
-                                    <td>{{$productos->nombre}}</td>
-                                    <td>{{$productos->categoria}}</td>
-                                    <td>
-
-
-                                        <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-danger btn-sm float-right" data-toggle="modal"
-                                            data-target="#exampleModal">
-                                            Borrar
-                                        </button>
-
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Mensaje de Alerta
-                                                        </h5>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <h2 class="text-center">
-                                                            ¿Esta seguro de eliminar este producto?
-                                                        </h2>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <form method="post" action="{{url('/producto/'.$productos->id)}}"
-                                                            style="display:inline">
-                                                            {{csrf_field()}}
-                                                            {{method_field('DELETE')}}
-                                                            <button id="confirm" type="submit"
-                                                                class="btn btn-danger btn-sm float-right">Borrar</button>
-                                                        </form>
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">Cancelar</button>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <a href="{{url('/producto/editar/'.$productos->id)}}"
-                                            class="btn btn-warning float-right btn-sm">
-                                            Editar
-                                        </a>
-
-                                        <a href="{{url('/producto/'.$productos->id)}}" class="btn btn-info float-right btn-sm">
-                                            Ver
-                                        </a>
-                                    </td>
-
-                                </tr>
-                                @endforeach
-
+                            <tbody id="miTabla">
+                                
                             </tbody>
                             <thead class="thead-light">
                                 <tr>
@@ -278,16 +230,127 @@
                                 </tr>
                             </thead>
                         </table>
-                        <div id="medio" >{{$producto->links()}}</div>
+                       
                     </div>
                 </div>
             </div>
         </div>
+                
+                                    <div class="modal fade" id="exampleModal5" tabindex="-1" role="dialog"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Mensaje de Alerta
+                                                    </h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h2 class="text-center">
+                                                        ¿Esta seguro de eliminar este producto?
+                                                    </h2>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <form method="post" action="" id="eliminarProducto"
+                                                        style="display:inline">
+                                                        {{csrf_field()}}
+                                                        {{method_field('DELETE')}}
+                                                    
+                                                    <button id="confirm" type="submit" class="btn btn-danger btn-sm float-right">Borrar</button>
+                                                    </form>
+                                                    <button type="button" class="btn btn-secondary btn-sm"
+                                                        data-dismiss="modal">Cancelar</button>
 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                <script>
+
+                   
+
+                    $("#sucursal_show").change(event => {
+                        $.get(`producto/filtro/${$("#sucursal_show").val()}`, function(res, sta) {
+                            console.log(res);
+                            $("#miTabla").empty();
+                            res.forEach(element => {
+                                let tbody = document.getElementById('miTabla');
+                                const ruta = '/producto/editar/';
+                                let filaNueva = '<tr>' +
+                                    '<td>' + element.codigo_barra + '</td>' +
+                                    '<td>' + element.nombre + '</td>' +
+                                    '<td>' + element.categoria + '</td>' +
+                                    '<td>' + 
+
+                                        '<button type="button" class="btn btn-danger btn-sm float-right" data-toggle="modal"'+
+                                        'data-target="#exampleModal5" onclick="cambiarAction('+element.id+')" >'+
+                                        'Borrar'+
+                                        '</button>'
+
+                                        +'<a id="href"  class="btn btn-warning float-right btn-sm text-white" onclick="enviarEditar('+element.id+')" >Editar</a>'
+                                        +'<a id="href2" class="btn btn-info float-right btn-sm text-white" onclick="enviarVer('+element.id+')">Ver</a>'
+                                    + '</td>' +
+                                  '</tr>';
+                                tbody.innerHTML += filaNueva;
+
+                            }); 
+                        });
+                    });
+                    
+
+                    function enviarEditar(valor){
+                        
+                            var urlOriginal = document.getElementById("href").href;
+                            //Se obtiene el inicio del segundo URL, buscando "http"
+                            var posSegundoUrl = urlOriginal.indexOf("http", 4)
+        
+                            //Se obtiene el primer URL
+                            var primerUrl = urlOriginal.substring(0, posSegundoUrl);
+        
+                            //Se obtiene el segundo URL
+                            var segundoUrl = urlOriginal.substring(posSegundoUrl);
+        
+                            //Se define un URL nuevo
+                            var url = "/producto/editar/"+valor;
+                            console.log(url);
+                            var urlNuevo =  "/producto/editar/"+valor;
+
+                            window.location.href = primerUrl + urlNuevo;
+                        
+                    }
+                    function enviarVer(valor){
+                        
+                        var urlOriginal = document.getElementById("href2").href;
+                        //Se obtiene el inicio del segundo URL, buscando "http"
+                        var posSegundoUrl = urlOriginal.indexOf("http", 4)
+    
+                        //Se obtiene el primer URL
+                        var primerUrl = urlOriginal.substring(0, posSegundoUrl);
+    
+                        //Se obtiene el segundo URL
+                        var segundoUrl = urlOriginal.substring(posSegundoUrl);
+    
+                        //Se define un URL nuevo
+                        var url = "/producto/editar/"+valor;
+                        console.log(url);
+                        var urlNuevo =  "/producto/"+valor;
+
+                        window.location.href = primerUrl + urlNuevo;
+                    
+                }
+
+                function cambiarAction(valor){
+                    document.getElementById("eliminarProducto").action = "/producto/"+valor;
+                }
+                </script>
 
     </div>
+    
 
-
-
+            
 
 @endsection

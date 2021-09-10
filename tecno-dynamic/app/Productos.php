@@ -66,4 +66,13 @@ class Productos extends Model
         return $nombre;
     }
 
+    public static function busqueda($id){
+        $nombre = DB::table('productos') 
+                    ->join('categorias', 'categorias.id', '=', 'productos.id_categoria')
+                    ->select('categorias.nombre as categoria','productos.codigo_barra','productos.nombre','productos.id')
+                    ->where('productos.id_sucursal','=',$id)
+                    ->get();
+        return $nombre;
+    }
+
 } 

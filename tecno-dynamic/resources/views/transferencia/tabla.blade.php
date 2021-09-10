@@ -115,7 +115,10 @@
         
         console.log(existeValor("codigoI"));
             $("#adicional").on('click', function() {
-                if( !existeValor("codigoI") || !existeValor("nombre") || !existeValor("cantidad") || !existeValor("precio") || !existeValor("unidad") || !existeValor("subTotal")){
+                if( !existeValor("codigoI") && !existeValor("nombre") && !existeValor("cantidad") && !existeValor("precio") && !existeValor("unidad") && !existeValor("subTotal")
+                
+                
+                ){
                         $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla");
                         limpiar();
                         bb = bb +1;
@@ -127,6 +130,7 @@
                     vacio("unidad");
                     vacio("precio");
                     vacio("subTotal");
+                    
                 }
             });
         
@@ -154,8 +158,11 @@
             prueba.style.borderColor = 'red';
             $("#estado"+$valor.charAt(0).toUpperCase() + $valor.slice(1)).html("<span  class='menor'><h5 class='menor'>Campo obligatorio</h5></span>");
         }else{
-            prueba.style.borderColor = '#cad1d7';
+            if(validarCantidad() || validarNombre() || validarPrecio() || validarUnidad()){
+                prueba.style.borderColor = '#cad1d7';
             $("#estado"+$valor.charAt(0).toUpperCase() + $valor.slice(1)).html("<span  class='menor'><h5 class='menor'></h5></span>");
+            }
+            
         }
     }   
     var res = 0;

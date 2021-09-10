@@ -52,6 +52,7 @@ Route::post('/categoria/validarEditar', 'CategoriaController@validarEditar')->mi
 //PRODUCTO
 Route::get('/producto', 'ProductosController@index')->middleware('auth');
 Route::get('/producto/prueba', 'ProductosController@prueba')->middleware('auth');
+Route::get('/producto/filtro/{id}', 'ProductosController@filtro')->middleware('auth');
 Route::get('/producto/registrarProducto/{id}', 'ProductosController@create')->middleware('auth');
 Route::post('/producto/registrarProducto', 'ProductosController@store')->middleware('auth');
 Route::get('/producto/{id}', 'ProductosController@show')->middleware('auth');

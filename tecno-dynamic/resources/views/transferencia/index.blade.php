@@ -37,9 +37,9 @@
                 <td>
                     
                     <button class="btn btn-sm btn-danger" type="submit" data-toggle="modal"
-                        data-target="#exampleModal2">Eliminar</button>
+                        data-target="#exampleModal2{{$transferencia->id}}">Eliminar</button>
                     <!-- modaal -->
-                    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog"
+                    <div class="modal fade" id="exampleModal2{{$transferencia->id}}" tabindex="-1" role="dialog"
                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
