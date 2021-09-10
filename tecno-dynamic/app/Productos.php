@@ -15,9 +15,10 @@ class Productos extends Model
         return $persona;
     }
 
-    function numRows($nombre) {
+    function numRows($nombre,$sucursal) {
         $result  = DB::table('productos')
                     ->where('nombre','=', $nombre)
+                    ->where('id_sucursal','=', $sucursal)
                     ->count();
         return $result;
     }
@@ -26,9 +27,10 @@ class Productos extends Model
         return $result;
     }
 
-    function numRows2($nombre) {
+    function numRows2($nombre,$sucursal) {
         $result  = DB::table('productos')
                     ->where('codigo','=', $nombre)
+                    ->where('id_sucursal','=', $sucursal)
                     ->count();
         return $result;
     }
@@ -37,9 +39,10 @@ class Productos extends Model
         return $result;
     }
 
-    function numRows3($nombre) {
+    function numRows3($nombre,$sucursal) {
         $result  = DB::table('productos')
                     ->where('codigo_barra','=', $nombre)
+                    ->where('id_sucursal','=', $sucursal)
                     ->count();
         return $result;
     }
@@ -60,6 +63,15 @@ class Productos extends Model
         ->select('nombre')
         ->where('codigo','=',$id)
         ->get();
+        return $nombre;
+    }
+
+    public static function busqueda($id){
+        $nombre = DB::table('productos') 
+                    ->join('categorias', 'categorias.id', '=', 'productos.id_categoria')
+                    ->select('categorias.nombre as categoria','productos.codigo_barra','productos.nombre','productos.id')
+                    ->where('productos.id_sucursal','=',$id)
+                    ->get();
         return $nombre;
     }
 

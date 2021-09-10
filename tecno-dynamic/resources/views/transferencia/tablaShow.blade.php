@@ -1,11 +1,13 @@
-<style>
+    <style>
     #formulario1 {
         margin: 0 auto;
         text-align: center;
         border-radius: 10px;
         border: 1px solid #ffffff;
         width: 800px;
+
     }
+
         .card .table td,
         .card .table th {
         padding-right: 0.1rem;
@@ -21,58 +23,55 @@
             <th scope="col">Unidad</th>
             <th scope="col">Precio</th>
             <th scope="col">Subtotal</th>
-            <th scope="col">Eliminar</th>
         </tr>
     </thead> 
     <tbody>
+         @foreach ($tabla as $transferencia)
         <span id="estadoBoton"></span>
         <tr>
+           
             <th>
-                <input class="form-control" name="codigoI[]" id="codigoI"  onkeyup="existe()"  
+                <input class="form-control text-dark" name="codigoI[]" id="codigoI"  onkeyup="existe()"  
+                value="{{ isset($transferencia->codigo)?$transferencia->codigo:old('nombre')  }}" disabled
                 list="codigo" >
-                <datalist id="codigo">
-                </datalist>
+                
                 <span id="estadoCodigo"></span>
                 <span id="estadoCodigoI"></span>
             </th>
             <td>
-                <input type="text"  class="form-control  {{$errors->has('nombre')?'is-invalid':'' }}" name="nombre[]"
+                <input type="text"  class="form-control text-dark  {{$errors->has('nombre')?'is-invalid':'' }}" name="nombre[]" disabled
                     id="nombre" value="{{ isset($transferencia->nombre)?$transferencia->nombre:old('nombre')  }}">
                     <span id="estadoNombre"></span>
             </td>
             <td>
-                <input type="integer"  class="form-control  {{$errors->has('cantidad')?'is-invalid':'' }}" name="cantidad[]"
+                <input type="integer"  class="form-control text-dark  {{$errors->has('cantidad')?'is-invalid':'' }}" name="cantidad[]" disabled
                     id="cantidad" onkeyup="validarCantidad()"
                     value="{{ isset($transferencia->cantidad)?$transferencia->cantidad:old('cantidad')  }}">
                     <span id="estadoCantidad"></span>
             </td>
             <td>
-                <input type="text" class="form-control  {{$errors->has('unidad')?'is-invalid':'' }}" name="unidad[]"
+                <input type="text" class="form-control text-dark  {{$errors->has('unidad')?'is-invalid':'' }}" name="unidad[]" disabled
                 onkeyup="validarUnidad()"  id="unidad" value="{{ isset($transferencia->unidad)?$transferencia->unidad:old('unidad')  }}"> <span id="estadoUnidad"></span>
             </td>
             <td>
-                    <input type="integer" class="form-control  {{$errors->has('precio')?'is-invalid':'' }}" name="precio[]"
+                    <input type="integer" class="form-control text-dark  {{$errors->has('precio')?'is-invalid':'' }}" name="precio[]" disabled
                     onkeyup="validarPrecio()"   id="precio"  value="{{ isset($transferencia->precio)?$transferencia->precio:old('precio')  }}"><span id="estadoPrecio"></span>
               
             </td>
             <td>
                    
-                    <input type="number" class="form-control  {{$errors->has('subTotal')?'is-invalid':'' }}"
+                    <input type="number" class="form-control text-dark  {{$errors->has('subTotal')?'is-invalid':'' }}" disabled
                         name="subTotal[]" id="subTotal" 
-                        value="{{ isset($transferencia->subTotal)?$transferencia->subTotal:old('subTotal')  }}"><span id="estadoSubTotal"></span>
+                        value="{{ isset($transferencia->sub_total)?$transferencia->sub_total:old('subTotal')  }}"><span id="estadoSubTotal"></span>
                         
                 
             </td>
-            <td class="eliminar" id="deletRow" name="deletRow">
-                <button class="btn btn-icon btn-danger"  type="button">
-                    <span class="btn-inner--icon"><i class="ni ni-fat-remove"></i></span>
-                </button>
-            </td>
+           
         </tr>
+        @endforeach
     </tbody>
 </table>
 
-<button type="button" class="btn btn-success btn-lg btn-block" id="adicional" name="adicional">Añadir</button>
     <script>
     $("#sucursal_origen").change(event => {
         $.get(`envioP/${event.target.value}`, function(res, sta) {
@@ -97,11 +96,13 @@
                                 $("#nombre").val(res[0].nombre);
                             });
                         });
+
       
         
     </script>
 
     <script>
+
     function limpiar(){
         $("#codigoI").val('');
         $("#nombre").val('');
@@ -110,15 +111,13 @@
         $("#precio").val('');
         $("#subTotal").val('');
     }
+
         var bb= 0;
     $(function() {
         
         console.log(existeValor("codigoI"));
             $("#adicional").on('click', function() {
-                if( !existeValor("codigoI") && !existeValor("nombre") && !existeValor("cantidad") && !existeValor("precio") && !existeValor("unidad") && !existeValor("subTotal")
-                
-                
-                ){
+                if( !existeValor("codigoI") || !existeValor("nombre") || !existeValor("cantidad") || !existeValor("precio") || !existeValor("unidad") || !existeValor("subTotal")){
                         $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla");
                         limpiar();
                         bb = bb +1;
@@ -130,7 +129,6 @@
                     vacio("unidad");
                     vacio("precio");
                     vacio("subTotal");
-                    
                 }
             });
         
@@ -143,6 +141,7 @@
             }
         });
     });
+
     function existeValor($dato){
         var boolean = false;
         var aux = document.getElementById($dato).value;
@@ -151,6 +150,7 @@
         }
         return boolean;
     }
+
     function vacio($valor){
         var dato = document.getElementById($valor).value;
         var prueba = document.getElementById($valor);
@@ -158,11 +158,8 @@
             prueba.style.borderColor = 'red';
             $("#estado"+$valor.charAt(0).toUpperCase() + $valor.slice(1)).html("<span  class='menor'><h5 class='menor'>Campo obligatorio</h5></span>");
         }else{
-            if(validarCantidad() || validarNombre() || validarPrecio() || validarUnidad()){
-                prueba.style.borderColor = '#cad1d7';
+            prueba.style.borderColor = '#cad1d7';
             $("#estado"+$valor.charAt(0).toUpperCase() + $valor.slice(1)).html("<span  class='menor'><h5 class='menor'></h5></span>");
-            }
-            
         }
     }   
     var res = 0;
@@ -176,7 +173,9 @@
             document.getElementById("Total").value = res;
         } catch (e) {
         }
+
     }
+
     function validarUnidad() {
         var prueba = document.getElementById("unidad");
         var re = new RegExp("^[a-zA-Z ]+$");
@@ -200,6 +199,7 @@
             
         }
     }
+
     function validarCantidad() {
         var prueba = document.getElementById("cantidad");
         var re = new RegExp("^[0-9]+$");
@@ -240,6 +240,7 @@
             }
         }
     }
+
     function existe(){
         var e = document.getElementById("sucursal_origen");
         var str = e.options[e.selectedIndex].text;
@@ -252,6 +253,7 @@
             
         }
     }
+
     function validarNombre() {
         var cod = document.getElementById("sucursal_origen").value;
         jQuery.ajax({
@@ -273,4 +275,6 @@
             }
             });
     }
+
+
     </script>

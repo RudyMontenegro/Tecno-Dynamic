@@ -19,29 +19,47 @@ class ProductosController extends Controller
      */
     public function index()
     {
-        $producto = DB::table('productos')
-                    ->join('categorias', 'categorias.id', '=', 'productos.id_categoria')
-                    ->select('categorias.nombre as categoria','productos.codigo_barra','productos.nombre','productos.id')
-                    ->paginate(10,['*'],'producto');
+        $sucursal = Sucursal::all();
+        
         $categoria = Categoria::paginate(3,['*'],'categoria');
-        return view('producto.index',['producto'=>$producto,'categoria'=>$categoria]);
+
+        $sucursales = Sucursal::all();
+
+        
+        return view('producto.index',['categoria'=>$categoria])->with(compact('sucursal','sucursales'));
     }
+
+
 
     public function prueba(){
         return view('producto.prueba');
     }
 
+    public function filtro(Request $request,$id){
+        if($request->ajax()){
+            $codigo=Productos::busqueda($id);
+            return response()->json( $codigo);
+        }
+    }
+
+    
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         $proveedor = Proveedor::all();
         $categoria = Categoria::all();
-        $sucursal = Sucursal::all();
-        return view('producto.create',['proveedor'=>$proveedor,'categoria'=>$categoria,'sucursal'=>$sucursal]);
+        $sucursales = Sucursal::all();
+
+           $sucursal_elegida = DB::table('sucursals')
+                                ->select('*')
+                                ->where('id','=',$id)
+                                ->first(); 
+        
+        return view('producto.create',['proveedor'=>$proveedor,'categoria'=>$categoria,'sucursales'=>$sucursales,'sucursal_elegida'=>$sucursal_elegida]);
     }
 
     /**
@@ -66,7 +84,7 @@ class ProductosController extends Controller
             $producto->cantidad_inicial = $request->get('cantidadInicial');
             $producto->id_proveedor = $request->get('proveedor');
             $producto->id_categoria = $request->get('categoria');
-            $producto->id_sucursal = $request->get('sucursal');
+            $producto->id_sucursal = request('sucursal');
 
             if($request->hasfile('foto')){
         
@@ -191,7 +209,7 @@ class ProductosController extends Controller
         $db_handle = new Productos();
 
         if(!empty($_POST["nombre"])) {
-            $user_count = $db_handle->numRows($_POST["nombre"]);
+            $user_count = $db_handle->numRows($_POST["nombre"],$_POST["sucursal"]);
             $contador = $db_handle->cuenta($_POST["nombre"]);
             if($contador < 3){
                 echo "<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>";
@@ -211,7 +229,7 @@ class ProductosController extends Controller
         $db_handle = new Productos();
 
         if(!empty($_POST["codigo"])) {
-            $user_count = $db_handle->numRows2($_POST["codigo"]);
+            $user_count = $db_handle->numRows2($_POST["codigo"],$_POST["sucursal"]);
             $contador = $db_handle->cuenta2($_POST["codigo"]);
             if($contador < 3){
                 echo "<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>";
@@ -231,7 +249,7 @@ class ProductosController extends Controller
         $db_handle = new Productos();
 
         if(!empty($_POST["codigoBarra"])) {
-            $user_count = $db_handle->numRows3($_POST["codigoBarra"]);
+            $user_count = $db_handle->numRows3($_POST["codigoBarra"],$_POST["sucursal"]);
             $contador = $db_handle->cuenta3($_POST["codigoBarra"]);
             if($contador < 3){
                 echo "<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>";
