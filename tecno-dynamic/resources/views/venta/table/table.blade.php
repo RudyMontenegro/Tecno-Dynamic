@@ -52,12 +52,14 @@
                     </div>
                 </td>
                 <td>
+
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Bs.</span>
                         </div>
                         <input type="number" class="form-control" name="subTotal[]" id="subTotal">
                     </div>
+
                 </td>
                 <td class="eliminar" id="deletRow" name="deletRow">
                     <button class="btn btn-icon btn-danger" type="button">
@@ -90,7 +92,6 @@ $("#codigoI").change(event => {
 </script>
 <script>
 var res = 0;
-
 function calcular() {
     try {
         var a = $("input[id=cantidad]").val();
@@ -100,8 +101,7 @@ function calcular() {
         document.getElementById("total").value = res;
     } catch (e) {}
 }
-</script>
-<script>
+
 function limpiarCampos() {
 
     $("#codigoI").val('');
@@ -113,22 +113,26 @@ function limpiarCampos() {
 }
 var bb = 0;
 $(function() {
-    $("#adicional").on('click', function() {
-        $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla").find('input').attr('readonly', true);
-        bb = bb + 1;
-        limpiarCampos();
-    });
-    $(document).on("click", ".eliminar", function() {
-        if (bb > 0) {
-            //var precio = $(this).parents().find('td').eq(4).find('div').children().find('input[type=number]').html();
-               var parent = $(this).parents().get(0);
-              $(parent).remove();
-            console.log(precio)
-            bb = bb - 1;
-        } else {
-            $(this).parents().find('input').attr('readonly', false);
+        $("#adicional").on('click', function() {
+            $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla").find('input').attr('readonly', true);
+            bb = bb + 1;
             limpiarCampos();
-        }
+        });
+        $(document).on("click", ".eliminar", function() {
+            if (bb > 0) {
+                var variableRestar  = $(this).closest('tr').find('input[id="subTotal"]').val();
+                var parent = $(this).parents().get(0);
+              //  alert(variable);
+                res = res -variableRestar;
+                document.getElementById("total").value = res;
+                $(parent).remove();
+                bb = bb - 1;
+            }else{
+                $(this).parents().find('input').attr('readonly', false);
+                res = 0;
+                document.getElementById("total").value = res;
+                limpiarCampos();
+            }
+        });
     });
-});
 </script>

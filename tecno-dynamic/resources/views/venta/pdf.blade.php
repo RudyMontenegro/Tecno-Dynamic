@@ -71,14 +71,14 @@ footer {
             </thead>
             <tbody>
             
-                @foreach($ventas as $index => $venta)
+                @foreach($VentasSucursales as $index => $venta)
                 <tr>
                     <th scope="row">{{ $index+1}}</th>
                     <td>{{ $venta->cliente }}</td>
                     <td>{{ $venta->nit }}</td>
                     <td>{{ $venta->fecha}}</td>
                     <td>{{ $venta->tipo_venta}}</td>
-                    <td>{{ $venta->id_sucursal }}</td>
+                    <td>{{ $venta->nombre }}</td>
                     <td>{{ $venta->total }}</td>
                     <td>{{ $venta->responsable_venta }}</td>
                     <td>{{ $venta->comprobante }}</td>
@@ -88,7 +88,6 @@ footer {
                 <tr>
                     <td colspan="3"></td>
                     <th scope="col">Detaless:</th>
-
                     <th scope="col">Codigo de producto</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Unidad</th>
@@ -96,9 +95,8 @@ footer {
                     <th scope="col">Precio</th>
                     <th scope="col">Subtotal</th>
                 </tr>
-               
                 @foreach ($ventasDetalles as $ventasDetalle)
-                @if($ventasDetalle->id_venta == $index+1)
+                @if($ventasDetalle->id_venta == $venta->id)
                 <tr>
                     <td colspan="4"></td>
                     <td>
@@ -108,10 +106,10 @@ footer {
                         {{ $ventasDetalle->nombre }}
                     </td>
                     <td>
-                        {{ $ventasDetalle->cantidad }}
+                        {{ $ventasDetalle->unidad }}
                     </td>
                     <td>
-                        {{ $ventasDetalle->unidad }}
+                        {{ $ventasDetalle->cantidad}}
                     </td>
                     <td>
                         {{ $ventasDetalle->precio }}
@@ -123,9 +121,6 @@ footer {
                 @endif
                 @endforeach
                 @endforeach
-                <thead class="thead-dark">
-                <td colspan="8">-</td>
-                </thead>
             </tbody>
         </table>
     </main>

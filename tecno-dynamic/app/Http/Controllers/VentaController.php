@@ -12,15 +12,14 @@ use Illuminate\Http\Request;
 
 class VentaController extends Controller
 {
+    
     public function index() 
     {
       //  $ventas = Venta::all();
      //   $ventasDetalles = VentaDetalle::all();
-        $VentaSucursal = DB::table('venta_detalles','ventas')
-        ->Join('ventas.id', '=', 'venta_detalles.id_venta')
-        ->get();
-        dd($VentaSucursal);
-        return view('venta.index', compact('ventas'));
+        $VentasSucursales = Venta::ventaXsucursal();
+        //dd($VentasSucursales);
+       return view('venta.index', compact('VentasSucursales'));
     }
     public function create()
     {
@@ -112,9 +111,10 @@ class VentaController extends Controller
         return redirect('/venta');
     }
     public function imprimir(){
-        $ventas = Venta::all();
+      //  $ventas = Venta::all();
         $ventasDetalles = VentaDetalle::all();
-        $pdf = \PDF::loadView('venta.pdf',compact('ventas', 'ventasDetalles'));// direccion del view, enviando variable.
+        $VentasSucursales = Venta::ventaXsucursal();
+        $pdf = \PDF::loadView('venta.pdf',compact('VentasSucursales', 'ventasDetalles'));// direccion del view, enviando variable.
     
         return $pdf->setPaper('a4', 'landscape')->stream('ventas.pdf');//stream-> solo muestra en el navegador
         //a4, landscape-> enviar en formato horizontal

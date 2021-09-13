@@ -26,7 +26,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($ventas as $venta)
+                @foreach ($VentasSucursales as $venta)
                 <tr>
                     <th scope="row">
                         {{ $venta->cliente }}
@@ -38,7 +38,7 @@
                         {{ $venta->tipo_venta }}
                     </td>
                     <td>
-                        {{ $venta->id_sucursal }}
+                        {{ $venta->nombre}}
                     </td>
                     <td>
                         {{ $venta->total }}
