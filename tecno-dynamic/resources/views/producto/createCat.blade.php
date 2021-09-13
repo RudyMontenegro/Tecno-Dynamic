@@ -92,11 +92,8 @@
     {{ csrf_field()}}
    
 
-   <div class="col-md-11 mx-auto "> 
     
-<div class="row">
-    <div class="col-3">
-    </div>    
+    <div class=" row justify-content-center">
     <div class="col-6">
         <label for="nombre"class="control-label">{{'Nombre'}}</label>
         <input type="text" class="form-control  {{$errors->has('nombre')?'is-invalid':'' }}" name="nombre" id="nombre" 
@@ -105,11 +102,7 @@
     {!!  $errors->first('nombre','<div class="invalid-feedback">:message</div>') !!}
     </div>
 </div>
-</div>
-<div class="col-md-11 mx-auto "> 
-<div class="row">
-    <div class="col-3">
-    </div>    
+    <div class=" row justify-content-center">  
     <div class="col-6">
 
         <label for="descripcion" class="control-label">{{'Descripcion'}}</label>
@@ -124,18 +117,16 @@
 
 <br>
 <br>
-        <div class="row">
-            <div class="col-3">
-            </div>   
+<div class=" row justify-content-center">
             <div class="col-5">  
-                <a href="{{url('producto')}}"class="btn btn-primary">Regresar</a>
+                <a href="{{url('producto')}}"class="btn btn-primary" style="position: static">Regresar</a>
             </div>
-            <div class="col-1">       
+            <div class="col-5">       
                 <input type="submit" id="submitBtn" class="btn btn-success float-right"  value="Guardar">
             </div>
         </div>
 
-
+<br>
 </form>
  </div>  
 

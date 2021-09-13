@@ -26,6 +26,14 @@ class Productos extends Model
         $result  =  strlen($nombre);
         return $result;
     }
+    function existe($codigo,$sucursal,$id) {
+        $result  = DB::table('productos')
+                    ->where('id','<>', $id)
+                    ->where('nombre','=', $codigo)
+                    ->where('id_sucursal','=', $sucursal)
+                    ->exists();
+        return $result;
+    }
 
     function numRows2($nombre,$sucursal) {
         $result  = DB::table('productos')
@@ -34,8 +42,12 @@ class Productos extends Model
                     ->count();
         return $result;
     }
-    function cuenta2($nombre) {
-        $result  =  strlen($nombre);
+    function existe2($codigo,$sucursal,$id) {
+        $result  = DB::table('productos')
+                    ->where('id','<>', $id)
+                    ->where('codigo','=', $codigo)
+                    ->where('id_sucursal','=', $sucursal)
+                    ->exists();
         return $result;
     }
 
@@ -46,11 +58,15 @@ class Productos extends Model
                     ->count();
         return $result;
     }
-    function cuenta3($nombre) {
-        $result  =  strlen($nombre);
+
+    function existe3($codigo,$sucursal,$id) {
+        $result  = DB::table('productos')
+                    ->where('id','<>', $id)
+                    ->where('codigo_barra','=', $codigo)
+                    ->where('id_sucursal','=', $sucursal)
+                    ->exists();
         return $result;
     }
-
     public static function codigo($id){
         $persona2 = DB::table('productos') 
         ->select('*')

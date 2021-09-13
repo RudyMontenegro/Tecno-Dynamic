@@ -62,6 +62,9 @@ Route::delete('/producto/{id}', 'ProductosController@destroy')->middleware('auth
 Route::post('/producto/validar', 'ProductosController@validar')->middleware('auth');
 Route::post('/producto/validarCodigo', 'ProductosController@validarCodigo')->middleware('auth');
 Route::post('/producto/validarCodigoBarra', 'ProductosController@validarCodigoBarra')->middleware('auth');
+Route::post('/producto/validarEditarCodigo', 'ProductosController@validarCodigoEdit')->middleware('auth');
+Route::post('/producto/validarEditarCodigoBarra', 'ProductosController@validarCodigoBarraEdit')->middleware('auth');
+Route::post('/producto/validarNombreEdit', 'ProductosController@validarNombreEdit')->middleware('auth');
 //CLIENTE
 Route::get('/cliente', 'ClienteController@index')->middleware('auth');
 Route::get('/cliente/pdf', 'ClienteController@imprimir')->middleware('auth');
