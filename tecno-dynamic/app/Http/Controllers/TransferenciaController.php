@@ -171,9 +171,10 @@ class TransferenciaController extends Controller
      * @param  \App\Transferencia  $transferencia
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Transferencia $transferencia)
+    public function destroy(Transferencia $transferencia,$id)
     {
-        //
+        Transferencia::destroy($id);
+        return redirect('transferencia');
     }
 
     public function llenar()
@@ -185,6 +186,24 @@ class TransferenciaController extends Controller
 
             if($existe == 0){
                 echo "<span  class='estado-nulo'><h5 class='estado-nulo'>No existe codigo de producto</h5></span>";
+            }else{
+                echo "<span  class='estado-nulo'><h5 class='estado-nulo'> </h5></span>";
+            }
+        }else{
+            echo "<span  class='estado-nulo'><h5 class='estado-nulo'> </h5></span>";
+        }
+        
+        
+    }
+    public function validarCantidadProducto()
+    {
+        $db_handle = new TransferenciaDetalle();
+        $cantidad = $db_handle->cantidadActual($_POST["codigoI"],$_POST["sucursal"]);
+
+        if(!empty($_POST["codigoI"]) && !empty($_POST["sucursal"])){
+
+            if($cantidad < $_POST["cantidad"]){
+                echo "<span  class='estado-nulo'><h5 class='estado-nulo'>Cantidad ingresada sobrepasa al inventario</h5></span>";
             }else{
                 echo "<span  class='estado-nulo'><h5 class='estado-nulo'> </h5></span>";
             }

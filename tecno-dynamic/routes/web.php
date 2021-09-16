@@ -37,10 +37,12 @@ Route::get('/transferencia/envio/{id}', 'TransferenciaController@sucursal')->mid
 Route::get('/transferencia/envioP/{id}', 'TransferenciaController@producto')->middleware('auth');
 Route::get('/transferencia/envioN/{id}', 'TransferenciaController@nombre')->middleware('auth');
 Route::post('/transferencia/validar', 'TransferenciaController@codigo')->middleware('auth');
+Route::post('/transferencia/cantidadProducto', 'TransferenciaController@validarCantidadProducto')->middleware('auth');
 Route::post('/transferencia/llenar', 'TransferenciaController@llenar')->middleware('auth');
 Route::get('/transferencia/registrarTransferencia', 'TransferenciaController@create')->middleware('auth');
 Route::post('/transferencia/registrarTransferencia', 'TransferenciaController@store')->middleware('auth');
 Route::get('/transferencia/informacion/{id}', 'TransferenciaController@show')->middleware('auth');
+Route::delete('/transferencia/{id}', 'TransferenciaController@destroy')->middleware('auth');
 Route::patch('/transferencia/editar/{id}', 'TransferenciaController@update')->middleware('auth');//no funciona aun
 //CATEGORIA
 Route::get('/producto/registrarCategoria', 'CategoriaController@create')->middleware('auth');

@@ -27,7 +27,7 @@
     <div class="card-header border-0">
         <div class="row align-items-center">
             <div class="col text-right">
-                <a type="button" class="btn btn-primary btn-sm float-left" 
+                <a type="button" class="btn btn-primary btn-sm float-left" style="display: inline"
                 href="{{url('/producto/registrarCategoria')}}">Nueva Categoria</a>
 
               

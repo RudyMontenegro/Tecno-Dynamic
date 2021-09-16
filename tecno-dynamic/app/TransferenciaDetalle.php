@@ -49,4 +49,13 @@ class TransferenciaDetalle extends Model
         ->update(['cantidad' => $res2]);
     }
 
+    function cantidadActual($codigo,$sucursal){
+        $res = DB::table('productos')
+                ->select('cantidad')
+                ->where('codigo','=',$codigo)
+                ->where('id_sucursal','=',$sucursal)
+                ->first();
+        return $res->cantidad;
+    }
+
 }
