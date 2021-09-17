@@ -34,36 +34,62 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="nit">NIT</label>
-                            <input list="encodings" name="nit" value="" id="nit" value="{{ old('nit')}}"
-                                class="form-control">
-                            <datalist id="encodings">
-                                @foreach ($clientes as $cliente)
-                                <option>
-                                    {{ $cliente-> nit}}
-                                </option>
-                                @endforeach
+                            <input type="number" list="datalistOptionsNit" placeholder="Escriba para buscar..." keyup
+                                name="nit" id="nit" value="{{ old('nit')}}" class="form-control">
+                            <datalist id="NitList">
+                            </datalist>
                         </div>
                         <script>
+                        $(document).ready(function() {
+                            $('#nit').keyup(function() {
+                                var query = $(this).val();
+                                if (query != '') {
+                                    var _token = $('input[name="_token"]').val();
+                                    $.ajax({
+                                        url: '/autocompleteN',
+                                        method: 'POST',
+                                        data: {
+                                            query: query,
+                                            _token: _token
+                                        },
+                                        success: function(data) {
+                                            $('#NitList').fadeIn();
+                                            $('#NitList').html(data);
+                                        }
+                                    });
+                                }
+                            });
+                            $(document).on('click', 'li', function() {
+                                $('#nit').val($(this).text());
+                                $('#NitList').fadeOut();
+                            });
+                        });
                         </script>
                     </div>
                     <div class="col-6">
-                        <div class="form-group">
-                            <label for="nombre_contacto">Cliente</label>
-                            <input type="text" class="form-control" name="nombre_contacto" id="nombre_contacto">
-                        </div>
+                        <label for="nombre_empresa">Cliente</label>
+                        <input class="form-control" name="nombre_contacto" keyup list="datalistOptionsName"
+                            id="nombre_contacto" placeholder="Escriba para buscar...">
+                        <datalist id="countryList">
+                        </datalist>
 
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label for="nanombre_contactome">Fecha</label>
-                            <input class="form-control" type="datetime-local" name="fecha" value="" id="fecha">
+                            <input class="form-control" type="datetime-local" name="fecha" readonly value="" id="fecha"
+                                onblur="validarFecha()">
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label for="direccion">Tipo de Venta</label>
-                            <input type="text" name="tipo_venta" class="form-control" placeholder="Efectivo"
-                                value="{{ old('tipo_venta')}}">
+                            <select class="form-control {{$errors->has('tip0_compra')?'is-invalid':'' }}"
+                                name="tipo_compra" id="tipo_compra">
+                                <option value="Contado">Contado</option>
+                                <option valur="Credito">Credito</option>
+                            </select>
+                            {!! $errors->first('tipo_compra','<div class="invalid-feedback">:message</div>') !!}
                         </div>
                     </div>
                     <div class="col-6">
@@ -127,6 +153,19 @@
         </div>
 </form>
 <script>
+function validarFecha() {
+    const date = new Date(),
+        ten = (i) => ((i < 10 ? '0' : '') + i),
+        YYYY = date.getFullYear(),
+        MTH = ten(date.getMonth() + 1),
+        DAY = ten(date.getDate()),
+        HH = ten(date.getHours()),
+        MM = ten(date.getMinutes()),
+        SS = ten(date.getSeconds())
+    // MS = ten(date.getMilliseconds())
+
+    document.getElementById("fecha").value = `${YYYY}-${MTH}-${DAY}T${HH}:${MM}`;
+}
 $("#nit").change(event => {
     console.log
     $.get(`envioNit/${$("#nit").val()}`, function(res, sta) {
@@ -134,5 +173,62 @@ $("#nit").change(event => {
         $("#nombre_contacto").val(res[0].nombre_contacto);
     });
 });
+$(document).ready(function() {
+    $('#nombre_contacto').keyup(function() {
+        var query = $(this).val();
+        if (query != '') {
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url: '/autocomplete',
+                method: 'POST',
+                data: {
+                    query: query,
+                    _token: _token
+                },
+                success: function(data) {
+                    $('#countryList').fadeIn();
+                    $('#countryList').html(data);
+                }
+            });
+        }
+    });
+    $(document).on('click', 'li', function() {
+        $('#nombre_contacto').val($(this).text());
+        $('#countryList').fadeOut();
+    });
+});
+
+
+function validarNombre() {
+
+    if ($("#nombre_contacto").val() == "") {
+        $("#estadoNombre").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+    } else {
+        if ($("#nombre_contacto").val().length < 3) {
+            $("#estadoNombre").html("<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>");
+        } else {
+            if ($("#nombre_contacto").val().length > 50) {
+                $("#estadoNombre").html(
+                    "<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>");
+            } else {
+                var regex = /^[a-zA-Z ]+$/;
+                if (!regex.test($("#nombre_contacto").val())) {
+                    $("#estadoNombre").html(
+                        "<span  class='menor'><h5 class='menor'>Solo se acepta caracteres [A-Z]</h5></span>");
+                } else {
+                    $("#estadoNombre").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+                }
+
+            }
+
+        }
+
+    }
+}
+</script>
+
+@endsection
+@section('scripts')
+<script src="{{ asset('/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
 </script>
 @endsection

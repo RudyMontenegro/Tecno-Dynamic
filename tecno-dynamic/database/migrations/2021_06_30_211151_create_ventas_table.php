@@ -17,7 +17,7 @@ class CreateVentasTable extends Migration
             $table->bigIncrements('id');
            
             $table->string('cliente');
-            $table->bigInteger('nit')->nullable();
+            $table->bigInteger('nit');
             $table->dateTime('fecha');
             $table->string('tipo_venta'); 
             $table->unsignedBigInteger('id_sucursal');

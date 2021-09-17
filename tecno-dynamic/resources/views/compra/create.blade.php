@@ -59,9 +59,10 @@
              
     
                  <div class="col-6">
+                     
                         <label form="tipo_compra">Tipo de compra</label>
                         <select class="form-control {{$errors->has('tip0_compra')?'is-invalid':'' }}" name="tipo_compra" id="tipo_compra">
-                            <option value="Contado">Contado</option>
+                            <option selected value="Contado" >Contado</option>
                             <option valur="Credito">Credito</option>
                         </select>  
                         {!!  $errors->first('tipo_compra','<div class="invalid-feedback">:message</div>') !!}           

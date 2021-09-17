@@ -92,8 +92,9 @@
                     if($("#marca").val().length > 50){
                         $("#estadoMarca").html("<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>");
                     }else{
-                        var re = new RegExp("^[0-9a-zA-Z ]+$");
-                        if(!re.test($("#marca").val())){
+                    //    var re = new RegExp("^[0-9a-zA-Z ]+$");
+                        var regex = /^[a-zA-Z ]+$/;
+                        if(regex.test($("#marca").val())){
                             $("#estadoMarca").html("<span  class='menor'><h5 class='menor'>Solo se acepta caracteres [A-Z]</h5></span>");
                         }else{
                             $("#estadoMarca").html("<span  class='menor'><h5 class='menor'> </h5></span>");

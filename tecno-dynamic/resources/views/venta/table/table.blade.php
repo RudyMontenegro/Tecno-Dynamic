@@ -97,8 +97,8 @@ function calcular() {
         var a = $("input[id=cantidad]").val();
         var b = $("input[id=precio]").val();
         res = (a * b) + res;
-        document.getElementById("subTotal").value = a * b;
-        document.getElementById("total").value = res;
+        $("#subTotal").val(a * b); 
+        $("#total").val(res); 
     } catch (e) {}
 }
 
@@ -123,14 +123,14 @@ $(function() {
                 var variableRestar  = $(this).closest('tr').find('input[id="subTotal"]').val();
                 var parent = $(this).parents().get(0);
               //  alert(variable);
-                res = res -variableRestar;
-                document.getElementById("total").value = res;
+                res = res - variableRestar;
+                $("#total").val(res); 
                 $(parent).remove();
                 bb = bb - 1;
             }else{
                 $(this).parents().find('input').attr('readonly', false);
                 res = 0;
-                document.getElementById("total").value = res;
+                $("#total").val(res); 
                 limpiarCampos();
             }
         });

@@ -53,10 +53,13 @@ class VentaController extends Controller
         $venta->total = $request->input('total');
         $venta->observaciones = $request->input('observaciones');
         $venta->responsable_venta = $request->input('responsable_venta');
+     //   $r_id_cliente=Cliente::getIdCliente($request->input('nit'));
+        //dd($r_id_cliente[0]);
+       // $venta->id_cliente = $r_id_cliente[0];
         $venta->save();
         $id_venta = DB::table('ventas')
         ->select('id')
-        ->where('fecha','=',request('fecha'))
+        ->where('fecha','=',request('fecha'))// BUSCAR OTRO METODO, DE SACAR ID, POSIBLE INCONSISTENCIA SI EN DOS SUCURSALES GUARDAN UNA VENTA AL MISMO TIEMPO
         ->first();
        // dd($id_venta);
         if($request->input('codigoI') && $request->input('nombre') && $request->input('cantidad') && $request->input('unidad') && $request->input('precio') && $request->input('subTotal')){
@@ -127,6 +130,9 @@ class VentaController extends Controller
             return response()->json( $cliente);
         }
     }
+    function validateProducto(){
+
+    }
 
     function fetch(Request $request)
     {
@@ -136,11 +142,30 @@ class VentaController extends Controller
       $data = DB::table('clientes')
         ->where('nombre_contacto', 'LIKE', "%{$query}%")
         ->get();
-      $output = '<datalist id="datalistOptions">';
+      $output = '<datalist id="datalistOptionsName">';
       foreach($data as $row)
       {
        $output .= '
        <option>'.$row->nombre_contacto.'</option>
+       ';
+      }
+      $output .= '</datalist>';
+      echo $output;
+     }
+    }
+    function fetchN(Request $request)
+    {
+     if($request->get('query'))
+     {
+      $query = $request->get('query');
+      $data = DB::table('clientes')
+        ->where('nit', 'LIKE', "{$query}%")
+        ->get();
+      $output = '<datalist id="datalistOptionsNit">';
+      foreach($data as $row)
+      {
+       $output .= '
+       <option>'.$row->nit.'</option>
        ';
       }
       $output .= '</datalist>';

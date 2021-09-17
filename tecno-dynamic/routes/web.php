@@ -97,5 +97,6 @@ Route::post('/compra/llenar', 'ClienteController@llenado')->middleware('auth');
 Route::get('/compra/{id}', 'CompraController@show')->middleware('auth');    
 //jquery
 Route::post('/autocomplete', 'VentaController@fetch');
+Route::post('/autocompleteN', 'VentaController@fetchN');
 Route::get('/autocompleteNit/{id}', 'VentaController@fetchNit');
 Route::get('/venta/envioN/{id}', 'TransferenciaController@nombre')->middleware('auth');

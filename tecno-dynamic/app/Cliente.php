@@ -24,4 +24,11 @@ class Cliente extends Model
         ->get();
         return $cliente;
     }
+    public static function getIdCliente($id){
+        $cliente = DB::table('clientes') 
+        ->select('id')
+        ->where('nit','=',$id)
+        ->get();
+        return $cliente;
+    }
 }
