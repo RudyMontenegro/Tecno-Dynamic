@@ -23,6 +23,12 @@ use Faker\Generator as Faker;
         'categoria'=>$faker->randomElement(['intangible','tangible'])
     ];
 });
+$factory->define(App\Categoria::class, function (Faker $faker) {
+    return [
+        'nombre'=>$faker->randomElement(['intangible','tangible']),
+        'descripcion' =>$faker-> paragraph($nbSentences = 3, $variableNbSentences = true)
+    ];
+});
 $factory->define(App\Cliente::class, function (Faker $faker) {
     return [
         'nombre_contacto' => $faker->name,
@@ -35,6 +41,9 @@ $factory->define(App\Cliente::class, function (Faker $faker) {
     ];
 });
 $factory->define(App\Productos::class, function (Faker $faker) {
+    $categoria = App\Categoria::pluck('id')->toArray();
+    $proveedor = App\Proveedor::pluck('id')->toArray();
+    $sucursal = App\Sucursal::pluck('id')->toArray();
     return [
         'codigo' => $faker->randomNumber(6, true),
         'codigo_barra' => $faker->randomNumber(8, true),
@@ -46,17 +55,12 @@ $factory->define(App\Productos::class, function (Faker $faker) {
         'cantidad' => $faker->randomNumber(2, true),
         'unidad' => $faker->randomElement(['docena','centena']),
         'cantidad_inicial' => $faker -> randomDigit,     
-       // 'id_proveedor' =>  $faker->randomNumber(3, true),
-        //'id_categoria' => $faker->randomNumber(3, true),
-        //'id_sucursal' =>  $faker->randomNumber(3, true),
+        'id_proveedor' =>  $faker->randomElement($proveedor),
+        'id_categoria' => $faker->randomElement($categoria),
+        'id_sucursal' =>  $faker->randomElement($sucursal),
     ];
 });
-$factory->define(App\Categoria::class, function (Faker $faker) {
-    return [
-        'nombre'=>$faker->randomElement(['intangible','tangible']),
-        'descripcion' =>$faker-> paragraph($nbSentences = 3, $variableNbSentences = true)
-    ];
-});
+
 //$factory->define(App\Productos::class, function (Faker $faker) {
   //  return [
        // 'codigo'=>$faker->randomElement(['intangible','tangible']),
