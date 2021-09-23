@@ -9,6 +9,9 @@
             <div class="col">
                 <h3 class="mb-0">Detalle de Transferencia</h3>
             </div>
+            <div class="col">
+                <a href="{{url('transferencia/pdf/'.$transferencia->id)}}" class="btn btn-sm btn-warning float-right">Exportar a PDF</a>
+            </div>
         </div>
     </div>
     <div class="card-body">

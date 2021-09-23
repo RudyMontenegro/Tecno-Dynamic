@@ -116,12 +116,18 @@ class ProductosController extends Controller
         ->select('*')
         ->where('id','=',$id)->first();
 
+        $categorias = DB::table('productos')
+                        ->join('categorias','categorias.id','productos.id_categoria')
+                        ->select('productos.*','categorias.nombre as categoriaName')
+                        ->where('productos.id','=',$id)
+                        ->first();
+
         $proveedors = DB::table('productos')
         ->join('proveedors','productos.id_proveedor','=','proveedors.id')
         ->select('*')
         ->where('productos.id','=',$id)->first();
 
-        return view('producto.view',['producto' => $producto,'proveedors' => $proveedors]);
+        return view('producto.view',['producto' => $producto,'proveedors' => $proveedors,'categorias' => $categorias]);
     }
 
     /**

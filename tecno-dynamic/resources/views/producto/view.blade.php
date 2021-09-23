@@ -11,7 +11,7 @@
 
     <div class="col-md-11 mx-auto "> 
 
-        <div class="row">
+        <div class="row justify-content-center">
             <div class="col-5">
         
                 <label for="codigo" class="control-label">{{'Codigo'}}</label>
@@ -31,7 +31,7 @@
             </div>
            
         </div>
-        <div class="row">
+        <div class="row justify-content-center">
             <div class="col-5">
                 <label for="nombre"class="control-label">{{'Nombre'}}</label>
                 <input disabled type="text" class="form-control  {{$errors->has('nombre')?'is-invalid':'' }}" name="nombre" id="nombre" 
@@ -42,14 +42,14 @@
             <div class="col-5">
                 <label for="categoria"class="control-label">{{'Categoria'}}</label>
                 <input disabled type="text" class="form-control  {{$errors->has('categoria')?'is-invalid':'' }}" name="categoria" id="categoria" 
-                value="{{ isset($producto->categoria)?$producto->categoria:old('categoria') }}"
+                value="{{ isset($categorias->categoriaName)?$categorias->categoriaName:old('categoria') }}"
                 >
                 {!!  $errors->first('categoria','<div class="invalid-feedback">:message</div>') !!}
             </div>
                            
             
         </div>
-        <div class="row">
+        <div class="row justify-content-center">
             <div class="col-5">
                 <label for="marca"class="control-label">{{'Marca'}}</label>
                 <input disabled type="text" class="form-control  {{$errors->has('marca')?'is-invalid':'' }}" name="marca" id="marca" 
@@ -66,7 +66,7 @@
             </div>
                
         </div>
-        <div class="row">
+        <div class="row justify-content-center">
             <div class="col-5">
                 <label for="precioVentaMayor"class="control-label">{{'Precio Venta Mayor'}}</label>
                 <input disabled type="number" step="0.01"class="form-control  {{$errors->has('precioVentaMayor')?'is-invalid':'' }}" name="precioVentaMayor" id="precioVentaMayor" 
@@ -82,7 +82,7 @@
                 {!!  $errors->first('precioVentaMenor','<div class="invalid-feedback">:message</div>') !!}
             </div>
         </div>  
-        <div class="row">
+        <div class="row justify-content-center">
             <div class="col-5">
                     <label for="cantidad"class="control-label">{{'Cantidad'}}</label>
                     <input disabled type="text" class="form-control  {{$errors->has('cantidad')?'is-invalid':'' }}" name="cantidad" id="cantidad" 
@@ -98,7 +98,7 @@
                     {!!  $errors->first('unidad','<div class="invalid-feedback">:message</div>') !!}
                 </div>
         </div> 
-        <div class="row">
+        <div class="row justify-content-center">
             <div class="col-5">
                     <label for="cantidadInicial"class="control-label">{{'Cantidad Inicial'}}</label>
                     <input disabled type="text" class="form-control  {{$errors->has('cantidadInicial')?'is-invalid':'' }}" name="cantidadInicial" id="cantidadInicial" 
@@ -114,10 +114,10 @@
                     {!!  $errors->first('unidad','<div class="invalid-feedback">:message</div>') !!}
                 </div>
         </div>  
-        <div class="row">
+        <div class="row justify-content-center">
             <div class="col-5">
                 <label for="foto">Foto</label>
-                <img src="{{asset('storage').'/'.$producto->ruta_foto}}" alt=""  width="800">
+                <img src="{{asset('storage').'/'.$producto->ruta_foto}}" alt=""  width="750">
                 {!!  $errors->first('unidad','<div class="invalid-feedback">:message</div>') !!}
             </div>
             <div class="col-5">
@@ -139,7 +139,7 @@
             </div>
         </div>
         </div>
-
+<br>
 </div>
 
 

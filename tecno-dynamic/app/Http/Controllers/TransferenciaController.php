@@ -133,7 +133,6 @@ class TransferenciaController extends Controller
                     ->select("sucursals.nombre")
                     ->where('transferencias.id','=',$id)
                     ->first();
-                
         $tabla = DB::table('transferencia_detalles')
                     ->join('productos', 'productos.id', '=', 'transferencia_detalles.codigo_producto')
                     ->where('id_transferencia','=',$id)
@@ -211,6 +210,30 @@ class TransferenciaController extends Controller
             echo "<span  class='estado-nulo'><h5 class='estado-nulo'> </h5></span>";
         }
         
-        
+         
+    }
+
+    public function imprimir($id){
+        $transferencia = Transferencia::findOrFail($id);
+        $origen = DB::table('transferencias')
+                    ->join('sucursals', 'sucursals.id', '=', 'transferencias.sucursal_origen')
+                    ->select("sucursals.nombre")
+                    ->where('transferencias.id','=',$id)
+                    ->first();
+        $destino = DB::table('transferencias')
+                    ->join('sucursals', 'sucursals.id', '=', 'transferencias.sucursal_destino')
+                    ->select("sucursals.nombre")
+                    ->where('transferencias.id','=',$id)
+                    ->first();
+        $tabla = DB::table('transferencia_detalles')
+                    ->join('productos', 'productos.id', '=', 'transferencia_detalles.codigo_producto')
+                    ->where('id_transferencia','=',$id)
+                    ->get();
+
+
+        $pdf = \PDF::loadView('transferencia.pdf',compact('transferencia','origen','destino','tabla'));// direccion del view, enviando variable.
+    
+        return $pdf->setPaper('a4', 'landscape')->stream('Preveedores.pdf');//stream-> solo muestra en el navegador
+        //a4, landscape-> enviar en formato horizontal
     }
 }

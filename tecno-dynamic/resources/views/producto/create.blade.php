@@ -239,6 +239,61 @@
             }
         }
         
+        function existeValor($dato){
+            var boolean = false;
+            var aux = document.getElementById($dato).value;
+            if(aux == ""){
+                boolean = true;
+            }
+            return boolean;
+        }
+
+        function validarTodo(){
+            if(existeValor('codigo')){
+                event.preventDefault();
+            }else{
+                if(existeValor('codigoBarra')){
+                    event.preventDefault();
+                }else{
+                    if(existeValor('nombre')){
+                        event.preventDefault();
+                    }else{
+                        if(existeValor('marca')){
+                            event.preventDefault();
+                        }else{
+                            if(existeValor('precioCosto')){
+                                event.preventDefault();
+                            }else{
+                                if(existeValor('precioVentaMayor')){
+                                    event.preventDefault();
+                                }else{
+                                    if(existeValor('precioVentaMenor')){
+                                        event.preventDefault();
+                                    }else{
+                                        if(existeValor('cantidad')){
+                                            event.preventDefault();
+                                        }else{
+                                            if(existeValor('unidad')){
+                                                event.preventDefault();
+                                            }else{
+                                                if(existeValor('cantidadInicial')){
+                                                    event.preventDefault();
+                                                }else{
+                                                    document.getElementById("enviar").submit();
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }   
+                
+                   
+        }
+        
     </script>
     <style>
         .estado-no-disponible-usuario {
@@ -272,7 +327,7 @@
     </div> 
     <div class="col-5" >
         <label for="codigoBarra"class="control-label">{{'Codigo Barra'}}</label>
-        <input type="text" class="form-control  {{$errors->has('codigoBarra')?'is-invalid':'' }}" name="codigoBarra" id="codigoBarra" 
+        <input type="text" class="form-control  {{$errors->has('codigoBarra')?'is-invalid':'' }}" name="codigoBarra" id="codigoBarra"  
         value="{{ isset($personal->email)?$personal->email:old('codigoBarra')  }}" onblur="comprobarCodigoBarra()"
         ><span id="estadoCodigoBarra"></span>
     {!!  $errors->first('codigoBarra','<div class="invalid-feedback">:message</div>') !!}
@@ -400,7 +455,7 @@
         <a href="{{url('producto')}}"class="btn btn-primary">Regresar</a>
     </div>
     <div class="col-5">       
-        <input type="submit" class="btn btn-success float-right"  value="Guardar">
+        <button id="enviar" class="btn btn-success float-right" onclick="validarTodo()" >Guardar</button>
     </div>
 </div>
 </div>

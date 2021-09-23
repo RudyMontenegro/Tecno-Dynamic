@@ -4,9 +4,11 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('/home');
 })->middleware('auth');
+*/
+Route::get('/', 'HomeController@index')->middleware('auth');
 
 
 //Route::get('/home', 'HomeController@index')->name('home');
@@ -43,6 +45,7 @@ Route::get('/transferencia/registrarTransferencia', 'TransferenciaController@cre
 Route::post('/transferencia/registrarTransferencia', 'TransferenciaController@store')->middleware('auth');
 Route::get('/transferencia/informacion/{id}', 'TransferenciaController@show')->middleware('auth');
 Route::delete('/transferencia/{id}', 'TransferenciaController@destroy')->middleware('auth');
+Route::get('/transferencia/pdf/{id}', 'TransferenciaController@imprimir')->middleware('auth');
 Route::patch('/transferencia/editar/{id}', 'TransferenciaController@update')->middleware('auth');//no funciona aun
 //CATEGORIA
 Route::get('/producto/registrarCategoria', 'CategoriaController@create')->middleware('auth');
