@@ -4,9 +4,11 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('/home');
 })->middleware('auth');
+*/
+Route::get('/', 'HomeController@index')->middleware('auth');
 
 
 //Route::get('/home', 'HomeController@index')->name('home');
@@ -37,10 +39,13 @@ Route::get('/transferencia/envio/{id}', 'TransferenciaController@sucursal')->mid
 Route::get('/transferencia/envioP/{id}', 'TransferenciaController@producto')->middleware('auth');
 Route::get('/transferencia/envioN/{id}', 'TransferenciaController@nombre')->middleware('auth');
 Route::post('/transferencia/validar', 'TransferenciaController@codigo')->middleware('auth');
+Route::post('/transferencia/cantidadProducto', 'TransferenciaController@validarCantidadProducto')->middleware('auth');
 Route::post('/transferencia/llenar', 'TransferenciaController@llenar')->middleware('auth');
 Route::get('/transferencia/registrarTransferencia', 'TransferenciaController@create')->middleware('auth');
 Route::post('/transferencia/registrarTransferencia', 'TransferenciaController@store')->middleware('auth');
 Route::get('/transferencia/informacion/{id}', 'TransferenciaController@show')->middleware('auth');
+Route::delete('/transferencia/{id}', 'TransferenciaController@destroy')->middleware('auth');
+Route::get('/transferencia/pdf/{id}', 'TransferenciaController@imprimir')->middleware('auth');
 Route::patch('/transferencia/editar/{id}', 'TransferenciaController@update')->middleware('auth');//no funciona aun
 //CATEGORIA
 Route::get('/producto/registrarCategoria', 'CategoriaController@create')->middleware('auth');
@@ -62,6 +67,9 @@ Route::delete('/producto/{id}', 'ProductosController@destroy')->middleware('auth
 Route::post('/producto/validar', 'ProductosController@validar')->middleware('auth');
 Route::post('/producto/validarCodigo', 'ProductosController@validarCodigo')->middleware('auth');
 Route::post('/producto/validarCodigoBarra', 'ProductosController@validarCodigoBarra')->middleware('auth');
+Route::post('/producto/validarEditarCodigo', 'ProductosController@validarCodigoEdit')->middleware('auth');
+Route::post('/producto/validarEditarCodigoBarra', 'ProductosController@validarCodigoBarraEdit')->middleware('auth');
+Route::post('/producto/validarNombreEdit', 'ProductosController@validarNombreEdit')->middleware('auth');
 //CLIENTE
 Route::get('/cliente', 'ClienteController@index')->middleware('auth');
 Route::get('/cliente/pdf', 'ClienteController@imprimir')->middleware('auth');

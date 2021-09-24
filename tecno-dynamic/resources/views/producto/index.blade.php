@@ -27,7 +27,7 @@
     <div class="card-header border-0">
         <div class="row align-items-center">
             <div class="col text-right">
-                <a type="button" class="btn btn-primary btn-sm float-left"
+                <a type="button" class="btn btn-primary btn-sm float-left" style="display: inline"
                 href="{{url('/producto/registrarCategoria')}}">Nueva Categoria</a>
 
               
@@ -194,7 +194,11 @@
     <div class="card shadow">
         <div class="card-header border-0">
             <div class="row align-items-center">
+<<<<<<< HEAD
                 <div class="col text-right">
+=======
+                <div class="col text-right"> 
+>>>>>>> alex
                     <div class="col-4" style="display: inline-block;">
                         <select name="sucursal_show" id="sucursal_show"
                             class="form-control text-dark  {{$errors->has('sucursal_show')?'is-invalid':'' }}">

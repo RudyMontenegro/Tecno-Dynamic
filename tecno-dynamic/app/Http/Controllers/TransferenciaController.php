@@ -133,7 +133,10 @@ class TransferenciaController extends Controller
                     ->select("sucursals.nombre")
                     ->where('transferencias.id','=',$id)
                     ->first();
+<<<<<<< HEAD
                 
+=======
+>>>>>>> alex
         $tabla = DB::table('transferencia_detalles')
                     ->join('productos', 'productos.id', '=', 'transferencia_detalles.codigo_producto')
                     ->where('id_transferencia','=',$id)
@@ -171,9 +174,14 @@ class TransferenciaController extends Controller
      * @param  \App\Transferencia  $transferencia
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Transferencia $transferencia)
+    public function destroy(Transferencia $transferencia,$id)
     {
+<<<<<<< HEAD
         // 
+=======
+        Transferencia::destroy($id);
+        return redirect('transferencia');
+>>>>>>> alex
     }
 
     public function llenar()
@@ -193,5 +201,47 @@ class TransferenciaController extends Controller
         }
         
         
+    }
+    public function validarCantidadProducto()
+    {
+        $db_handle = new TransferenciaDetalle();
+        $cantidad = $db_handle->cantidadActual($_POST["codigoI"],$_POST["sucursal"]);
+
+        if(!empty($_POST["codigoI"]) && !empty($_POST["sucursal"])){
+
+            if($cantidad < $_POST["cantidad"]){
+                echo "<span  class='estado-nulo'><h5 class='estado-nulo'>Cantidad ingresada sobrepasa al inventario</h5></span>";
+            }else{
+                echo "<span  class='estado-nulo'><h5 class='estado-nulo'> </h5></span>";
+            }
+        }else{
+            echo "<span  class='estado-nulo'><h5 class='estado-nulo'> </h5></span>";
+        }
+        
+         
+    }
+
+    public function imprimir($id){
+        $transferencia = Transferencia::findOrFail($id);
+        $origen = DB::table('transferencias')
+                    ->join('sucursals', 'sucursals.id', '=', 'transferencias.sucursal_origen')
+                    ->select("sucursals.nombre")
+                    ->where('transferencias.id','=',$id)
+                    ->first();
+        $destino = DB::table('transferencias')
+                    ->join('sucursals', 'sucursals.id', '=', 'transferencias.sucursal_destino')
+                    ->select("sucursals.nombre")
+                    ->where('transferencias.id','=',$id)
+                    ->first();
+        $tabla = DB::table('transferencia_detalles')
+                    ->join('productos', 'productos.id', '=', 'transferencia_detalles.codigo_producto')
+                    ->where('id_transferencia','=',$id)
+                    ->get();
+
+
+        $pdf = \PDF::loadView('transferencia.pdf',compact('transferencia','origen','destino','tabla'));// direccion del view, enviando variable.
+    
+        return $pdf->setPaper('a4', 'landscape')->stream('Preveedores.pdf');//stream-> solo muestra en el navegador
+        //a4, landscape-> enviar en formato horizontal
     }
 }

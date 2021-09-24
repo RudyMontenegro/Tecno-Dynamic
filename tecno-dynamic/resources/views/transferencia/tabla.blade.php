@@ -12,7 +12,7 @@
         padding-left: 0.1rem;
         }
     </style>
-<table class="table borderless" id="tabla">
+<table class="table table-responsive" id="tabla">
     <thead class="thead-light">
         <tr>
             <th scope="col">Codigo de producto</th>
@@ -24,9 +24,9 @@
             <th scope="col">Eliminar</th>
         </tr>
     </thead> 
-    <tbody>
+    <tbody id="tabla3">
         <span id="estadoBoton"></span>
-        <tr>
+        <tr id="columna-0">
             <th>
                 <input class="form-control" name="codigoI[]" id="codigoI"  onkeyup="existe()"  
                 list="codigo" >
@@ -42,7 +42,7 @@
             </td>
             <td>
                 <input type="integer"  class="form-control  {{$errors->has('cantidad')?'is-invalid':'' }}" name="cantidad[]"
-                    id="cantidad" onkeyup="validarCantidad()"
+                    id="cantidad" onkeyup="validarCantidad()" onblur="validarCantidadProducto()"
                     value="{{ isset($transferencia->cantidad)?$transferencia->cantidad:old('cantidad')  }}">
                     <span id="estadoCantidad"></span>
             </td>
@@ -77,6 +77,13 @@
     $("#sucursal_origen").change(event => {
         $.get(`envioP/${event.target.value}`, function(res, sta) {
             $("#codigo").empty();
+            console.log(iman);
+            var x = iman;
+            for (var i = 0; i < x; i++) {
+                var element = document.getElementById("columna-"+iman);
+                element.parentNode.removeChild(element);
+                iman=iman-1;
+             }
             $("#codigo").append(`<option > Elige el codigo de producto </option>`);
             res.forEach(element => {
                 $("#codigo").append(
@@ -111,6 +118,7 @@
         $("#subTotal").val('');
     }
         var bb= 0;
+        var iman = 0;
     $(function() {
         
         console.log(existeValor("codigoI"));
@@ -119,7 +127,12 @@
                 
                 
                 ){
+<<<<<<< HEAD
                         $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla");
+=======
+                        iman = iman+1;
+                        $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla").attr("id","columna-"+(iman));
+>>>>>>> alex
                         limpiar();
                         bb = bb +1;
                         $('#deletRow').show();
@@ -213,7 +226,9 @@
                     $("#estadoCantidad").html("<span  class='menor'><h5 class='menor'>Cantidad ingresada incorrecta</h5></span>");
                 }else{
                     prueba.style.borderColor = '#cad1d7';
+                    
                     $("#estadoCantidad").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+                    
                 }
             }
         }
@@ -273,4 +288,37 @@
             }
             });
     }
+<<<<<<< HEAD
+=======
+
+    function validarCantidadProducto() {
+        var e = document.getElementById("sucursal_origen");
+        var str = e.options[e.selectedIndex].text;
+        if(!($("#codigoI").val()=="") && !(str == "Elige una Sucursal de Origen")){
+            var cod = document.getElementById("sucursal_origen").value;
+            jQuery.ajax({
+                url: "/transferencia/cantidadProducto",
+                data:{
+                    "_token": "{{ csrf_token() }}",
+                    "codigoI": $("#codigoI").val(),
+                    "cantidad": $("#cantidad").val(),
+                    "sucursal":cod,
+                },
+                asycn:false,
+                type: "POST",
+                success:function(data){
+                    $("#estadoCantidad").html(data);
+                    $("#loaderIcon").hide();
+                    
+                },
+                error:function (){
+                    console.log('no da');
+                }
+                });
+        }
+        
+    }
+
+
+>>>>>>> alex
     </script>

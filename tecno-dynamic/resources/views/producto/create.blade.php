@@ -3,8 +3,6 @@
 @section('subtitulo',' ')
 @section('content')
 
-
-
 <div class="card shadow">
     <div class="card-header border-0">
          <h1 class="text-center">REGISTRO DE NUEVO PRODUCTO</h1>
@@ -242,6 +240,61 @@
             }
         }
         
+        function existeValor($dato){
+            var boolean = false;
+            var aux = document.getElementById($dato).value;
+            if(aux == ""){
+                boolean = true;
+            }
+            return boolean;
+        }
+
+        function validarTodo(){
+            if(existeValor('codigo')){
+                event.preventDefault();
+            }else{
+                if(existeValor('codigoBarra')){
+                    event.preventDefault();
+                }else{
+                    if(existeValor('nombre')){
+                        event.preventDefault();
+                    }else{
+                        if(existeValor('marca')){
+                            event.preventDefault();
+                        }else{
+                            if(existeValor('precioCosto')){
+                                event.preventDefault();
+                            }else{
+                                if(existeValor('precioVentaMayor')){
+                                    event.preventDefault();
+                                }else{
+                                    if(existeValor('precioVentaMenor')){
+                                        event.preventDefault();
+                                    }else{
+                                        if(existeValor('cantidad')){
+                                            event.preventDefault();
+                                        }else{
+                                            if(existeValor('unidad')){
+                                                event.preventDefault();
+                                            }else{
+                                                if(existeValor('cantidadInicial')){
+                                                    event.preventDefault();
+                                                }else{
+                                                    document.getElementById("enviar").submit();
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }   
+                
+                   
+        }
+        
     </script>
     <style>
         .estado-no-disponible-usuario {
@@ -262,7 +315,7 @@
 
    <div class="col-md-11 mx-auto "> 
 
-<div class="row">
+<div class=" row justify-content-center">
     <div class="col-5">
 
         <label for="codigo" class="control-label">{{'Codigo'}}</label>
@@ -273,24 +326,24 @@
        
 
     </div> 
-    <div class="col-5">
+    <div class="col-5" >
         <label for="codigoBarra"class="control-label">{{'Codigo Barra'}}</label>
-        <input type="text" class="form-control  {{$errors->has('codigoBarra')?'is-invalid':'' }}" name="codigoBarra" id="codigoBarra" 
+        <input type="text" class="form-control  {{$errors->has('codigoBarra')?'is-invalid':'' }}" name="codigoBarra" id="codigoBarra"  
         value="{{ isset($personal->email)?$personal->email:old('codigoBarra')  }}" onblur="comprobarCodigoBarra()"
         ><span id="estadoCodigoBarra"></span>
     {!!  $errors->first('codigoBarra','<div class="invalid-feedback">:message</div>') !!}
     </div>
    
 </div>
-<div class="row"> 
-    <div class="col-5">
+<div class=" row justify-content-center">
+    <div class="col-5" >
         <label for="nombre"class="control-label">{{'Nombre'}}</label>
         <input type="text" class="form-control  {{$errors->has('nombre')?'is-invalid':'' }}" name="nombre" id="nombre" 
         value="{{ isset($personal->apellido)?$personal->apellido:old('nombre') }}" onblur="comprobarNombre()"
         ><span id="estadoProducto"></span>
         {!!  $errors->first('nombre','<div class="invalid-feedback">:message</div>') !!}
     </div>
-    <div class="col-5">
+    <div class="col-5" >
         <label for="categoria">Categoria</label>
         <select name="categoria" id="categoria" class="form-control {{$errors->has('categoria')?'is-invalid':'' }}"  onblur="validarCategoria()">
         <option selected disabled>Elige una Categoria</option>
@@ -303,15 +356,15 @@
                    
     
 </div>
-<div class="row">
-    <div class="col-5">
+<div class=" row justify-content-center">
+    <div class="col-5" >
         <label for="marca"class="control-label">{{'Marca'}}</label>
         <input type="text" class="form-control  {{$errors->has('marca')?'is-invalid':'' }}" name="marca" id="marca" 
         value="{{ isset($personal->codigoSis)?$personal->codigoSis:old('marca') }}" onkeyup="validarMarca()"
         ><span id="estadoMarca"></span>
         {!!  $errors->first('marca','<div class="invalid-feedback">:message</div>') !!}
     </div>
-    <div class="col-5">
+    <div class="col-5" >
         <label for="precioCosto"class="control-label">{{'Precio Costo'}}</label>
         <input type="number" step="0.01" class="form-control  {{$errors->has('precioCosto')?'is-invalid':'' }}" name="precioCosto" id="precioCosto" 
         value="{{ isset($personal->codigoSis)?$personal->codigoSis:old('precioCosto') }}" onkeyup="validarPrecioCosto()"
@@ -320,15 +373,15 @@
     </div>
        
 </div>
-<div class="row">
-    <div class="col-5">
+<div class=" row justify-content-center">
+    <div class="col-5" >
         <label for="precioVentaMayor"class="control-label">{{'Precio Venta Mayor'}}</label>
         <input type="number" step="0.01"class="form-control  {{$errors->has('precioVentaMayor')?'is-invalid':'' }}" name="precioVentaMayor" id="precioVentaMayor" 
         value="{{ isset($personal->telefono)?$personal->telefono:old('precioVentaMayor')  }}" onkeyup="validarPrecioVentaMayor()"
         ><span id="estadoPrecioVentaMayor"></span>
         {!!  $errors->first('precioVentaMayor','<div class="invalid-feedback">:message</div>') !!}
     </div>
-    <div class="col-5">
+    <div class="col-5" >
         <label for="precioVentaMenor"class="control-label">{{'Precio Venta Menor'}}</label>
         <input type="number" step="0.01" class="form-control  {{$errors->has('precioVentaMenor')?'is-invalid':'' }}" name="precioVentaMenor" id="precioVentaMenor" 
         value="{{ isset($personal->telefono)?$personal->telefono:old('precioVentaMenor')  }}" onkeyup="validarPrecioVentaMenor()"
@@ -336,15 +389,15 @@
         {!!  $errors->first('precioVentaMenor','<div class="invalid-feedback">:message</div>') !!}
     </div>
 </div>  
-<div class="row">
-    <div class="col-5">
+<div class=" row justify-content-center">
+    <div class="col-5" >
             <label for="cantidad"class="control-label">{{'Cantidad'}}</label>
             <input type="number" class="form-control  {{$errors->has('cantidad')?'is-invalid':'' }}" name="cantidad" id="cantidad" 
             value="{{ isset($personal->password)?$personal->password:old('cantidad') }}" onkeyup="validarCantidad()"
             ><span id="estadoCantidad"></span>
             {!!  $errors->first('cantidad','<div class="invalid-feedback">:message</div>') !!}
         </div>
-        <div class="col-5">
+        <div class="col-5" >
             <label for="unidad"class="control-label">{{'Unidad'}}</label>
             <input type="text" class="form-control  {{$errors->has('unidad')?'is-invalid':'' }}" name="unidad" id="unidad" 
             value="{{ isset($personal->password)?$personal->password:old('unidad') }}" onkeyup="validarUnidad()"
@@ -352,15 +405,15 @@
             {!!  $errors->first('unidad','<div class="invalid-feedback">:message</div>') !!}
         </div>
 </div> 
-<div class="row">
-    <div class="col-5">
+<div class=" row justify-content-center">
+    <div class="col-5" >
             <label for="cantidadInicial"class="control-label">{{'Cantidad Inicial'}}</label>
             <input type="number" class="form-control  {{$errors->has('cantidadInicial')?'is-invalid':'' }}" name="cantidadInicial" id="cantidadInicial" 
             value="{{ isset($personal->password)?$personal->password:old('cantidadInicial') }}" onkeyup="validarCantidadInicial()"
             ><span id="estadoCantidadInicial"></span>
             {!!  $errors->first('cantidadInicial','<div class="invalid-feedback">:message</div>') !!}
         </div>
-        <div class="col-5">
+        <div class="col-5" >
             <label for="foto"class="control-label">{{'Foto'}}</label>
             <input type="file" class="form-control  {{$errors->has('foto')?'is-invalid':'' }}" name="foto" id="foto" 
             value="{{ isset($personal->password)?$personal->password:old('foto') }}"
@@ -368,8 +421,8 @@
             {!!  $errors->first('foto','<div class="invalid-feedback">:message</div>') !!}
         </div>
 </div>  
-<div class="row">
-    <div class="col-5">
+<div class=" row justify-content-center">
+    <div class="col-5" >
         <label for="proveedor">Proveedor</label>
         <select name="proveedor" id="proveedor" class="form-control  {{$errors->has('proveedor')?'is-invalid':'' }}" onblur="validarProveedor()" >
         <option selected disabled>Elige un Proveedor</option>
@@ -379,7 +432,7 @@
         </select><span id="estadoProveedor"></span>
         {!!  $errors->first('proveedor','<div class="invalid-feedback">:message</div>') !!}
     </div>
-    <div class="col-5">
+    <div class="col-5" >
         <label for="sucursal">Sucursal</label>
         <input name="sucursal" value="{{$sucursal_elegida->id}}" type="hidden">
         <select name="sucursal" id="sucursal" disabled class="form-control text-dark {{$errors->has('sucursal')?'is-invalid':'' }}" onblur="validarSucursal()">
@@ -397,13 +450,13 @@
        
 </div> 
 <br>
-<div class="row">
+<div class=" row justify-content-center">
     
-    <div class="col-5">  
+    <div class="col-5" >  
         <a href="{{url('producto')}}"class="btn btn-primary">Regresar</a>
     </div>
     <div class="col-5">       
-        <input type="submit" class="btn btn-success float-right"  value="Guardar">
+        <button id="enviar" class="btn btn-success float-right" onclick="validarTodo()" >Guardar</button>
     </div>
 </div>
 </div>

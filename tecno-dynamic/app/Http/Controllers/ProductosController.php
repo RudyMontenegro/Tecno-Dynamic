@@ -116,12 +116,18 @@ class ProductosController extends Controller
         ->select('*')
         ->where('id','=',$id)->first();
 
+        $categorias = DB::table('productos')
+                        ->join('categorias','categorias.id','productos.id_categoria')
+                        ->select('productos.*','categorias.nombre as categoriaName')
+                        ->where('productos.id','=',$id)
+                        ->first();
+
         $proveedors = DB::table('productos')
         ->join('proveedors','productos.id_proveedor','=','proveedors.id')
         ->select('*')
         ->where('productos.id','=',$id)->first();
 
-        return view('producto.view',['producto' => $producto,'proveedors' => $proveedors]);
+        return view('producto.view',['producto' => $producto,'proveedors' => $proveedors,'categorias' => $categorias]);
     }
 
     /**
@@ -142,7 +148,19 @@ class ProductosController extends Controller
         ->where('productos.id','=',$id)->first();
 
         $proveedor = Proveedor::all();
-        return view('producto.edit',['producto' => $producto,'proveedor' => $proveedor,'proveedors' => $proveedors]);
+        $categoria = Categoria::all();
+        $categoria_elegida = DB::table('productos')
+        ->join('categorias','categorias.id','=','productos.id_categoria')
+        ->select('*')
+        ->where('productos.id','=',$id)->first();
+
+        $sucursales = Sucursal::all();
+        $sucursal_elegida = DB::table('productos')
+        ->join('sucursals','sucursals.id','=','productos.id_sucursal')
+        ->select('*')
+        ->where('productos.id','=',$id)->first();
+
+        return view('producto.edit',compact('producto','proveedors','proveedor','categoria','categoria_elegida','sucursales','sucursal_elegida'));
     }
 
     /**
@@ -230,7 +248,11 @@ class ProductosController extends Controller
 
         if(!empty($_POST["codigo"])) {
             $user_count = $db_handle->numRows2($_POST["codigo"],$_POST["sucursal"]);
+<<<<<<< HEAD
             $contador = $db_handle->cuenta2($_POST["codigo"]);
+=======
+            $contador = $db_handle->cuenta($_POST["codigo"]);
+>>>>>>> alex
             if($contador < 3){
                 echo "<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>";
             }else{
@@ -250,7 +272,11 @@ class ProductosController extends Controller
 
         if(!empty($_POST["codigoBarra"])) {
             $user_count = $db_handle->numRows3($_POST["codigoBarra"],$_POST["sucursal"]);
+<<<<<<< HEAD
             $contador = $db_handle->cuenta3($_POST["codigoBarra"]);
+=======
+            $contador = $db_handle->cuenta($_POST["codigoBarra"]);
+>>>>>>> alex
             if($contador < 3){
                 echo "<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>";
             }else{
@@ -259,6 +285,98 @@ class ProductosController extends Controller
                 }else{
                     echo "<span class='estado-disponible-usuario'><h5 class='estado-disponible-usuario'>Codigo Barra disponible</h5></span>";
                 }
+            }
+            
+        }
+    }
+
+    public function validarCodigoEdit(Sucursal $sucursal)
+    {
+        $db_handle = new Productos();
+
+        if(!empty($_POST["codigo"])) {
+            $user_count = $db_handle->existe2($_POST["codigo"],$_POST["sucursal"],$_POST["id"]);
+            $contador = $db_handle->cuenta($_POST["codigo"]);
+
+            $valida = DB::table('productos')
+                        ->select('codigo')
+                        ->where('id','=',$_POST["id"])
+                        ->first();
+                        
+            if($contador < 3){
+                echo "<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>";
+            }else{
+                if($valida->codigo == $_POST["codigo"]){
+                    echo "<span  class='menor'><h5 class='menor'> </h5></span>";
+                }else{
+                    if($user_count) {
+                        echo "<span  class='estado-no-disponible-usuario'><h5 class='estado-no-disponible-usuario'>Codigo de producto no disponible</h5></span>";
+                    }else{
+                        echo "<span class='estado-disponible-usuario'><h5 class='estado-disponible-usuario'>Codigo disponible</h5></span>";
+                    }
+                }
+                
+            }
+            
+        }
+    }
+    public function validarCodigoBarraEdit(Sucursal $sucursal)
+    {
+        $db_handle = new Productos();
+
+        if(!empty($_POST["codigoBarra"])) {
+            $user_count = $db_handle->existe3($_POST["codigoBarra"],$_POST["sucursal"],$_POST["id"]);
+            $contador = $db_handle->cuenta($_POST["codigoBarra"]);
+
+            $valida = DB::table('productos')
+                        ->select('codigo_barra')
+                        ->where('id','=',$_POST["id"])
+                        ->first();
+                        
+            if($contador < 3){
+                echo "<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>";
+            }else{
+                if($valida->codigo_barra == $_POST["codigoBarra"]){
+                    echo "<span  class='menor'><h5 class='menor'> </h5></span>";
+                }else{
+                    if($user_count) {
+                        echo "<span  class='estado-no-disponible-usuario'><h5 class='estado-no-disponible-usuario'>Codigo de producto no disponible</h5></span>";
+                    }else{
+                        echo "<span class='estado-disponible-usuario'><h5 class='estado-disponible-usuario'>Codigo disponible</h5></span>";
+                    }
+                }
+                
+            }
+            
+        }
+    }
+
+    public function validarNombreEdit(Sucursal $sucursal)
+    {
+        $db_handle = new Productos();
+
+        if(!empty($_POST["nombre"])) {
+            $user_count = $db_handle->existe($_POST["nombre"],$_POST["sucursal"],$_POST["id"]);
+            $contador = $db_handle->cuenta($_POST["nombre"]);
+
+            $valida = DB::table('productos')
+                        ->select('nombre')
+                        ->where('id','=',$_POST["id"])
+                        ->first();
+                        
+            if($contador < 3){
+                echo "<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>";
+            }else{
+                if($valida->nombre == $_POST["nombre"]){
+                    echo "<span  class='menor'><h5 class='menor'> </h5></span>";
+                }else{
+                    if($user_count) {
+                        echo "<span  class='estado-no-disponible-usuario'><h5 class='estado-no-disponible-usuario'>Codigo de producto no disponible</h5></span>";
+                    }else{
+                        echo "<span class='estado-disponible-usuario'><h5 class='estado-disponible-usuario'>Codigo disponible</h5></span>";
+                    }
+                }
+                
             }
             
         }

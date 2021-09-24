@@ -7,17 +7,17 @@
 <div class="card shadow">
     <div class="card-header border-0">
         <div class="row align-items-center">
-        <div class="col">
+            <div class="col">
                 <h3 class="mb-0">Lista de transferencias</h3>
             </div>
             <div class="col text-right">
                 <a href="{{ url('transferencia/registrarTransferencia') }}" class="btn btn-sm btn-primary">Nueva Transferencia</a>
             </div>
         </div>
-    </div>
+        <br>
     <div class="table-responsive">
         <!-- Projects table -->
-        <table class="table align-items-center table-flush">
+        <table  class="table align-items-center table-flush">
             <thead class="thead-light">
                 <tr>
                     <th scope="col">Comprobante</th>
@@ -37,7 +37,11 @@
                 <td>
                     
                     <button class="btn btn-sm btn-danger" type="submit" data-toggle="modal"
+<<<<<<< HEAD
                         data-target="#exampleModal2{{$transferencia->id}}">Eliminar</button>
+=======
+                        data-target="#exampleModal2{{$transferencia->id}}">Borrar</button>
+>>>>>>> alex
                     <!-- modaal -->
                     <div class="modal fade" id="exampleModal2{{$transferencia->id}}" tabindex="-1" role="dialog"
                         aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -58,7 +62,7 @@
                                     <form method="POST" action="{{url('/transferencia/'.$transferencia->id) }}">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm float-right">Eliminar</button>
+                                        <button type="submit" class="btn btn-danger btn-sm float-right">Borrar</button>
                                     </form>
                                     <button type="button" class="btn btn-secondary btn-sm"
                                         data-dismiss="modal">Cancelar</button>
@@ -70,12 +74,13 @@
                         class="btn btn-primary btn-sm float-left">
                         ver
                     </a>
-                    </div>
+                    
 
                 </td>
             </tr>
             @endforeach
             </tbody>
+        
             <thead class="thead-light">
                 <tr>
                     <th scope="col"></th>
@@ -84,6 +89,9 @@
                 </tr>
             </thead>
         </table>
+    </div>
+
+</div>
     </div>
 </div>
 @endsection

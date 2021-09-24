@@ -88,6 +88,28 @@
             document.getElementById("fecha").value=`${YYYY}-${MTH}-${DAY}T${HH}:${MM}`;
         }
         setInterval(validarFecha,30000);
+
+        function validarSucursal() {
+            
+            var cod = document.getElementById("sucursal_origen").value;
+            //console.log(cod);
+            if(cod != "Elige una Sucursal de Origen"){
+                $("#estadoSucursal").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+            }else{
+                $("#estadoSucursal").html("<span  class='menor'><h5 class='menor'>Seleccione una sucursal</h5></span>");
+            }
+        }
+
+        function validarSucursalDestino() {
+            
+            var cod = document.getElementById("sucursal_destino").value;
+            console.log(cod);
+            if(cod != "Elige una Sucursal de Destino"){
+                $("#estadoDestino").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+            }else{
+                $("#estadoDestino").html("<span  class='menor'><h5 class='menor'>Seleccione una sucursal</h5></span>");
+            }
+        }
         </script>
         <style>
             .menor {
@@ -131,24 +153,24 @@
                 <div class="row">
                     <div class="col-6">
                         <label for="sucursal_origen">Sucursal Origen</label>
-                        <select name="sucursal_origen" id="sucursal_origen"
+                        <select name="sucursal_origen" id="sucursal_origen" onblur="validarSucursal()" onchange="validarSucursal()"
                             class="form-control  {{$errors->has('sucursal_origen')?'is-invalid':'' }}">
                             <option selected disabled>Elige una Sucursal de Origen</option>
                             @foreach ($sucursal as $origen)
                             <option {{ old('origen') == $origen->id ? "selected" : "" }} value="{{$origen->id}}">
                                 {{$origen->nombre}}</option>
                             @endforeach
-                        </select>
+                        </select><span id="estadoSucursal"></span>
                         {!! $errors->first('sucursal_origen','<div class="invalid-feedback">:message</div>') !!}
 
                     </div>
                     <div class="col-6">
                         <label for="sucursal_destino">Sucursal Destino</label>
-                        <select name="sucursal_destino" id="sucursal_destino"
+                        <select name="sucursal_destino" id="sucursal_destino"  onchange="validarSucursalDestino()"
                             class="form-control  {{$errors->has('sucursal_destino')?'is-invalid':'' }}">
                             <option selected disabled>Elige una Sucursal de Destino</option>
 
-                        </select>
+                        </select><span id="estadoDestino"></span>
                         {!! $errors->first('sucursal_origen','<div class="invalid-feedback">:message</div>') !!}
 
                     </div>
@@ -160,14 +182,16 @@
             $("#sucursal_origen").change(event => {
                 $.get(`envio/${event.target.value}`, function(res, sta) {
                     $("#sucursal_destino").empty();
-                    $("#sucursal_destino").append(`<option > Elige una Sucursal de Destino </option>`);
+                    $("#sucursal_destino").append(`<option> Elige una Sucursal de Destino </option>`);
                     $("#codigoI").val('');
                     $("#estadoCodigo").html("<span  class='menor'><h5 class='menor'> </h5></span>");
                     res.forEach(element => {
                         $("#sucursal_destino").append(
                             `<option value=${element.id}> ${element.nombre} </option>`);
                     });
+                    
                 });
+                validarSucursalDestino();
             });
             </script>
             <div class="col-md-12 mx-auto ">
@@ -182,17 +206,17 @@
         </form>
     </div>
 </div>
-<script>
-var res = 0;
-function calcular() {
-    try {
-        var a = $("input[id=cantidad]").val();
-        var b = $("input[id=precio]").val();
-        res = (a * b) + res;
-        document.getElementById("subTotal").value = a * b;
-        document.getElementById("Total").value = res;
-    } catch (e) {
+    <script>
+    var res = 0;
+    function calcular() {
+        try {
+            var a = $("input[id=cantidad]").val();
+            var b = $("input[id=precio]").val();
+            res = (a * b) + res;
+            document.getElementById("subTotal").value = a * b;
+            document.getElementById("Total").value = res;
+        } catch (e) {
+        }
     }
-}
-</script>
+    </script>
 @endsection

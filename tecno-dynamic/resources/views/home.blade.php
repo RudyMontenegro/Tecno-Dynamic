@@ -5,16 +5,14 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">Notificaciones</div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
+                     
+                    @foreach ($stock as $stock)
+                        <h4 style="color: rgb(111, 105, 228)">Stock agotado tienes menos de 5 productos de {{$stock->nombre}}</h4>
+                    @endforeach
+                    
                 </div>
             </div>
         </div>
