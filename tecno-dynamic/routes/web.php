@@ -82,6 +82,7 @@ Route::get('/venta/pdf', 'VentaController@imprimir')->middleware('auth');
 Route::get('/venta/{ventas}/edit', 'VentaController@edit')->middleware('auth');
 Route::put('/venta/{ventas}', 'VentaController@update')->middleware('auth');
 Route::delete('/venta/{ventas}', 'VentaController@destroy')->middleware('auth');  
+Route::post('/venta/validarCodigoProducto', 'VentaController@validarCodigo')->middleware('auth');
 // 
 Route::post('/autoCompletName', 'VentaController@fetchName');
 Route::post('/autoCompleteNit', 'VentaController@fetchNitR');

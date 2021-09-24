@@ -195,4 +195,22 @@ class VentaController extends Controller
       echo $output;
      }
     }
+    public function validarCodigo()
+    {
+        $db_handle = new Productos();
+        $existe = $db_handle->existe($_POST["codigoI"],$_POST["sucursal"]);
+
+        if(!empty($_POST["codigoI"]) && !empty($_POST["sucursal"])){
+
+            if($existe == 0){
+                echo "<span  class='estado-nulo'><h5 class='estado-nulo'>No existe codigo de producto</h5></span>";
+            }else{
+                echo "<span  class='estado-nulo'><h5 class='estado-nulo'> ddd</h5></span>";
+            }
+        }else{
+            echo "<span  class='estado-nulo'><h5 class='estado-nulo'>ddd </h5></span>";
+        }
+        
+        
+    }
 } 

@@ -35,14 +35,36 @@ function SucursalExiste() {
         $("#estadoCodigoI").html("<span  class='menor'><h5 class='menor'> </h5></span>");
         $("#codigoI").val('');
     } else {
-        $("#estadoCodigo").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+        //$("#estadoCodigo").html("<span  class='menor'><h5 class='menor'> </h5></span>");
         $("#nombre").val('');
         validarNombre();
 
     }
 }
+function validarNombre() {
+    var cod = document.getElementById("sucursal_origen").value;
+    jQuery.ajax({
+        url: "/transferencia/llenar",
+        data:{
+            "_token": "{{ csrf_token() }}",
+            "codigoI": $("#codigoI").val(),
+            "sucursal":cod,
+        },
+        asycn:false,
+        type: "POST",
+        success:function(data){
+            $("#estadoCodigo").html(data);
+            $("#loaderIcon").hide();
+            
+        },
+        error:function (){
+            console.log('no da');
+        }
+        });
+}
 $("#sucursal_origen").change(event => {
     limpiarCampos();
+    $("#estadoCodigo").html("<span  class='menor'><h5 class='menor'> </h5></span>");
 });
 var res = 0;
 function calcular() {
@@ -67,11 +89,14 @@ function limpiarCampos() {
 var bb = 0;
  
 $(function() { /// se efecuta una ves termianada la recarga de la pagina
-   // SucursalExiste();
+//    alert(bb);
+//    validarNombre()
     $("#adicional").on('click', function() {
+   
         $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla").find('input').attr('readonly', true);
         bb = bb + 1;
         limpiarCampos();
+  
     });
     $(document).on("click", ".eliminar", function() {
         if (bb > 0) {
@@ -96,48 +121,5 @@ $(function() { /// se efecuta una ves termianada la recarga de la pagina
         }
     });
 });
-function validarNombre() {
-    var cod = document.getElementById("sucursal_origen").value;
-    jQuery.ajax({
-        url: "/transferencia/llenar",
-        data:{
-            "_token": "{{ csrf_token() }}",
-            "codigoI": $("#codigoI").val(),
-            "sucursal":cod,
-        },
-        asycn:false,
-        type: "POST",
-        success:function(data){
-            $("#estadoCodigo").html(data);
-            $("#loaderIcon").hide();
-            
-        },
-        error:function (){
-            console.log('no da');
-        }
-        });
-}
-$(document).ready(function() {
-    $('#nombre_contacto').keyup(function() {
-        var query = $(this).val();
-        if (query != '') {
-            var _token = $('input[name="_token"]').val();
-            $.ajax({
-                url: '/autoCompletCodProducto',
-                method: 'POST',
-                data: {
-                    query: query,
-                    _token: _token
-                },
-                success: function(data) {
-                    $('#countryList').fadeIn();
-                    $('#countryList').html(data);
-                }
-            });
-        }
-    });
-    $(document).on('click', 'li', function() {
-        $('#nombre_contacto').val($(this).text());
-        $('#countryList').fadeOut();
-    });
-});
+
+

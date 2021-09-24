@@ -15,7 +15,7 @@
         <tbody>
             <tr>
                 <th>
-                    <input class="form-control" name="codigoI[]" id="codigoI" onkeyup="SucursalExiste()"  list="codigo">
+                    <input class="form-control" name="codigoI[]" id="codigoI" onkeyup="SucursalExiste()"   list="codigo">
                     <datalist id="codigoDatalist">
                     </datalist>
                     <span id="estadoCodigo"></span>

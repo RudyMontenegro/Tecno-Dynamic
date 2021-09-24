@@ -74,5 +74,14 @@ class Productos extends Model
                     ->get();
         return $nombre;
     }
+    function existe($codigo,$sucursal){
+
+        $nombre = DB::table('productos')
+                ->select('nombre')
+                ->where('codigo','=',$codigo)
+                ->where('id_sucursal','=',$sucursal)
+                ->exists();
+        return $nombre;
+    }
 
 } 

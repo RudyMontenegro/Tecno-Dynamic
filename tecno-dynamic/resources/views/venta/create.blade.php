@@ -57,7 +57,7 @@
                                         $('#NitList').fadeIn();
                                         $('#NitList').html(data);
                                     }
-                                 
+
                                 });
                             }
                         });
@@ -65,11 +65,11 @@
                     </div>
                     <div class="col-6">
                         <label for="nombre_empresa">Cliente</label>
-                        <input class="form-control" name="nombre_contacto" keyup list="datalistOptionsName"
+                        <input class="form-control" name="nombre_contacto" onkeyup="validarNombre()" list="datalistOptionsName"
                             id="nombre_contacto" placeholder="Escriba para buscar...">
                         <datalist id="countryList">
                         </datalist>
-
+                        <span id="estadoNombre"></span>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
@@ -108,8 +108,8 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="direccion">Comprobante</label>
-                            <input type="text" name="comprobante" class="form-control" value="{{ old('tipo_venta')}}"
-                                required>
+                            <input type="text" name="comprobante" id="comprobante" class="form-control" value="{{ old('comprobante')}}"
+                                required onkeyup="validaComprobante()"><span id="estadoComprobante"></span>
                         </div>
                     </div>
 
@@ -201,26 +201,38 @@ function validarNombre() {
     if ($("#nombre_contacto").val() == "") {
         $("#estadoNombre").html("<span  class='menor'><h5 class='menor'> </h5></span>");
     } else {
-        if ($("#nombre_contacto").val().length < 3) {
-            $("#estadoNombre").html("<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>");
-        } else {
-            if ($("#nombre_contacto").val().length > 50) {
-                $("#estadoNombre").html(
-                    "<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>");
-            } else {
-                var regex = /^[a-zA-Z ]+$/;
+        var regex = /^[a-zA-Z ]+$/;
                 if (!regex.test($("#nombre_contacto").val())) {
                     $("#estadoNombre").html(
                         "<span  class='menor'><h5 class='menor'>Solo se acepta caracteres [A-Z]</h5></span>");
                 } else {
                     $("#estadoNombre").html("<span  class='menor'><h5 class='menor'> </h5></span>");
                 }
-
-            }
-
-        }
+      
 
     }
+}
+function validaComprobante() {
+
+if($("#comprobante").val() == ""){
+    $("#estadoComprobante").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+}else{
+    if($("#comprobante").val().length < 3){
+        $("#estadoComprobante").html("<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>");
+    }else{
+        if($("#comprobante").val().length > 50){
+            $("#estadoComprobante").html("<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>");
+        }else{
+            var re = new RegExp("^[0-9a-zA-Z ]+$");
+            if(!re.test($("#comprobante").val())){
+                $("#estadoComprobante").html("<span  class='menor'><h5 class='menor'>Solo se acepta caracteres [A-Z] y [0-9]</h5></span>");
+            }else{
+                $("#estadoComprobante").html("<span  class='menor'><h5 class='menor'> </h5></span>");
+            }
+        }
+        
+    }
+}
 }
 </script>
 
