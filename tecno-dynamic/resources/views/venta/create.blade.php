@@ -38,31 +38,28 @@
                                 name="nit" id="nit" value="{{ old('nit')}}" class="form-control">
                             <datalist id="NitList">
                             </datalist>
+                            <span id="estadoCodigo2"></span>
+
                         </div>
                         <script>
-                        $(document).ready(function() {
-                            $('#nit').keyup(function() {
-                                var query = $(this).val();
-                                if (query != '') {
-                                    var _token = $('input[name="_token"]').val();
-                                    $.ajax({
-                                        url: '/autocompleteN',
-                                        method: 'POST',
-                                        data: {
-                                            query: query,
-                                            _token: _token
-                                        },
-                                        success: function(data) {
-                                            $('#NitList').fadeIn();
-                                            $('#NitList').html(data);
-                                        }
-                                    });
-                                }
-                            });
-                            $(document).on('click', 'li', function() {
-                                $('#nit').val($(this).text());
-                                $('#NitList').fadeOut();
-                            });
+                        $('#nit').keyup(function() {
+                            var query = $(this).val();
+                            if (query != '') {
+                                var _token = $('input[name="_token"]').val();
+                                $.ajax({
+                                    url: '/autoCompleteNit',
+                                    method: 'POST',
+                                    data: {
+                                        query: query,
+                                        _token: _token
+                                    },
+                                    success: function(data) {
+                                        $('#NitList').fadeIn();
+                                        $('#NitList').html(data);
+                                    }
+                                 
+                                });
+                            }
                         });
                         </script>
                     </div>
@@ -179,7 +176,7 @@ $(document).ready(function() {
         if (query != '') {
             var _token = $('input[name="_token"]').val();
             $.ajax({
-                url: '/autocomplete',
+                url: '/autoCompletName',
                 method: 'POST',
                 data: {
                     query: query,
@@ -227,8 +224,4 @@ function validarNombre() {
 }
 </script>
 
-@endsection
-@section('scripts')
-<script src="{{ asset('/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
-</script>
 @endsection

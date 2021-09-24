@@ -1,6 +1,7 @@
 @extends('layouts.panel')
 @section('subtitulo','ventas')
 @section('content')
+
 <div class="card shadow">
     <div class="card-header border-0">
         <div class="row align-items-center">
@@ -26,7 +27,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($VentasSucursales as $venta)
+                @foreach ($ventas as $venta)
                 <tr>
                     <th scope="row">
                         {{ $venta->cliente }}

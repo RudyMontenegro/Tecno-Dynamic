@@ -1,18 +1,4 @@
-<style>
-#formulario1 {
-    margin: 0 auto;
-    text-align: center;
-    border-radius: 10px;
-    border: 1px solid #ffffff;
-    width: 800px;
-}
-
-.card .table td,
-.card .table th {
-    padding-right: 0.1rem;
-    padding-left: 0.1rem;
-}
-</style>
+<link href="{{ asset('css/venta/table.css') }}" rel="stylesheet">
 <div class="table-responsive">
     <table class="table" id="tabla">
         <thead class="thead-light">
@@ -29,10 +15,11 @@
         <tbody>
             <tr>
                 <th>
-                    <input class="form-control" name="codigoI[]" id="codigoI" onkeyup="existe()" list="codigo">
-                    <datalist id="codigo">
+                    <input class="form-control" name="codigoI[]" id="codigoI" onkeyup="SucursalExiste()"  list="codigo">
+                    <datalist id="codigoDatalist">
                     </datalist>
                     <span id="estadoCodigo"></span>
+                    <span id="estadoCodigoI"></span>
                 </th>
                 <td>
                     <input type="text" class="form-control" name="nombre[]" id="nombre">
@@ -71,68 +58,4 @@
     </table>
     <button type="button" class="btn btn-success btn-lg btn-block" id="adicional" name="adicional">Añadir</button>
 </div>
-<script>
-$("#sucursal_origen").change(event => {
-    $.get(`envioP/${event.target.value}`, function(res, sta) {
-        $("#codigo").empty();
-        $("#codigo").append(`<option > Elige el codigo de producto </option>`);
-        res.forEach(element => {
-            $("#codigo").append(
-                `<option> ${element.codigo} </option>`
-            );
-        });
-    });
-});
-$("#codigoI").change(event => {
-    $.get(`envioN/${$("#codigoI").val()}`, function(res, sta) {
-        $("#nombre").empty();
-        $("#nombre").val(res[0].nombre);
-    });
-});
-</script>
-<script>
-var res = 0;
-function calcular() {
-    try {
-        var a = $("input[id=cantidad]").val();
-        var b = $("input[id=precio]").val();
-        res = (a * b) + res;
-        $("#subTotal").val(a * b); 
-        $("#total").val(res); 
-    } catch (e) {}
-}
-
-function limpiarCampos() {
-
-    $("#codigoI").val('');
-    $("#unidad").val('');
-    $("#nombre").val('');
-    $("#cantidad").val('');
-    $("#precio").val('');
-    $("#subTotal").val('');
-}
-var bb = 0;
-$(function() {
-        $("#adicional").on('click', function() {
-            $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla").find('input').attr('readonly', true);
-            bb = bb + 1;
-            limpiarCampos();
-        });
-        $(document).on("click", ".eliminar", function() {
-            if (bb > 0) {
-                var variableRestar  = $(this).closest('tr').find('input[id="subTotal"]').val();
-                var parent = $(this).parents().get(0);
-              //  alert(variable);
-                res = res - variableRestar;
-                $("#total").val(res); 
-                $(parent).remove();
-                bb = bb - 1;
-            }else{
-                $(this).parents().find('input').attr('readonly', false);
-                res = 0;
-                $("#total").val(res); 
-                limpiarCampos();
-            }
-        });
-    });
-</script>
+<script src="{{ asset('js/venta/table.js') }}"></script>

@@ -81,7 +81,13 @@ Route::post('/venta', 'VentaController@store')->middleware('auth');
 Route::get('/venta/pdf', 'VentaController@imprimir')->middleware('auth');
 Route::get('/venta/{ventas}/edit', 'VentaController@edit')->middleware('auth');
 Route::put('/venta/{ventas}', 'VentaController@update')->middleware('auth');
-Route::delete('/venta/{ventas}', 'VentaController@destroy')->middleware('auth');     
+Route::delete('/venta/{ventas}', 'VentaController@destroy')->middleware('auth');  
+// 
+Route::post('/autoCompletName', 'VentaController@fetchName');
+Route::post('/autoCompleteNit', 'VentaController@fetchNitR');
+Route::post('/autoCompleteCodigoP', 'VentaController@fetchCodigoP');
+Route::get('/autocompleteNit/{id}', 'VentaController@fetchNit');
+Route::get('/venta/envioN/{id}', 'TransferenciaController@nombre')->middleware('auth');
 //COMPRA
 Route::get('/compra', 'CompraController@index')->middleware('auth');
 Route::get('/compra/registrarCompra','CompraController@create')->middleware('auth');
@@ -96,7 +102,3 @@ Route::post('/compra/llenar', 'ClienteController@llenado')->middleware('auth');
 
 Route::get('/compra/{id}', 'CompraController@show')->middleware('auth');    
 //jquery
-Route::post('/autocomplete', 'VentaController@fetch');
-Route::post('/autocompleteN', 'VentaController@fetchN');
-Route::get('/autocompleteNit/{id}', 'VentaController@fetchNit');
-Route::get('/venta/envioN/{id}', 'TransferenciaController@nombre')->middleware('auth');

@@ -12,7 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         User::create([
-            'name' => 'Admin',
+            'name' => 'Rudy',
             'email' => 'admin@gmail.com',
             'password' => bcrypt('secret'), // secret
             'cedula' => '12714785',

@@ -22,7 +22,13 @@
 <script src="/assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
 </head>
+<style>
+.main-content .container-fluid {
+    padding-right: 15px !important;
+    padding-left: 15px !important;
+}
 
+    </style>
 <body>
     <!-- Sidenav -->
     <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">

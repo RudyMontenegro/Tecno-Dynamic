@@ -15,11 +15,11 @@ class VentaController extends Controller
     
     public function index() 
     {
-      //  $ventas = Venta::all();
+        $ventas = Venta::all();
      //   $ventasDetalles = VentaDetalle::all();
-        $VentasSucursales = Venta::ventaXsucursal();
+      //  $VentasSucursales = Venta::ventaXsucursal();
         //dd($VentasSucursales);
-       return view('venta.index', compact('VentasSucursales'));
+       return view('venta.index', compact('ventas'));
     }
     public function create()
     {
@@ -47,7 +47,7 @@ class VentaController extends Controller
         $venta->cliente = $request->input('nombre_contacto');
         $venta->nit = $request->input('nit');
         $venta->fecha = $request->input('fecha');
-        $venta->tipo_venta = $request->input('tipo_venta');
+        $venta->tipo_venta = $request->input('tipo_compra');
         $venta->id_sucursal = $request->get('sucursal_origen');
         $venta->comprobante = $request->input('comprobante');
         $venta->total = $request->input('total');
@@ -71,22 +71,21 @@ class VentaController extends Controller
             $subTotal = request('subTotal');
             for ($i=0; $i < sizeOf($nombre); $i++) { 
                 $venta_detalle = new VentaDetalle();
-                $venta_detalle->codigo_producto = request('codigo');
+                $venta_detalle->codigo_producto = $codigo_producto[$i];;
                 $venta_detalle->nombre = $nombre[$i];
                 $venta_detalle->cantidad = $cantidad[$i];
                 $venta_detalle->unidad = $unidad[$i];
                 $venta_detalle->precio = $precio[$i];
                 $venta_detalle->sub_total = $subTotal[$i];
                 $venta_detalle->id_venta = $id_venta->id;
-
                 $venta_detalle->save();
             }
-        }
-        return redirect('venta');
+            $pdf = \PDF::loadView('venta.reciboPdf',compact('venta','codigo_producto','nombre','cantidad','unidad'))
+            ->setOptions(['dpi' => 200, 'defaultFont' => 'sans-serif']);// direccion del view, enviando variable.
+            return redirect('venta')->$pdf->setPaper('a4')->download('ventas.pdf');//stream-> solo muestra en el navegador
+        }       
     }
 
-   
-   
     public function show(Venta $venta)
     {
         return view('venta.view', compact('venta'));
@@ -122,6 +121,9 @@ class VentaController extends Controller
         return $pdf->setPaper('a4', 'landscape')->stream('ventas.pdf');//stream-> solo muestra en el navegador
         //a4, landscape-> enviar en formato horizontal
     }
+    public function imprimirRecibo(){
+       
+      }
     
     function fetchNit(Request $request, $id)
     {
@@ -134,7 +136,7 @@ class VentaController extends Controller
 
     }
 
-    function fetch(Request $request)
+    function fetchName(Request $request)
     {
      if($request->get('query'))
      {
@@ -153,7 +155,7 @@ class VentaController extends Controller
       echo $output;
      }
     }
-    function fetchN(Request $request)
+    function fetchNitR(Request $request)
     {
      if($request->get('query'))
      {
@@ -166,6 +168,27 @@ class VentaController extends Controller
       {
        $output .= '
        <option>'.$row->nit.'</option>
+       ';
+      }
+      $output .= '</datalist>';
+      echo $output;
+     }
+    }
+    function fetchCodigoP(Request $request)
+    {
+     if($request->get('query'))
+     {
+      $query = $request->get('query');
+      $sucursalID = $request->get('sucursalID');
+      $data = DB::table('productos')
+        ->where('codigo', 'LIKE', "{$query}%")
+        ->where('id_sucursal', '=', $sucursalID)
+        ->get();
+      $output = '<datalist id="codigo">';
+      foreach($data as $row)
+      {
+       $output .= '
+       <option>'.$row->codigo.'</option>
        ';
       }
       $output .= '</datalist>';
