@@ -82,7 +82,7 @@ class VentaController extends Controller
             }
             //$pdf = \PDF::loadView('venta.reciboPdf',compact('venta','codigo_producto','nombre','cantidad','unidad'))
             //->setOptions(['dpi' => 200, 'defaultFont' => 'sans-serif']);// direccion del view, enviando variable.
-            return redirect('venta');//->$pdf->setPaper('a4')->download('ventas.pdf');//stream-> solo muestra en el navegador
+            return redirect('/venta');//->$pdf->setPaper('a4')->download('ventas.pdf');//stream-> solo muestra en el navegador
         }       
     }
 

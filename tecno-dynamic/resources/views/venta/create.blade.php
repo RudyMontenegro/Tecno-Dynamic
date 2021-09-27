@@ -116,7 +116,7 @@
         }
         </style>
 
-        <form action="{{ url('venta') }}" method="post">
+        <form action="{{ url('venta') }}" id="idform" method="post">
 
             {{ csrf_field()}}
 
@@ -224,7 +224,7 @@
                     });
 
                 });
-                validarSucursalDestino();
+
             });
             </script>
 
@@ -256,19 +256,61 @@
                         </div>
                     </div>
                 </div>
-                <button type="button" onclick="ClickBTN()" class="btn btn-info">Validar e imprimir</button>
-                <button type="submit" class="btn btn-primary btnenviarEnc">
+                <button type="button" onclick="ClickValidadarImprimir()" class="btn btn-info">Validar e
+                    imprimir</button>
+                <button type="button" id="idBotonGuardar" onclick="guardarForm()" disabled class="btn btn-primary">
                     Guardar
                 </button>
             </div>
+            </fieldset>
         </form>
     </div>
 </div>
 
 <script>
-function ClickBTN() {
-    alert("me llamabas?");
+$(function() {
+  //  $(':input[type="submit"]').prop('disabled', true);
+});
+
+function existeValorCreate($dato) {
+    var dato = document.getElementById($dato).value;
+    if (dato == "") {
+        return false;
+    }
+    return true;
 }
+
+function existeSucursalCreate() {
+    var cod = document.getElementById("sucursal_origen").value;
+    if (cod == "Elige una Sucursal de Origen") {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function ClickValidadarImprimir() {
+    
+    if (existeValorCreate('nit') && existeValorCreate('nombre_contacto') && existeValorCreate('comprobante') &&
+        existeValorCreate('total') && existeSucursalCreate()) {
+        // alert("me llamabas?");
+        $('#idform').find(':input').prop('disabled', 'disabled');//accede todos los inputs del formulario
+      //  $('#idform').find(':select')
+       //$('#nit').prop('readonly', true);
+       //$('#nombre_contacto').prop('readonly', true);
+      //$('#idform').submit();
+      $('#idBotonGuardar').prop('disabled', false);
+       
+    } else {
+        alert("Revise todos los campos del formulario")
+    }
+}
+function guardarForm() {
+    $('#idform').find(':input').prop('disabled', false);
+    $('#idform').submit();
+}
+
+
 $("form").bind("keypress", function(e) {
     if (e.keyCode == 13) {
         $("#btnSearch").attr('value');

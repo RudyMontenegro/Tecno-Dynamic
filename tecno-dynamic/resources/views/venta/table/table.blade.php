@@ -22,7 +22,7 @@
             <th scope="col">Unidad</th>
             <th scope="col">Cantidad</th>
             <th scope="col">Precio</th>
-            <th scope="col">SubtotalDSDAS</th>
+            <th scope="col">Subtotal</th>
             <th scope="col">Eliminar</th>
         </tr>
     </thead>
