@@ -5,7 +5,9 @@
         border-radius: 10px;
         border: 1px solid #ffffff;
         width: 800px;
+
     }
+
         .card .table td,
         .card .table th {
         padding-right: 0.1rem;
@@ -104,11 +106,13 @@
                                 $("#nombre").val(res[0].nombre);
                             });
                         });
+
       
         
     </script>
 
     <script>
+
     function limpiar(){
         $("#codigoI").val('');
         $("#nombre").val('');
@@ -117,6 +121,7 @@
         $("#precio").val('');
         $("#subTotal").val('');
     }
+
         var bb= 0;
         var iman = 0;
     $(function() {
@@ -127,12 +132,8 @@
                 
                 
                 ){
-<<<<<<< HEAD
-                        $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla");
-=======
                         iman = iman+1;
                         $("#tabla tbody tr:eq(0)").clone().appendTo("#tabla").attr("id","columna-"+(iman));
->>>>>>> alex
                         limpiar();
                         bb = bb +1;
                         $('#deletRow').show();
@@ -156,6 +157,7 @@
             }
         });
     });
+
     function existeValor($dato){
         var boolean = false;
         var aux = document.getElementById($dato).value;
@@ -164,6 +166,7 @@
         }
         return boolean;
     }
+
     function vacio($valor){
         var dato = document.getElementById($valor).value;
         var prueba = document.getElementById($valor);
@@ -189,7 +192,9 @@
             document.getElementById("Total").value = res;
         } catch (e) {
         }
+
     }
+
     function validarUnidad() {
         var prueba = document.getElementById("unidad");
         var re = new RegExp("^[a-zA-Z ]+$");
@@ -213,6 +218,7 @@
             
         }
     }
+
     function validarCantidad() {
         var prueba = document.getElementById("cantidad");
         var re = new RegExp("^[0-9]+$");
@@ -255,6 +261,7 @@
             }
         }
     }
+
     function existe(){
         var e = document.getElementById("sucursal_origen");
         var str = e.options[e.selectedIndex].text;
@@ -267,6 +274,7 @@
             
         }
     }
+
     function validarNombre() {
         var cod = document.getElementById("sucursal_origen").value;
         jQuery.ajax({
@@ -288,8 +296,6 @@
             }
             });
     }
-<<<<<<< HEAD
-=======
 
     function validarCantidadProducto() {
         var e = document.getElementById("sucursal_origen");
@@ -320,5 +326,4 @@
     }
 
 
->>>>>>> alex
     </script>

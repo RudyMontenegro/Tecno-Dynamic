@@ -80,9 +80,9 @@ class VentaController extends Controller
                 $venta_detalle->id_venta = $id_venta->id;
                 $venta_detalle->save();
             }
-            $pdf = \PDF::loadView('venta.reciboPdf',compact('venta','codigo_producto','nombre','cantidad','unidad'))
-            ->setOptions(['dpi' => 200, 'defaultFont' => 'sans-serif']);// direccion del view, enviando variable.
-            return redirect('venta')->$pdf->setPaper('a4')->download('ventas.pdf');//stream-> solo muestra en el navegador
+            //$pdf = \PDF::loadView('venta.reciboPdf',compact('venta','codigo_producto','nombre','cantidad','unidad'))
+            //->setOptions(['dpi' => 200, 'defaultFont' => 'sans-serif']);// direccion del view, enviando variable.
+            return redirect('venta');//->$pdf->setPaper('a4')->download('ventas.pdf');//stream-> solo muestra en el navegador
         }       
     }
 
@@ -142,7 +142,7 @@ class VentaController extends Controller
      {
       $query = $request->get('query');
       $data = DB::table('clientes')
-        ->where('nombre_contacto', 'LIKE', "%{$query}%")
+        ->where('nombre_contacto', 'LIKE', "{$query}%")
         ->get();
       $output = '<datalist id="datalistOptionsName">';
       foreach($data as $row)

@@ -49,8 +49,6 @@ class TransferenciaDetalle extends Model
         ->update(['cantidad' => $res2]);
     }
 
-<<<<<<< HEAD
-=======
     function cantidadActual($codigo,$sucursal){
         $res = DB::table('productos')
                 ->select('cantidad')
@@ -60,5 +58,4 @@ class TransferenciaDetalle extends Model
         return $res->cantidad;
     }
 
->>>>>>> alex
 }

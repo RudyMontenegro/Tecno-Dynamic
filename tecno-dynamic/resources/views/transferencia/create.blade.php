@@ -122,7 +122,7 @@
         
         <form action="{{ url('transferencia/registrarTransferencia') }}" method="post">
 
-            {{ csrf_field()}}
+        {{ csrf_field()}}
 
             <div class="col-md-12 mx-auto ">
                 <div class="row">

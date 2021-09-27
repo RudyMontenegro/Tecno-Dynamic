@@ -41,27 +41,7 @@ function SucursalExiste() {
 
     }
 }
-function validarNombre() {
-    var cod = document.getElementById("sucursal_origen").value;
-    jQuery.ajax({
-        url: "/transferencia/llenar",
-        data:{
-            "_token": "{{ csrf_token() }}",
-            "codigoI": $("#codigoI").val(),
-            "sucursal":cod,
-        },
-        asycn:false,
-        type: "POST",
-        success:function(data){
-            $("#estadoCodigo").html(data);
-            $("#loaderIcon").hide();
-            
-        },
-        error:function (){
-            console.log('no da');
-        }
-        });
-}
+
 $("#sucursal_origen").change(event => {
     limpiarCampos();
     $("#estadoCodigo").html("<span  class='menor'><h5 class='menor'> </h5></span>");
@@ -121,5 +101,26 @@ $(function() { /// se efecuta una ves termianada la recarga de la pagina
         }
     });
 });
+function validarNombre() {
+    var cod = document.getElementById("sucursal_origen").value;
+    jQuery.ajax({
+        url: "/transferencia/llenar",
+        data:{
+            "_token": "{{ csrf_token() }}",
+            "codigoI": $("#codigoI").val(),
+            "sucursal":cod,
+        },
+        asycn:false,
+        type: "POST",
+        success:function(data){
+            $("#estadoCodigo").html(data);
+            $("#loaderIcon").hide();
+            
+        },
+        error:function (){
+            console.log('no da');
+        }
+        });
+}
 
 

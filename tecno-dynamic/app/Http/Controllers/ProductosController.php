@@ -248,11 +248,7 @@ class ProductosController extends Controller
 
         if(!empty($_POST["codigo"])) {
             $user_count = $db_handle->numRows2($_POST["codigo"],$_POST["sucursal"]);
-<<<<<<< HEAD
-            $contador = $db_handle->cuenta2($_POST["codigo"]);
-=======
             $contador = $db_handle->cuenta($_POST["codigo"]);
->>>>>>> alex
             if($contador < 3){
                 echo "<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>";
             }else{
@@ -272,11 +268,7 @@ class ProductosController extends Controller
 
         if(!empty($_POST["codigoBarra"])) {
             $user_count = $db_handle->numRows3($_POST["codigoBarra"],$_POST["sucursal"]);
-<<<<<<< HEAD
-            $contador = $db_handle->cuenta3($_POST["codigoBarra"]);
-=======
             $contador = $db_handle->cuenta($_POST["codigoBarra"]);
->>>>>>> alex
             if($contador < 3){
                 echo "<span  class='menor'><h5 class='menor'>Ingrese de 3 a 50 caracteres</h5></span>";
             }else{

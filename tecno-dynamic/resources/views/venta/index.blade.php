@@ -21,9 +21,10 @@
                 <tr>
                     <th scope="col">Cliente</th>
                     <th scope="col">Nit</th>
-                    <th scope="col">Tipo de venta</th>
+                    <th scope="col">Fecha</th>
                     <th scope="col">Sucursal</th>
-                    <th scope="col">total</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Opciones</th>
                 </tr>
             </thead>
             <tbody>

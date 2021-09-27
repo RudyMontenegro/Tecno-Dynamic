@@ -133,10 +133,6 @@ class TransferenciaController extends Controller
                     ->select("sucursals.nombre")
                     ->where('transferencias.id','=',$id)
                     ->first();
-<<<<<<< HEAD
-                
-=======
->>>>>>> alex
         $tabla = DB::table('transferencia_detalles')
                     ->join('productos', 'productos.id', '=', 'transferencia_detalles.codigo_producto')
                     ->where('id_transferencia','=',$id)
@@ -176,12 +172,8 @@ class TransferenciaController extends Controller
      */
     public function destroy(Transferencia $transferencia,$id)
     {
-<<<<<<< HEAD
-        // 
-=======
         Transferencia::destroy($id);
         return redirect('transferencia');
->>>>>>> alex
     }
 
     public function llenar()

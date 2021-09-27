@@ -90,9 +90,7 @@ class Productos extends Model
                     ->get();
         return $nombre;
     }
-<<<<<<< HEAD
-    function existe($codigo,$sucursal){
-
+    public static function existe4($codigo,$sucursal){
         $nombre = DB::table('productos')
                 ->select('nombre')
                 ->where('codigo','=',$codigo)
@@ -100,7 +98,5 @@ class Productos extends Model
                 ->exists();
         return $nombre;
     }
-=======
->>>>>>> alex
 
 } 
